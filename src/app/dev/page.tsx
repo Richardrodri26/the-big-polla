@@ -2,6 +2,7 @@ import { Home, Trophy, User, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Flag } from "@/components/ui/flag";
+import { Pill } from "@/components/ui/pill";
 
 export default function DevPage() {
   return (
@@ -30,6 +31,18 @@ export default function DevPage() {
           <Button variant="default" disabled>Disabled</Button>
         </div>
       </section>
+      {/* Pill */}
+      <section className="space-y-4">
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
+          Pill
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Pill status="live" />
+          <Pill status="upcoming" />
+          <Pill status="finished" />
+        </div>
+      </section>
+
       {/* Flag */}
       <section className="space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
