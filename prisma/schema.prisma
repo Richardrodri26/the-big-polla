@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(cuid())
+  email         String       @unique
+  name          String?
+  predictions   Prediction[]
+  scores        Score[]
+  leagues       LeagueMember[]
+  streakCount   Int          @default(0) // Rachas
+}
+
+model League {
+  id        String         @id @default(cuid())
+  name      String
+  ownerId   String
+  type      String         @default("PUBLIC") // PUBLIC, PRIVATE
+  members   LeagueMember[]
+  scores    Score[]
+  requests  LeagueRequest[]
+}
+
+model LeagueRequest {
+  id        String   @id @default(cuid())
+  leagueId  String
+  userId    String
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt DateTime @default(now())
+  league    League   @relation(fields: [leagueId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model LeagueMember {
+  userId   String
+  leagueId String
+  user     User   @relation(fields: [userId], references: [id])
+  league   League @relation(fields: [leagueId], references: [id])
+
+  @@id([userId, leagueId])
+}
+
+model Match {
+  id             String       @id @default(cuid())
+  externalId     String       @unique 
+  homeTeam       String
+  awayTeam       String
+  date           DateTime
+  status         String       // PENDIENTE, EN_VIVO, FINALIZADO
+  goalsHome      Int?
+  goalsAway      Int?
+  isElimination  Boolean      @default(false)
+  predictions    Prediction[]
+}
+
+model Prediction {
+  id              String   @id @default(cuid())
+  userId          String
+  matchId         String
+  golesLocal      Int
+  golesVisitante  Int
+  points          Int?
+  user            User     @relation(fields: [userId], references: [id])
+  match           Match    @relation(fields: [matchId], references: [id])
+}
+
+model Score {
+  id        String   @id @default(cuid())
+  userId    String
+  leagueId  String
+  total     Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id])
+  league    League   @relation(fields: [leagueId], references: [id])
+  logs      ScoreLog[]
+}
+
+model ScoreLog {
+  id        String   @id @default(cuid())
+  scoreId   String
+  reason    String   // "RESULTADO", "GOLES", "DIFERENCIA", "BONO_RACHA"
+  points    Int
+  createdAt DateTime @default(now())
+  score     Score    @relation(fields: [scoreId], references: [id])
+}

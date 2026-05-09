@@ -1,10 +1,10 @@
-import { Trophy, User, Calendar, ChevronLeft, Bell, Home } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
-import { Flag } from "@/components/ui/flag";
-import { Pill } from "@/components/ui/pill";
-import { Topbar } from "@/components/layout/topbar";
+import { Bell, Calendar, ChevronLeft, Home, Trophy, User } from "lucide-react";
 import { BottomNavDemo } from "@/app/dev/_components/bottom-nav-demo";
+import { Topbar } from "@/components/layout/topbar";
+import { Button } from "@/components/ui/button";
+import { Flag } from "@/components/ui/flag";
+import { Icon } from "@/components/ui/icon";
+import { Pill } from "@/components/ui/pill";
 
 export default function DevPage() {
   return (
@@ -59,10 +59,18 @@ export default function DevPage() {
             <Button variant="link">Link</Button>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button variant="default" size="sm">Small</Button>
-            <Button variant="default" size="default">Default</Button>
-            <Button variant="default" size="lg">Large</Button>
-            <Button variant="default" disabled>Disabled</Button>
+            <Button variant="default" size="sm">
+              Small
+            </Button>
+            <Button variant="default" size="default">
+              Default
+            </Button>
+            <Button variant="default" size="lg">
+              Large
+            </Button>
+            <Button variant="default" disabled>
+              Disabled
+            </Button>
           </div>
         </section>
 

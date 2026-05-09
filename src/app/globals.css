@@ -10,48 +10,48 @@
    ===================================================== */
 :root {
   /* Shadcn bridge */
-  --background: #0A0E1A;
-  --foreground: #F5F5F7;
-  --card: #131A2A;
-  --card-foreground: #F5F5F7;
-  --popover: #131A2A;
-  --popover-foreground: #F5F5F7;
-  --primary: #00D26A;
-  --primary-foreground: #04130A;
-  --secondary: #131A2A;
-  --secondary-foreground: #F5F5F7;
-  --muted: #131A2A;
+  --background: #0a0e1a;
+  --foreground: #f5f5f7;
+  --card: #131a2a;
+  --card-foreground: #f5f5f7;
+  --popover: #131a2a;
+  --popover-foreground: #f5f5f7;
+  --primary: #00d26a;
+  --primary-foreground: #04130a;
+  --secondary: #131a2a;
+  --secondary-foreground: #f5f5f7;
+  --muted: #131a2a;
   --muted-foreground: rgba(245, 245, 247, 0.48);
-  --accent: #1A2236;
-  --accent-foreground: #F5F5F7;
-  --destructive: #FF3D71;
+  --accent: #1a2236;
+  --accent-foreground: #f5f5f7;
+  --destructive: #ff3d71;
   --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #00D26A;
+  --ring: #00d26a;
   --radius: 18px;
 
   /* Stadium Concrete — Fondos */
-  --bg: #0A0E1A;
-  --bg-2: #0F1422;
-  --surface: #131A2A;
-  --surface-2: #1A2236;
+  --bg: #0a0e1a;
+  --bg-2: #0f1422;
+  --surface: #131a2a;
+  --surface-2: #1a2236;
 
   /* Bordes */
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
 
   /* Foreground */
-  --fg: #F5F5F7;
+  --fg: #f5f5f7;
   --fg-dim: rgba(245, 245, 247, 0.72);
   --fg-mute: rgba(245, 245, 247, 0.48);
   --fg-faint: rgba(245, 245, 247, 0.28);
 
   /* Semánticos */
-  --signal: #00D26A;
-  --signal-dim: #00B85B;
-  --danger: #FF3D71;
-  --warn: #FFD60A;
+  --signal: #00d26a;
+  --signal-dim: #00b85b;
+  --danger: #ff3d71;
+  --warn: #ffd60a;
 
   /* Espaciado */
   --gutter: 20px;
@@ -64,18 +64,18 @@
    ===================================================== */
 [data-palette="electric"] {
   --background: #050810;
-  --card: #0F1730;
-  --popover: #0F1730;
+  --card: #0f1730;
+  --popover: #0f1730;
   --bg: #050810;
-  --bg-2: #0A1020;
-  --surface: #0F1730;
-  --surface-2: #16213D;
-  --primary: #08F7FE;
-  --ring: #08F7FE;
-  --signal: #08F7FE;
-  --destructive: #FF2E63;
-  --danger: #FF2E63;
-  --warn: #D4FF3A;
+  --bg-2: #0a1020;
+  --surface: #0f1730;
+  --surface-2: #16213d;
+  --primary: #08f7fe;
+  --ring: #08f7fe;
+  --signal: #08f7fe;
+  --destructive: #ff2e63;
+  --danger: #ff2e63;
+  --warn: #d4ff3a;
 }
 
 /* =====================================================
@@ -83,18 +83,18 @@
    ===================================================== */
 [data-palette="terracotta"] {
   --background: #1a1612;
-  --card: #2A2118;
-  --popover: #2A2118;
+  --card: #2a2118;
+  --popover: #2a2118;
   --bg: #1a1612;
-  --bg-2: #221C16;
-  --surface: #2A2118;
+  --bg-2: #221c16;
+  --surface: #2a2118;
   --surface-2: #332820;
-  --primary: #06A77D;
-  --ring: #06A77D;
-  --signal: #06A77D;
-  --destructive: #E63946;
-  --danger: #E63946;
-  --warn: #F1A208;
+  --primary: #06a77d;
+  --ring: #06a77d;
+  --signal: #06a77d;
+  --destructive: #e63946;
+  --danger: #e63946;
+  --warn: #f1a208;
 }
 
 /* =====================================================
@@ -196,7 +196,7 @@ body::before {
 
 @media (min-width: 768px) {
   body {
-    background: #07080C;
+    background: #07080c;
     display: flex;
     justify-content: center;
     align-items: flex-start;

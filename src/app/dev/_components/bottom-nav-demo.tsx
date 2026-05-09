@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Calendar, Trophy, User } from "lucide-react";
+import { Calendar, Home, Trophy, User } from "lucide-react";
 import { BottomNav } from "@/components/layout/bottom-nav";
 
 export function BottomNavDemo() {

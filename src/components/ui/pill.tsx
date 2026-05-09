@@ -26,7 +26,7 @@ export function Pill({ status, className }: PillProps) {
       className={cn(
         "h-auto rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide",
         statusStyles[status],
-        className
+        className,
       )}
     >
       {status === "live" && (

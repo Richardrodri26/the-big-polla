@@ -13,11 +13,12 @@ interface IconProps {
   className?: string;
 }
 
-export function Icon({ icon: IconComponent, size = "md", className }: IconProps) {
+export function Icon({
+  icon: IconComponent,
+  size = "md",
+  className,
+}: IconProps) {
   return (
-    <IconComponent
-      size={sizeMap[size]}
-      className={cn("shrink-0", className)}
-    />
+    <IconComponent size={sizeMap[size]} className={cn("shrink-0", className)} />
   );
 }

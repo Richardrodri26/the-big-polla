@@ -1,8 +1,8 @@
 "use client";
 
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
@@ -32,7 +32,7 @@ export function BottomNav({ items }: BottomNavProps) {
               "flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-semibold uppercase tracking-wide transition-colors",
               isActive
                 ? "text-[var(--signal)]"
-                : "text-[var(--fg-mute)] hover:text-[var(--fg-dim)]"
+                : "text-[var(--fg-mute)] hover:text-[var(--fg-dim)]",
             )}
           >
             <IconComponent size={22} />
