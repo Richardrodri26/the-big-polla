@@ -1,8 +1,9 @@
-import { Home, Trophy, User, Calendar } from "lucide-react";
+import { Home, Trophy, User, Calendar, ChevronLeft, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Flag } from "@/components/ui/flag";
 import { Pill } from "@/components/ui/pill";
+import { Topbar } from "@/components/layout/topbar";
 
 export default function DevPage() {
   return (
@@ -31,6 +32,37 @@ export default function DevPage() {
           <Button variant="default" disabled>Disabled</Button>
         </div>
       </section>
+      {/* Topbar */}
+      <section className="space-y-4">
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
+          Topbar
+        </h2>
+        <div className="overflow-hidden rounded-[var(--card-radius)] border border-[var(--line)] space-y-0.5">
+          <Topbar title="The Big Polla" />
+          <Topbar
+            title="Fase de Grupos"
+            leading={
+              <button type="button" className="text-[var(--fg-mute)]">
+                <ChevronLeft size={20} />
+              </button>
+            }
+          />
+          <Topbar
+            title="Mi Liga"
+            leading={
+              <button type="button" className="text-[var(--fg-mute)]">
+                <ChevronLeft size={20} />
+              </button>
+            }
+            trailing={
+              <button type="button" className="text-[var(--fg-mute)]">
+                <Bell size={18} />
+              </button>
+            }
+          />
+        </div>
+      </section>
+
       {/* Pill */}
       <section className="space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
