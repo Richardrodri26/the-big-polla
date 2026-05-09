@@ -1,6 +1,7 @@
 import { Home, Trophy, User, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { Flag } from "@/components/ui/flag";
 
 export default function DevPage() {
   return (
@@ -29,6 +30,32 @@ export default function DevPage() {
           <Button variant="default" disabled>Disabled</Button>
         </div>
       </section>
+      {/* Flag */}
+      <section className="space-y-4">
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
+          Flag
+        </h2>
+        <div className="flex items-end gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Flag code="AR" size="sm" />
+            <span className="text-xs text-[var(--fg-faint)]">sm</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Flag code="AR" size="md" />
+            <span className="text-xs text-[var(--fg-faint)]">md</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Flag code="AR" size="lg" />
+            <span className="text-xs text-[var(--fg-faint)]">lg</span>
+          </div>
+          <Flag code="BR" size="lg" />
+          <Flag code="FR" size="lg" />
+          <Flag code="DE" size="lg" />
+          <Flag code="ES" size="lg" />
+          <Flag code="US" size="lg" />
+        </div>
+      </section>
+
       {/* Icon */}
       <section className="space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
