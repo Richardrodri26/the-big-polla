@@ -1144,6 +1144,16 @@ body::before {
   letter-spacing: 0.12em;
 }
 
+@media (min-width: 1024px) {
+  .bracket-track {
+    transform: none !important;
+    width: 100% !important;
+  }
+  .round-col {
+    width: 260px;
+  }
+}
+
 /* =====================================================
    PROFILE
    ===================================================== */

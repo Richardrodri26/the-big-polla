@@ -117,6 +117,7 @@ export default function OraclePage() {
       </div>
 
       <div
+        className="lg:hidden"
         style={{
           padding: "8px 16px 0",
           display: "flex",
