@@ -210,7 +210,7 @@ export default function FeedPage() {
       </div>
 
       <div className="scroll">
-        <div style={{ padding: "12px 20px 0" }}>
+        <div className="px-5 pt-3 lg:max-w-xl">
           <div className="kpi">
             <div>
               <span className="label">JORNADA</span>
@@ -232,7 +232,7 @@ export default function FeedPage() {
         </div>
 
         {nextNoPred && (
-          <div style={{ padding: "16px 20px 0" }}>
+          <div className="px-5 pt-4 lg:max-w-xl">
             <div
               className="card"
               style={{
@@ -287,14 +287,7 @@ export default function FeedPage() {
                 <div className="rule" />
                 <div className="t-meta">{g.items.length} PARTIDOS</div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                  padding: "0 20px 4px",
-                }}
-              >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] px-5 pb-1">
                 {g.items.map((m) =>
                   m.state !== "pending" ? (
                     <Link
