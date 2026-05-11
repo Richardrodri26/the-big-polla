@@ -1,5 +1,6 @@
 import { Bell, Calendar, ChevronLeft, Home, Trophy, User } from "lucide-react";
 import { BottomNavDemo } from "@/app/dev/_components/bottom-nav-demo";
+import { DomainDemo } from "@/app/dev/_components/domain-demo";
 import { Topbar } from "@/components/layout/topbar";
 import { Button } from "@/components/ui/button";
 import { Flag } from "@/components/ui/flag";
@@ -144,6 +145,14 @@ export default function DevPage() {
           <p className="text-xs text-[var(--fg-faint)]">
             Fixed en el bottom real — verificar scrolleando la página.
           </p>
+        </section>
+
+        {/* Domain Components */}
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--fg-mute)]">
+            Domain Components
+          </h2>
+          <DomainDemo />
         </section>
       </div>
 

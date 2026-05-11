@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Flag } from "@/components/ui/flag";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Flag } from "@/components/ui/flag";
+import { cn } from "@/lib/utils";
 import type { Match } from "@/types/domain";
 
 interface ScoreStepperProps {

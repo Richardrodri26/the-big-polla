@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Flag } from "@/components/ui/flag";
 import { Pill } from "@/components/ui/pill";
+import { cn } from "@/lib/utils";
 import type { Match, Prediction } from "@/types/domain";
 
 interface MatchCardProps {

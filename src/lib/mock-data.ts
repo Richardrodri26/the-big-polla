@@ -1,4 +1,4 @@
-import type { Match, Prediction, LeaderboardEntry } from "@/types/domain";
+import type { LeaderboardEntry, Match, Prediction } from "@/types/domain";
 
 const TEAMS = {
   ARG: { name: "Argentina", code: "AR", c1: "#74ACDF", c2: "#FFFFFF" },
