@@ -12,7 +12,7 @@ export default function MainLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="min-h-dvh flex flex-col overflow-hidden">
+      <SidebarInset className="flex min-h-dvh flex-col">
         {children}
         <MobileBottomNav />
         <PredictorOverlay />
