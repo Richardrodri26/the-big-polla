@@ -418,201 +418,207 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 6, padding: "8px 20px 12px" }}>
-        {[
-          { id: "global", label: "Global" },
-          { id: "week", label: "Semanal" },
-          { id: "j4", label: "Jornada 4" },
-        ].map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
+      {/* Desktop: 2-col. Mobile: single col */}
+      <div className="flex flex-col lg:flex-row lg:flex-1 lg:overflow-hidden">
+        {/* LEFT PANEL — tabs + podium */}
+        <div className="lg:w-[380px] lg:shrink-0 lg:overflow-y-auto lg:border-r lg:border-[var(--line)]">
+          <div style={{ display: "flex", gap: 6, padding: "8px 20px 12px" }}>
+            {[
+              { id: "global", label: "Global" },
+              { id: "week", label: "Semanal" },
+              { id: "j4", label: "Jornada 4" },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                style={{
+                  flex: 1,
+                  padding: "10px 12px",
+                  borderRadius: 10,
+                  border: "1px solid var(--line)",
+                  background: tab === t.id ? "var(--fg)" : "rgba(255,255,255,0.03)",
+                  color: tab === t.id ? "#04130A" : "var(--fg-dim)",
+                  fontFamily: "var(--display)",
+                  fontWeight: 800,
+                  fontSize: 12,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Podium */}
+          <div
             style={{
-              flex: 1,
-              padding: "10px 12px",
-              borderRadius: 10,
-              border: "1px solid var(--line)",
-              background: tab === t.id ? "var(--fg)" : "rgba(255,255,255,0.03)",
-              color: tab === t.id ? "#04130A" : "var(--fg-dim)",
-              fontFamily: "var(--display)",
-              fontWeight: 800,
-              fontSize: 12,
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              cursor: "pointer",
+              padding: "0 20px 16px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1.2fr 1fr",
+              gap: 8,
+              alignItems: "end",
             }}
           >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Podium */}
-      <div
-        style={{
-          padding: "0 20px 16px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1.2fr 1fr",
-          gap: 8,
-          alignItems: "end",
-        }}
-      >
-        {[1, 0, 2].map((idx) => {
-          const m = members[idx];
-          if (!m) return null;
-          const heights = [110, 86, 72];
-          const place = m.rank;
-          return (
-            <div
-              key={m.id}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <Avi name={m.name} color={m.color} size={place === 1 ? 56 : 44} />
-              <div
-                className="t-h3"
-                style={{ fontSize: place === 1 ? 14 : 12, textAlign: "center" }}
-              >
-                {m.name.split(" ")[0]}
-              </div>
-              <div
-                className="t-num"
-                style={{
-                  fontSize: place === 1 ? 24 : 18,
-                  color: place === 1 ? "var(--warn)" : "var(--fg)",
-                }}
-              >
-                {m.pts}
-              </div>
-              <div
-                style={{
-                  height: heights[idx],
-                  width: "100%",
-                  background:
-                    place === 1
-                      ? "linear-gradient(180deg, var(--warn), transparent 130%)"
-                      : place === 2
-                        ? "linear-gradient(180deg, #C7CACE, transparent 130%)"
-                        : "linear-gradient(180deg, #D08350, transparent 130%)",
-                  borderRadius: "10px 10px 0 0",
-                  position: "relative",
-                  opacity: 0.92,
-                }}
-              >
+            {[1, 0, 2].map((idx) => {
+              const m = members[idx];
+              if (!m) return null;
+              const heights = [110, 86, 72];
+              const place = m.rank;
+              return (
                 <div
+                  key={m.id}
                   style={{
-                    position: "absolute",
-                    top: 8,
-                    left: 0,
-                    right: 0,
-                    textAlign: "center",
-                    fontFamily: "var(--display)",
-                    fontWeight: 900,
-                    fontSize: place === 1 ? 28 : 22,
-                    color: "rgba(0,0,0,0.55)",
-                  }}
-                >
-                  {place}°
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Full list */}
-      <div className="scroll">
-        <div className="section-head">
-          <div className="num">RANKING · {members.length}</div>
-          <div className="title">CLASIFICACIÓN</div>
-        </div>
-        {members.map((m) => {
-          const delta = m.prevRank - m.rank;
-          const deltaCls = delta > 0 ? "up" : delta < 0 ? "down" : "flat";
-          return (
-            <div
-              key={m.id}
-              onClick={() => setBreakdownFor(m)}
-              className={`lb-row ${m.me ? "me" : ""} ${m.rank === 1 ? "top-1" : m.rank === 2 ? "top-2" : m.rank === 3 ? "top-3" : ""}`}
-              style={{ cursor: "pointer" }}
-            >
-              <div className="rank">{m.rank}</div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  minWidth: 0,
-                }}
-              >
-                <Avi name={m.name} color={m.color} size={36} />
-                <div className="who">
-                  <div className="name">
-                    {m.name}
-                    {m.me && (
-                      <span
-                        style={{
-                          color: "var(--signal)",
-                          marginLeft: 6,
-                          fontSize: 10,
-                          letterSpacing: "0.1em",
-                        }}
-                      >
-                        YOU
-                      </span>
-                    )}
-                  </div>
-                  <div className="sub">
-                    <span>{m.handle}</span>
-                    <span>{m.hits} HITS</span>
-                    {m.streak > 0 && (
-                      <span style={{ color: "var(--warn)" }}>
-                        {m.streak}× RACHA
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  textAlign: "right",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  gap: 2,
-                }}
-              >
-                <div className="pts">
-                  {m.pts}
-                  <span className={`delta ${deltaCls}`}>
-                    {delta > 0
-                      ? `▲${delta}`
-                      : delta < 0
-                        ? `▼${Math.abs(delta)}`
-                        : "—"}
-                  </span>
-                </div>
-                <div
-                  className="t-meta"
-                  style={{
-                    fontSize: 9,
-                    color: "var(--signal)",
-                    display: "inline-flex",
+                    display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 3,
+                    gap: 8,
                   }}
                 >
-                  VER DESGLOSE <GameIcon name="chevron-right" size={10} />
+                  <Avi name={m.name} color={m.color} size={place === 1 ? 56 : 44} />
+                  <div
+                    className="t-h3"
+                    style={{ fontSize: place === 1 ? 14 : 12, textAlign: "center" }}
+                  >
+                    {m.name.split(" ")[0]}
+                  </div>
+                  <div
+                    className="t-num"
+                    style={{
+                      fontSize: place === 1 ? 24 : 18,
+                      color: place === 1 ? "var(--warn)" : "var(--fg)",
+                    }}
+                  >
+                    {m.pts}
+                  </div>
+                  <div
+                    style={{
+                      height: heights[idx],
+                      width: "100%",
+                      background:
+                        place === 1
+                          ? "linear-gradient(180deg, var(--warn), transparent 130%)"
+                          : place === 2
+                            ? "linear-gradient(180deg, #C7CACE, transparent 130%)"
+                            : "linear-gradient(180deg, #D08350, transparent 130%)",
+                      borderRadius: "10px 10px 0 0",
+                      position: "relative",
+                      opacity: 0.92,
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        fontFamily: "var(--display)",
+                        fontWeight: 900,
+                        fontSize: place === 1 ? 28 : 22,
+                        color: "rgba(0,0,0,0.55)",
+                      }}
+                    >
+                      {place}°
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* RIGHT PANEL — full rankings list */}
+        <div className="flex-1 scroll">
+          <div className="section-head">
+            <div className="num">RANKING · {members.length}</div>
+            <div className="title">CLASIFICACIÓN</div>
+          </div>
+          {members.map((m) => {
+            const delta = m.prevRank - m.rank;
+            const deltaCls = delta > 0 ? "up" : delta < 0 ? "down" : "flat";
+            return (
+              <div
+                key={m.id}
+                onClick={() => setBreakdownFor(m)}
+                className={`lb-row ${m.me ? "me" : ""} ${m.rank === 1 ? "top-1" : m.rank === 2 ? "top-2" : m.rank === 3 ? "top-3" : ""}`}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="rank">{m.rank}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    minWidth: 0,
+                  }}
+                >
+                  <Avi name={m.name} color={m.color} size={36} />
+                  <div className="who">
+                    <div className="name">
+                      {m.name}
+                      {m.me && (
+                        <span
+                          style={{
+                            color: "var(--signal)",
+                            marginLeft: 6,
+                            fontSize: 10,
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          YOU
+                        </span>
+                      )}
+                    </div>
+                    <div className="sub">
+                      <span>{m.handle}</span>
+                      <span>{m.hits} HITS</span>
+                      {m.streak > 0 && (
+                        <span style={{ color: "var(--warn)" }}>
+                          {m.streak}× RACHA
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    textAlign: "right",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    gap: 2,
+                  }}
+                >
+                  <div className="pts">
+                    {m.pts}
+                    <span className={`delta ${deltaCls}`}>
+                      {delta > 0
+                        ? `▲${delta}`
+                        : delta < 0
+                          ? `▼${Math.abs(delta)}`
+                          : "—"}
+                    </span>
+                  </div>
+                  <div
+                    className="t-meta"
+                    style={{
+                      fontSize: 9,
+                      color: "var(--signal)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 3,
+                    }}
+                  >
+                    VER DESGLOSE <GameIcon name="chevron-right" size={10} />
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-        <div style={{ height: 90 }} />
+            );
+          })}
+          <div style={{ height: 90 }} />
+        </div>
       </div>
 
       {breakdownFor && (
