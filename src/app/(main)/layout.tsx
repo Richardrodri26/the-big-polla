@@ -1,6 +1,8 @@
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { PredictorOverlay } from "@/components/domain/predictor-overlay";
-import { BottomNav } from "@/components/ui/bottom-nav";
 import { Toast } from "@/components/ui/toast";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function MainLayout({
   children,
@@ -8,11 +10,14 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      {children}
-      <BottomNav />
-      <PredictorOverlay />
-      <Toast />
-    </>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="min-h-dvh flex flex-col overflow-hidden">
+        {children}
+        <MobileBottomNav />
+        <PredictorOverlay />
+        <Toast />
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
