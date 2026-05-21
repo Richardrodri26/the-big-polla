@@ -4,8 +4,12 @@ import { useState } from "react";
 import { Avi } from "@/components/ui/avi";
 import { GameIcon } from "@/components/ui/game-icon";
 import { MEMBERS, type Member, SCORING_RULES } from "@/lib/tournament-data";
+import {
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+} from "@/components/ui/responsive-dialog";
 
-function PointsBreakdownSheet({
+function PointsBreakdownContent({
   member,
   onClose,
 }: {
@@ -44,10 +48,7 @@ function PointsBreakdownSheet({
   const total = subtotalBase + b.streakBonus + b.comboBonus + b.oraclePartial;
 
   return (
-    <>
-      <div className="sheet-backdrop" onClick={onClose} />
-      <div className="sheet">
-        <div className="sheet-grab" />
+    <div className="scroll" style={{ overflowY: "auto", maxHeight: "80dvh" }}>
         <div
           style={{
             display: "flex",
@@ -381,8 +382,7 @@ function PointsBreakdownSheet({
             Última actualización Jornada 4
           </div>
         </div>
-      </div>
-    </>
+    </div>
   );
 }
 
@@ -621,12 +621,19 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
-      {breakdownFor && (
-        <PointsBreakdownSheet
-          member={breakdownFor}
-          onClose={() => setBreakdownFor(null)}
-        />
-      )}
+      <ResponsiveDialog
+        open={!!breakdownFor}
+        onOpenChange={(open) => { if (!open) setBreakdownFor(null); }}
+      >
+        <ResponsiveDialogContent showCloseButton={false}>
+          {breakdownFor && (
+            <PointsBreakdownContent
+              member={breakdownFor}
+              onClose={() => setBreakdownFor(null)}
+            />
+          )}
+        </ResponsiveDialogContent>
+      </ResponsiveDialog>
     </div>
   );
 }
