@@ -3,7 +3,7 @@ import { Avi } from "@/components/ui/avi";
 import { GameIcon } from "@/components/ui/game-icon";
 import { GamePill } from "@/components/ui/game-pill";
 import { TeamFlag } from "@/components/ui/team-flag";
-import { BADGES, FEED_MATCHES, MEMBERS, type FeedMatch } from "@/lib/tournament-data";
+import { BADGES, FEED_MATCHES, MEMBERS, type FeedMatch, type Member } from "@/lib/tournament-data";
 
 type ResultKind = "exact" | "diff" | "winner" | "miss";
 
@@ -89,6 +89,11 @@ export default function ProfilePage() {
   const me = MEMBERS.find((m) => m.me)!;
   const finishedMatches = FEED_MATCHES.filter((m) => m.state === "final");
 
+  const myIdx = MEMBERS.findIndex((m) => m.me);
+  const sliceStart = Math.max(0, myIdx - 2);
+  const sliceEnd = Math.min(MEMBERS.length, myIdx + 3);
+  const miniRanking = MEMBERS.slice(sliceStart, sliceEnd);
+
   return (
     <div className="screen screen-anim">
       <div className="topbar">
@@ -172,7 +177,71 @@ export default function ProfilePage() {
           ))}
         </div>
 
-        <div style={{ padding: "20px 20px 0" }}>
+        <div className="section-head">
+          <div className="num">POSICIÓN #{me.rank} DE {MEMBERS.length}</div>
+          <div className="title">CLASIFICACIÓN</div>
+        </div>
+        <div
+          style={{
+            border: "1px solid var(--line)",
+            borderRadius: "var(--card-radius)",
+            overflow: "hidden",
+            margin: "0 var(--gutter) 20px",
+          }}
+        >
+          {miniRanking.map((m: Member) => {
+            const delta = m.prevRank - m.rank;
+            const deltaCls = delta > 0 ? "up" : delta < 0 ? "down" : "flat";
+            const deltaStr =
+              delta > 0 ? `▲${delta}` : delta < 0 ? `▼${Math.abs(delta)}` : "—";
+            return (
+              <div
+                key={m.id}
+                className={[
+                  "lb-row",
+                  m.me ? "me" : "",
+                  m.rank === 1 ? "top-1" : m.rank === 2 ? "top-2" : m.rank === 3 ? "top-3" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <div className="rank">{m.rank}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                  <Avi name={m.name} color={m.color} size={32} />
+                  <div className="who">
+                    <div className="name" style={{ fontSize: 14 }}>
+                      {m.name}
+                      {m.me && (
+                        <span
+                          style={{
+                            color: "var(--signal)",
+                            marginLeft: 6,
+                            fontSize: 9,
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          TÚ
+                        </span>
+                      )}
+                    </div>
+                    <div className="sub">
+                      <span>{m.hits} HITS</span>
+                      {m.streak > 0 && (
+                        <span style={{ color: "var(--warn)" }}>{m.streak}× RACHA</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="pts" style={{ fontSize: 18 }}>
+                  {m.pts}
+                  <span className={`delta ${deltaCls}`}>{deltaStr}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={{ padding: "20px var(--gutter) 0" }}>
           <div className="section-head" style={{ padding: 0 }}>
             <div className="num">HISTÓRICO</div>
             <div className="title">ÚLTIMAS PREDICCIONES</div>
