@@ -314,7 +314,7 @@ export default function ProfilePage() {
             })}
           </div>
         </div>
-        <div style={{ height: 100 }} />
+        <div style={{ height: 96 }} />
       </div>
     </div>
   );
