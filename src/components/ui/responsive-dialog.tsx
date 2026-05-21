@@ -101,7 +101,9 @@ function ResponsiveDialogContent({
     >
       {/* Stadium Concrete grab handle: 36px wide, fg-faint color */}
       <div className="mx-auto mt-3 mb-0 h-1 w-9 shrink-0 rounded-full bg-[var(--fg-faint)]" />
-      {children}
+      <div className="flex-1 overflow-y-auto min-h-0">
+        {children}
+      </div>
     </DrawerContent>
   )
 }
