@@ -3,11 +3,11 @@
 import { cloneElement, isValidElement, useState } from "react";
 import { ScoreStepper } from "@/components/domain/score-stepper";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+} from "@/components/ui/responsive-dialog";
 import type { Match, Prediction } from "@/types/domain";
 
 interface PredictorSheetProps {
@@ -39,28 +39,21 @@ export function PredictorSheet({
   return (
     <>
       {triggerWithHandler}
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent
-          side="bottom"
-          className="rounded-t-3xl border-t border-[var(--line)] bg-[var(--bg-2)] px-[var(--gutter)] pb-8 pt-3"
-        >
-          {/* Grab handle */}
-          <div className="mx-auto mb-5 h-1 w-9 rounded-full bg-[var(--fg-faint)]" />
-
-          <SheetHeader className="mb-6">
-            <SheetTitle className="text-center text-base font-bold text-[var(--fg)]">
+      <ResponsiveDialog open={open} onOpenChange={setOpen}>
+        <ResponsiveDialogContent className="px-[var(--gutter)] pb-8">
+          <ResponsiveDialogHeader className="mb-6">
+            <ResponsiveDialogTitle className="text-center">
               {match.home.name} vs {match.away.name}
-            </SheetTitle>
-          </SheetHeader>
-
+            </ResponsiveDialogTitle>
+          </ResponsiveDialogHeader>
           <ScoreStepper
             match={match}
             initialHome={prediction?.home}
             initialAway={prediction?.away}
             onSave={handleSave}
           />
-        </SheetContent>
-      </Sheet>
+        </ResponsiveDialogContent>
+      </ResponsiveDialog>
     </>
   );
 }
