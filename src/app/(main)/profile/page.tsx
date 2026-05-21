@@ -3,7 +3,13 @@ import { Avi } from "@/components/ui/avi";
 import { GameIcon } from "@/components/ui/game-icon";
 import { GamePill } from "@/components/ui/game-pill";
 import { TeamFlag } from "@/components/ui/team-flag";
-import { BADGES, FEED_MATCHES, MEMBERS, type FeedMatch, type Member } from "@/lib/tournament-data";
+import {
+  BADGES,
+  FEED_MATCHES,
+  type FeedMatch,
+  MEMBERS,
+  type Member,
+} from "@/lib/tournament-data";
 
 type ResultKind = "exact" | "diff" | "winner" | "miss";
 
@@ -14,25 +20,68 @@ function classifyResult(m: FeedMatch): ResultKind | null {
   return "miss";
 }
 
-const RESULT_CONFIG: Record<ResultKind, { label: string; color: string; bg: string }> = {
-  exact:  { label: "EXACTO",     color: "var(--warn)",     bg: "rgba(255,214,10,0.15)"  },
-  diff:   { label: "DIFERENCIA", color: "var(--signal)",   bg: "rgba(0,210,106,0.12)"   },
-  winner: { label: "GANADOR",    color: "var(--fg-dim)",   bg: "rgba(255,255,255,0.06)" },
-  miss:   { label: "MISS",       color: "var(--fg-faint)", bg: "rgba(255,255,255,0.03)" },
+const RESULT_CONFIG: Record<
+  ResultKind,
+  { label: string; color: string; bg: string }
+> = {
+  exact: { label: "EXACTO", color: "var(--warn)", bg: "rgba(255,214,10,0.15)" },
+  diff: {
+    label: "DIFERENCIA",
+    color: "var(--signal)",
+    bg: "rgba(0,210,106,0.12)",
+  },
+  winner: {
+    label: "GANADOR",
+    color: "var(--fg-dim)",
+    bg: "rgba(255,255,255,0.06)",
+  },
+  miss: {
+    label: "MISS",
+    color: "var(--fg-faint)",
+    bg: "rgba(255,255,255,0.03)",
+  },
 };
 
 const TOTAL_PLAYED = 27;
 
-function PerformanceBar({ breakdown }: { breakdown: { exact: number; diff: number; winner: number } }) {
+function PerformanceBar({
+  breakdown,
+}: {
+  breakdown: { exact: number; diff: number; winner: number };
+}) {
   const { exact, diff, winner } = breakdown;
   const miss = Math.max(0, TOTAL_PLAYED - exact - diff - winner);
   const total = exact + diff + winner + miss;
 
   const segments = [
-    { key: "exact",  count: exact,  label: "EXACTO",     barColor: "#FFD60A", textColor: "var(--warn)"     },
-    { key: "diff",   count: diff,   label: "DIFERENCIA", barColor: "#00D26A", textColor: "var(--signal)"   },
-    { key: "winner", count: winner, label: "GANADOR",    barColor: "#8B97AD", textColor: "var(--fg-dim)"   },
-    { key: "miss",   count: miss,   label: "MISS",       barColor: "#2A3248", textColor: "var(--fg-faint)" },
+    {
+      key: "exact",
+      count: exact,
+      label: "EXACTO",
+      barColor: "#FFD60A",
+      textColor: "var(--warn)",
+    },
+    {
+      key: "diff",
+      count: diff,
+      label: "DIFERENCIA",
+      barColor: "#00D26A",
+      textColor: "var(--signal)",
+    },
+    {
+      key: "winner",
+      count: winner,
+      label: "GANADOR",
+      barColor: "#8B97AD",
+      textColor: "var(--fg-dim)",
+    },
+    {
+      key: "miss",
+      count: miss,
+      label: "MISS",
+      barColor: "#2A3248",
+      textColor: "var(--fg-faint)",
+    },
   ] as const;
 
   return (
@@ -61,9 +110,18 @@ function PerformanceBar({ breakdown }: { breakdown: { exact: number; diff: numbe
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 4,
+        }}
+      >
         {segments.map((s) => (
-          <div key={s.key} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <div
+            key={s.key}
+            style={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
             <span
               className="t-num"
               style={{
@@ -75,7 +133,10 @@ function PerformanceBar({ breakdown }: { breakdown: { exact: number; diff: numbe
             >
               {s.count}
             </span>
-            <span className="t-meta" style={{ fontSize: 8, letterSpacing: "0.1em" }}>
+            <span
+              className="t-meta"
+              style={{ fontSize: 8, letterSpacing: "0.1em" }}
+            >
               {s.label}
             </span>
           </div>
@@ -178,7 +239,9 @@ export default function ProfilePage() {
         </div>
 
         <div className="section-head">
-          <div className="num">POSICIÓN #{me.rank} DE {MEMBERS.length}</div>
+          <div className="num">
+            POSICIÓN #{me.rank} DE {MEMBERS.length}
+          </div>
           <div className="title">CLASIFICACIÓN</div>
         </div>
         <div
@@ -200,13 +263,26 @@ export default function ProfilePage() {
                 className={[
                   "lb-row",
                   m.me ? "me" : "",
-                  m.rank === 1 ? "top-1" : m.rank === 2 ? "top-2" : m.rank === 3 ? "top-3" : "",
+                  m.rank === 1
+                    ? "top-1"
+                    : m.rank === 2
+                      ? "top-2"
+                      : m.rank === 3
+                        ? "top-3"
+                        : "",
                 ]
                   .filter(Boolean)
                   .join(" ")}
               >
                 <div className="rank">{m.rank}</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    minWidth: 0,
+                  }}
+                >
                   <Avi name={m.name} color={m.color} size={32} />
                   <div className="who">
                     <div className="name" style={{ fontSize: 14 }}>
@@ -227,7 +303,9 @@ export default function ProfilePage() {
                     <div className="sub">
                       <span>{m.hits} HITS</span>
                       {m.streak > 0 && (
-                        <span style={{ color: "var(--warn)" }}>{m.streak}× RACHA</span>
+                        <span style={{ color: "var(--warn)" }}>
+                          {m.streak}× RACHA
+                        </span>
                       )}
                     </div>
                   </div>
@@ -261,7 +339,12 @@ export default function ProfilePage() {
                 <div
                   key={m.id}
                   className="card"
-                  style={{ padding: 12, display: "flex", alignItems: "center", gap: 10 }}
+                  style={{
+                    padding: 12,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
                 >
                   <div style={{ display: "flex", gap: 4 }}>
                     <TeamFlag team={m.home} size="xs" />
