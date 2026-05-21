@@ -21,6 +21,70 @@ const RESULT_CONFIG: Record<ResultKind, { label: string; color: string; bg: stri
   miss:   { label: "MISS",       color: "var(--fg-faint)", bg: "rgba(255,255,255,0.03)" },
 };
 
+const TOTAL_PLAYED = 27;
+
+function PerformanceBar({ breakdown }: { breakdown: { exact: number; diff: number; winner: number } }) {
+  const { exact, diff, winner } = breakdown;
+  const miss = Math.max(0, TOTAL_PLAYED - exact - diff - winner);
+  const total = exact + diff + winner + miss;
+
+  const segments = [
+    { key: "exact",  count: exact,  label: "EXACTO",     barColor: "#FFD60A", textColor: "var(--warn)"     },
+    { key: "diff",   count: diff,   label: "DIFERENCIA", barColor: "#00D26A", textColor: "var(--signal)"   },
+    { key: "winner", count: winner, label: "GANADOR",    barColor: "#8B97AD", textColor: "var(--fg-dim)"   },
+    { key: "miss",   count: miss,   label: "MISS",       barColor: "#2A3248", textColor: "var(--fg-faint)" },
+  ] as const;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div
+        style={{
+          display: "flex",
+          height: 10,
+          borderRadius: 6,
+          overflow: "hidden",
+          gap: 2,
+          background: "var(--surface-2)",
+        }}
+      >
+        {segments.map((s) => (
+          <div
+            key={s.key}
+            style={{
+              flex: s.count / total,
+              background: s.barColor,
+              minWidth: s.count > 0 ? 4 : 0,
+              opacity: s.key === "miss" ? 0.35 : 0.9,
+              transition: "flex 0.4s ease",
+            }}
+          />
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4 }}>
+        {segments.map((s) => (
+          <div key={s.key} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <span
+              className="t-num"
+              style={{
+                fontSize: 20,
+                color: s.textColor,
+                lineHeight: 1,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              {s.count}
+            </span>
+            <span className="t-meta" style={{ fontSize: 8, letterSpacing: "0.1em" }}>
+              {s.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ProfilePage() {
   const me = MEMBERS.find((m) => m.me)!;
   const finishedMatches = FEED_MATCHES.filter((m) => m.state === "final");
@@ -85,6 +149,14 @@ export default function ProfilePage() {
               </span>
             </div>
           </div>
+        </div>
+
+        <div style={{ padding: "20px var(--gutter) 0" }}>
+          <div className="section-head" style={{ padding: "0 0 12px" }}>
+            <div className="num">{TOTAL_PLAYED} PARTIDOS</div>
+            <div className="title">RENDIMIENTO</div>
+          </div>
+          <PerformanceBar breakdown={me.breakdown} />
         </div>
 
         <div className="section-head">
