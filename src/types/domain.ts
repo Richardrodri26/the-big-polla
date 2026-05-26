@@ -1,43 +1,77 @@
+export type MatchState = 'live' | 'pending' | 'final'
+
 export interface Team {
-  name: string;
-  code: string;
-  c1: string;
-  c2: string;
+  code: string
+  name: string
+  c1: string
+  c2: string
 }
 
-export type MatchStatus = "live" | "upcoming" | "finished";
+export interface MatchTimeline {
+  min: number
+  head: string
+  body: string
+}
 
 export interface Match {
-  id: string;
-  home: Team;
-  away: Team;
-  stage: string;
-  venue: string;
-  date: string;
-  status: MatchStatus;
-  score?: { home: number; away: number };
-  minute?: number;
+  id: string
+  state: MatchState
+  kickoffAt: string           // ISO 8601 — client derives display strings from this
+  venue: string
+  stage: string
+  home: Team
+  away: Team
+  locked: boolean
+  liveMinute?: number         // e.g. 78 — only present when state === 'live'
+  score?: [number, number]    // only present when state !== 'pending'
+  userPrediction?: [number, number] | null
+  pts?: number                // pre-calculated by backend — client only displays
+  basePts?: number
+  streakBonus?: number
+  correctOutcome?: boolean
+  correctScore?: boolean
+  timeline?: MatchTimeline[]
 }
 
-export type PredictionResult = "exact" | "diff" | "winner" | "miss";
+export interface Member {
+  id: string
+  name: string
+  handle: string
+  color: string
+  rank: number
+  prevRank: number
+  pts: number
+  hits: number
+  streak: number
+  me?: boolean
+  breakdown: {
+    exact: number
+    diff: number
+    winner: number
+    streakBonus: number
+    comboBonus: number
+    oraclePartial: number
+  }
+}
 
 export interface Prediction {
-  matchId: string;
-  home: number;
-  away: number;
-  locked: boolean;
-  result?: PredictionResult;
-  points?: number;
+  matchId: string
+  score: [number, number]
+  savedAt: string  // ISO 8601
 }
 
-export type DeltaDirection = "up" | "down" | "flat";
+export interface ScoringRules {
+  exact: number
+  diff: number
+  winner: number
+  streakStep: number
+  streakMax: number
+  combo: number
+}
 
-export interface LeaderboardEntry {
-  rank: number;
-  userId: string;
-  name: string;
-  points: number;
-  delta: DeltaDirection;
-  deltaValue?: number;
-  isMe: boolean;
+export interface Badge {
+  id: string
+  num: string
+  label: string
+  unlocked: boolean
 }
