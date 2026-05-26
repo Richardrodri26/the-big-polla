@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { GameIcon } from "@/components/ui/game-icon";
 import {
   Sidebar,
@@ -9,8 +9,6 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { useAppStore } from "@/store/app-store";
-import { FEED_MATCHES } from "@/lib/tournament-data";
 
 const NAV_ITEMS = [
   { href: "/feed", icon: "feed", label: "Feed" },
@@ -21,16 +19,7 @@ const NAV_ITEMS = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const { openPredictor, predictions } = useAppStore();
-
-  const liveCount = FEED_MATCHES.filter((m) => m.state === "live").length;
-
-  const handlePredict = () => {
-    const next = FEED_MATCHES.find(
-      (m) => m.state === "pending" && !predictions[m.id],
-    );
-    if (next) openPredictor(next);
-  };
+  const router = useRouter();
 
   return (
     <Sidebar collapsible="none" className="hidden md:flex">
@@ -73,7 +62,6 @@ export function AppSidebar() {
               item.href === "/feed"
                 ? pathname === "/feed" || pathname.startsWith("/feed/")
                 : pathname === item.href;
-            const showLive = item.href === "/feed" && liveCount > 0;
 
             return (
               <Link
@@ -87,12 +75,6 @@ export function AppSidebar() {
                   color={isActive ? "var(--signal)" : "currentColor"}
                 />
                 <span style={{ flex: 1 }}>{item.label}</span>
-                {showLive && (
-                  <span className="sidebar-live-badge">
-                    <span className="sidebar-live-dot" />
-                    {liveCount}
-                  </span>
-                )}
               </Link>
             );
           })}
@@ -104,7 +86,7 @@ export function AppSidebar() {
         <button
           type="button"
           className="sidebar-predict-btn"
-          onClick={handlePredict}
+          onClick={() => router.push("/feed")}
         >
           <GameIcon name="plus" size={16} color="#04130A" />
           Predecir

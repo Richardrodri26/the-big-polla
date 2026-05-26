@@ -67,6 +67,7 @@ export interface ScoringRules {
   streakStep: number
   streakMax: number
   combo: number
+  oracleChampion: number
 }
 
 export interface Badge {

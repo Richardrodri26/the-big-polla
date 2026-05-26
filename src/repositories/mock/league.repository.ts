@@ -56,6 +56,7 @@ const MOCK_SCORING_RULES: ScoringRules = {
   streakStep: 1,
   streakMax: 5,
   combo: 10,
+  oracleChampion: 50,
 }
 
 const MOCK_BADGES: Badge[] = [

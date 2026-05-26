@@ -1,4 +1,4 @@
-import type { Team } from "@/lib/tournament-data";
+import type { Team } from "@/types/domain";
 
 interface TeamFlagProps {
   team?: Team | null;

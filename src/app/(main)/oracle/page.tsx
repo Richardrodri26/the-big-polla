@@ -8,7 +8,7 @@ import {
   type BracketSlot,
   ROUND_LABELS,
   TEAMS,
-} from "@/lib/tournament-data";
+} from "@/lib/oracle-data";
 
 export default function OraclePage() {
   const [bracket, setBracket] = useState(BRACKET);

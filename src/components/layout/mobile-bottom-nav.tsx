@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { GameIcon } from "@/components/ui/game-icon";
-import { useAppStore } from "@/store/app-store";
-import { FEED_MATCHES } from "@/lib/tournament-data";
 
 const NAV_ITEMS = [
   { href: "/feed", icon: "feed", label: "Feed" },
@@ -17,14 +15,7 @@ const NAV_ITEMS = [
 
 export function MobileBottomNav() {
   const pathname = usePathname();
-  const { openPredictor, predictions } = useAppStore();
-
-  const handlePredict = () => {
-    const next = FEED_MATCHES.find(
-      (m) => m.state === "pending" && !predictions[m.id],
-    );
-    if (next) openPredictor(next);
-  };
+  const router = useRouter();
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--line)] bg-[var(--bg)]/90 backdrop-blur-sm">
@@ -36,7 +27,7 @@ export function MobileBottomNav() {
                 key="predict"
                 type="button"
                 aria-label="Predecir"
-                onClick={handlePredict}
+                onClick={() => router.push("/feed")}
                 className="flex flex-1 items-center justify-center"
               >
                 <div
