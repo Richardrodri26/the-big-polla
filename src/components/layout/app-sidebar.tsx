@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Avi } from "@/components/ui/avi";
 import { GameIcon } from "@/components/ui/game-icon";
 import {
   Sidebar,
@@ -11,20 +12,31 @@ import {
 } from "@/components/ui/sidebar";
 
 const NAV_ITEMS = [
-  { href: "/feed", icon: "feed", label: "Feed" },
-  { href: "/oracle", icon: "bracket", label: "Oracle" },
-  { href: "/leaderboard", icon: "trophy", label: "Liga" },
-  { href: "/profile", icon: "user", label: "Perfil" },
+  { href: "/feed", icon: "feed", label: "Match feed", kbd: "G F", badge: "6" },
+  { href: "/oracle", icon: "bracket", label: "Oracle bracket", kbd: "G B" },
+  { href: "/leaderboard", icon: "trophy", label: "Leaderboard", kbd: "G L" },
 ];
+
+const SECONDARY_ITEMS = [
+  { href: "/profile", icon: "user", label: "Mi perfil" },
+  { href: "/settings", icon: "settings", label: "Liga · ajustes" },
+];
+
+const ME = { name: "Tú", color: "#08F7FE", rank: 4, pts: 252 };
 
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const isActive = (href: string) =>
+    href === "/feed"
+      ? pathname === "/feed" || pathname.startsWith("/feed/")
+      : pathname === href;
+
   return (
     <Sidebar collapsible="none" className="hidden md:flex">
       {/* Wordmark */}
-      <SidebarHeader className="px-5 pt-6 pb-5 border-b border-[var(--line)]">
+      <SidebarHeader className="px-5 pt-6 pb-4 border-b border-[var(--line)]">
         <span
           style={{
             display: "block",
@@ -35,7 +47,7 @@ export function AppSidebar() {
             color: "var(--fg-faint)",
           }}
         >
-          MUNDIAL 2026
+          WORLD CUP 2026 · DESKTOP
         </span>
         <div
           style={{
@@ -45,34 +57,160 @@ export function AppSidebar() {
             textTransform: "uppercase",
             lineHeight: 0.86,
             fontVariationSettings: '"wdth" 75',
-            fontSize: 28,
             letterSpacing: "-0.035em",
           }}
         >
-          <div style={{ color: "var(--fg)" }}>THE BIG</div>
-          <div style={{ color: "var(--signal)" }}>POLLA</div>
+          <div style={{ fontSize: 28, color: "var(--fg)" }}>THE</div>
+          <div style={{ fontSize: 28, color: "var(--signal)" }}>BIG</div>
+          <div
+            style={{
+              fontSize: 28,
+              WebkitTextStroke: "1.2px var(--fg)",
+              color: "transparent",
+            }}
+          >
+            POLLA
+          </div>
         </div>
       </SidebarHeader>
 
+      {/* League switcher */}
+      <div
+        style={{
+          margin: "14px 12px 0",
+          padding: "12px 14px",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--line)",
+          borderRadius: 12,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <Avi name="AB" color="#7C3AED" size={28} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-inter, sans-serif)",
+              fontWeight: 800,
+              fontSize: 13,
+              letterSpacing: "0.02em",
+              textTransform: "uppercase",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            AMIGOS DEL BAR
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-jetbrains, monospace)",
+              fontSize: 9,
+              letterSpacing: "0.12em",
+              color: "var(--fg-mute)",
+              marginTop: 2,
+            }}
+          >
+            12 MIEMBROS · POLLA-FB7K
+          </div>
+        </div>
+        <GameIcon name="chevron-right" size={14} color="var(--fg-mute)" />
+      </div>
+
       {/* Nav */}
-      <SidebarContent className="py-4">
+      <SidebarContent className="py-3 px-2">
+        {/* Principal section */}
+        <div
+          style={{
+            fontFamily: "var(--font-jetbrains, monospace)",
+            fontSize: 9,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "var(--fg-faint)",
+            padding: "14px 14px 6px",
+          }}
+        >
+          PRINCIPAL
+        </div>
         <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {NAV_ITEMS.map((item) => {
-            const isActive =
-              item.href === "/feed"
-                ? pathname === "/feed" || pathname.startsWith("/feed/")
-                : pathname === item.href;
-
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`sidebar-nav-link${isActive ? " active" : ""}`}
+                className={`sidebar-nav-link${active ? " active" : ""}`}
               >
                 <GameIcon
                   name={item.icon}
-                  size={20}
-                  color={isActive ? "var(--signal)" : "currentColor"}
+                  size={16}
+                  color={active ? "var(--signal)" : "currentColor"}
+                />
+                <span style={{ flex: 1 }}>{item.label}</span>
+                {item.badge ? (
+                  <span
+                    style={{
+                      marginLeft: "auto",
+                      fontFamily: "var(--font-jetbrains, monospace)",
+                      fontSize: 9,
+                      letterSpacing: "0.12em",
+                      fontWeight: 700,
+                      padding: "2px 6px",
+                      borderRadius: 10,
+                      background: "var(--danger)",
+                      color: "#fff",
+                    }}
+                  >
+                    {item.badge}
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      marginLeft: "auto",
+                      fontFamily: "var(--font-jetbrains, monospace)",
+                      fontSize: 10,
+                      color: "var(--fg-faint)",
+                      padding: "2px 5px",
+                      border: "1px solid var(--line)",
+                      borderRadius: 4,
+                    }}
+                  >
+                    {item.kbd}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Cuenta section */}
+        <div
+          style={{
+            fontFamily: "var(--font-jetbrains, monospace)",
+            fontSize: 9,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "var(--fg-faint)",
+            padding: "18px 14px 6px",
+          }}
+        >
+          CUENTA
+        </div>
+        <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {SECONDARY_ITEMS.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`sidebar-nav-link${active ? " active" : ""}`}
+              >
+                <GameIcon
+                  name={item.icon}
+                  size={16}
+                  color={active ? "var(--signal)" : "currentColor"}
                 />
                 <span style={{ flex: 1 }}>{item.label}</span>
               </Link>
@@ -81,16 +219,47 @@ export function AppSidebar() {
         </nav>
       </SidebarContent>
 
-      {/* Predict CTA */}
-      <SidebarFooter className="p-4 border-t border-[var(--line)]">
-        <button
-          type="button"
-          className="sidebar-predict-btn"
-          onClick={() => router.push("/feed")}
+      {/* Profile chip */}
+      <SidebarFooter
+        className="border-t border-[var(--line)]"
+        style={{ padding: 0 }}
+      >
+        <div
+          onClick={() => router.push("/profile")}
+          style={{
+            padding: 14,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            cursor: "pointer",
+          }}
+          className="hover:bg-white/[0.03] transition-colors"
         >
-          <GameIcon name="plus" size={16} color="#04130A" />
-          Predecir
-        </button>
+          <Avi name={ME.name} color={ME.color} size={36} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-inter, sans-serif)",
+                fontWeight: 800,
+                fontSize: 14,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {ME.name}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains, monospace)",
+                fontSize: 10,
+                color: "var(--fg-mute)",
+                letterSpacing: "0.06em",
+              }}
+            >
+              #{ME.rank} · {ME.pts} PTS
+            </div>
+          </div>
+          <GameIcon name="settings" size={14} color="var(--fg-mute)" />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
