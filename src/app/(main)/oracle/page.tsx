@@ -150,7 +150,7 @@ export default function OraclePage() {
       </div>
 
       {/* Desktop stats row */}
-      <div className="dk-section hidden md:block">
+      <div className="dk-section hidden md:block" style={{ paddingLeft: 32, paddingRight: 32 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1.5fr", gap: 12 }}>
           <div className="dk-card" style={{ background: "linear-gradient(135deg, rgba(0,210,106,0.10), transparent 60%), var(--surface)", borderColor: "rgba(0,210,106,0.3)" }}>
             <div className="t-eyebrow" style={{ color: "var(--signal)" }}>PROGRESO TOTAL</div>
