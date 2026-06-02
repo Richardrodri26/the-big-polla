@@ -6,7 +6,7 @@ interface SessionResponse {
   session: { id: string; expiresAt: string } | null
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { data } = await betterFetch<SessionResponse>('/api/auth/get-session', {
     baseURL: req.nextUrl.origin,
     headers: { cookie: req.headers.get('cookie') ?? '' },
