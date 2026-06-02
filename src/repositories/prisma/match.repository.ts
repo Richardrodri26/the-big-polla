@@ -28,7 +28,7 @@ function toDomainMatch(m: PrismaMatch): Match {
       m.homeScore !== null && m.awayScore !== null
         ? [m.homeScore, m.awayScore]
         : undefined,
-    timeline: m.timeline ? (m.timeline as MatchTimeline[]) : undefined,
+    timeline: m.timeline ? (m.timeline as unknown as MatchTimeline[]) : undefined,
   }
 }
 
