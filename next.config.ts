@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  serverExternalPackages: ["better-auth", "@better-auth/kysely-adapter", "kysely"],
 };
 
 export default nextConfig;
