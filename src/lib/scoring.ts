@@ -36,3 +36,26 @@ export function calculatePoints(
     total: winner + goalsHome + goalsAway + diff,
   }
 }
+
+/**
+ * Calcula el bono de racha sobre un historial de hits/misses ordenado
+ * cronológicamente (true = hit, false = miss).
+ * Cada 3 hits consecutivos → +5 pts.
+ */
+export function calculateStreakBonus(hits: boolean[]): number {
+  let streakCount = 0
+  let bonus = 0
+
+  for (const hit of hits) {
+    if (hit) {
+      streakCount++
+      if (streakCount % 3 === 0) {
+        bonus += 5
+      }
+    } else {
+      streakCount = 0
+    }
+  }
+
+  return bonus
+}

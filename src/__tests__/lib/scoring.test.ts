@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { calculatePoints, isEliminationStage } from '@/lib/scoring'
+import { calculatePoints, calculateStreakBonus, isEliminationStage } from '@/lib/scoring'
 
 describe('isEliminationStage', () => {
   it('returns false for group stages', () => {
@@ -102,5 +102,32 @@ describe('calculatePoints', () => {
       expect(pts.goalsAway).toBe(2)
       expect(pts.diff).toBe(1)
     })
+  })
+})
+
+describe('calculateStreakBonus', () => {
+  it('returns 0 when fewer than 3 hits', () => {
+    expect(calculateStreakBonus([true, true, false])).toBe(0)
+    expect(calculateStreakBonus([true, false, true])).toBe(0)
+  })
+
+  it('returns 5 when exactly 3 consecutive hits', () => {
+    expect(calculateStreakBonus([true, true, true])).toBe(5)
+  })
+
+  it('returns 10 when 6 consecutive hits', () => {
+    expect(calculateStreakBonus([true, true, true, true, true, true])).toBe(10)
+  })
+
+  it('resets streak on miss', () => {
+    expect(calculateStreakBonus([true, true, true, false, true, true, true])).toBe(10)
+  })
+
+  it('partial streak after reset does not award bonus', () => {
+    expect(calculateStreakBonus([true, true, true, false, true, true])).toBe(5)
+  })
+
+  it('returns 0 on empty history', () => {
+    expect(calculateStreakBonus([])).toBe(0)
   })
 })
