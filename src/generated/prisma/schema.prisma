@@ -137,6 +137,7 @@ model Match {
   awayTeamC2   String
   locked       Boolean    @default(false)
   liveMinute   Int?
+  matchday     Int?
   homeScore    Int?
   awayScore    Int?
   timeline     Json?

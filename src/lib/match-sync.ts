@@ -4,10 +4,12 @@ export interface ExternalMatch {
   homeScore: number | null
   awayScore: number | null
   liveMinute: number | null
+  matchday: number | null
 }
 
 interface FootballDataMatch {
   id: number
+  matchday: number
   status: 'TIMED' | 'SCHEDULED' | 'IN_PLAY' | 'PAUSED' | 'FINISHED' | 'SUSPENDED' | 'POSTPONED' | 'CANCELLED'
   score: {
     fullTime: { home: number | null; away: number | null }
@@ -51,6 +53,7 @@ export async function fetchExternalMatches(): Promise<ExternalMatch[]> {
       homeScore: m.score.fullTime.home,
       awayScore: m.score.fullTime.away,
       liveMinute: m.minute ?? null,
+      matchday: m.matchday ?? null,
     }))
   } catch (err) {
     console.error('[match-sync] Unexpected error:', err)

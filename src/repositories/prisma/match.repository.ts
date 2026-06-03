@@ -25,6 +25,7 @@ function toDomainMatch(m: PrismaMatch): Match {
     },
     locked: m.locked,
     liveMinute: m.liveMinute ?? undefined,
+    matchday: m.matchday ?? undefined,
     score:
       m.homeScore !== null && m.awayScore !== null
         ? [m.homeScore, m.awayScore]

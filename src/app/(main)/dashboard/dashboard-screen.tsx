@@ -17,9 +17,10 @@ interface DashboardScreenProps {
   leagueName: string
   totalFinalMatches: number
   weeklyPts: number
+  currentMatchday: number | null
 }
 
-export function DashboardScreen({ matches, members, leagueName, totalFinalMatches, weeklyPts }: DashboardScreenProps) {
+export function DashboardScreen({ matches, members, leagueName, totalFinalMatches, weeklyPts, currentMatchday }: DashboardScreenProps) {
   const { openPredictor } = useAppStore()
   const getPrediction = usePredictionStore(s => s.getPrediction)
 
@@ -68,7 +69,7 @@ export function DashboardScreen({ matches, members, leagueName, totalFinalMatche
       {/* Desktop page header */}
       <div className="dk-page-head">
         <div>
-          <div className="sub">JORNADA 04 · {new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}</div>
+          <div className="sub">{`JORNADA ${currentMatchday ?? '—'} · ${new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}`}</div>
           <div className="title">{`HOLA ${me.name.toUpperCase()}.`}</div>
         </div>
         <div className="actions">

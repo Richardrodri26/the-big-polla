@@ -31,6 +31,7 @@ export interface Match {
   correctOutcome?: boolean
   correctScore?: boolean
   timeline?: MatchTimeline[]
+  matchday?: number
   predictionBreakdown?: {
     homeWin: number
     draw: number

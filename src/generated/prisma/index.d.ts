@@ -10121,12 +10121,14 @@ export namespace Prisma {
 
   export type MatchAvgAggregateOutputType = {
     liveMinute: number | null
+    matchday: number | null
     homeScore: number | null
     awayScore: number | null
   }
 
   export type MatchSumAggregateOutputType = {
     liveMinute: number | null
+    matchday: number | null
     homeScore: number | null
     awayScore: number | null
   }
@@ -10147,6 +10149,7 @@ export namespace Prisma {
     awayTeamC2: string | null
     locked: boolean | null
     liveMinute: number | null
+    matchday: number | null
     homeScore: number | null
     awayScore: number | null
     createdAt: Date | null
@@ -10169,6 +10172,7 @@ export namespace Prisma {
     awayTeamC2: string | null
     locked: boolean | null
     liveMinute: number | null
+    matchday: number | null
     homeScore: number | null
     awayScore: number | null
     createdAt: Date | null
@@ -10191,6 +10195,7 @@ export namespace Prisma {
     awayTeamC2: number
     locked: number
     liveMinute: number
+    matchday: number
     homeScore: number
     awayScore: number
     timeline: number
@@ -10202,12 +10207,14 @@ export namespace Prisma {
 
   export type MatchAvgAggregateInputType = {
     liveMinute?: true
+    matchday?: true
     homeScore?: true
     awayScore?: true
   }
 
   export type MatchSumAggregateInputType = {
     liveMinute?: true
+    matchday?: true
     homeScore?: true
     awayScore?: true
   }
@@ -10228,6 +10235,7 @@ export namespace Prisma {
     awayTeamC2?: true
     locked?: true
     liveMinute?: true
+    matchday?: true
     homeScore?: true
     awayScore?: true
     createdAt?: true
@@ -10250,6 +10258,7 @@ export namespace Prisma {
     awayTeamC2?: true
     locked?: true
     liveMinute?: true
+    matchday?: true
     homeScore?: true
     awayScore?: true
     createdAt?: true
@@ -10272,6 +10281,7 @@ export namespace Prisma {
     awayTeamC2?: true
     locked?: true
     liveMinute?: true
+    matchday?: true
     homeScore?: true
     awayScore?: true
     timeline?: true
@@ -10382,6 +10392,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked: boolean
     liveMinute: number | null
+    matchday: number | null
     homeScore: number | null
     awayScore: number | null
     timeline: JsonValue | null
@@ -10424,6 +10435,7 @@ export namespace Prisma {
     awayTeamC2?: boolean
     locked?: boolean
     liveMinute?: boolean
+    matchday?: boolean
     homeScore?: boolean
     awayScore?: boolean
     timeline?: boolean
@@ -10449,6 +10461,7 @@ export namespace Prisma {
     awayTeamC2?: boolean
     locked?: boolean
     liveMinute?: boolean
+    matchday?: boolean
     homeScore?: boolean
     awayScore?: boolean
     timeline?: boolean
@@ -10472,6 +10485,7 @@ export namespace Prisma {
     awayTeamC2?: boolean
     locked?: boolean
     liveMinute?: boolean
+    matchday?: boolean
     homeScore?: boolean
     awayScore?: boolean
     timeline?: boolean
@@ -10495,6 +10509,7 @@ export namespace Prisma {
     awayTeamC2?: boolean
     locked?: boolean
     liveMinute?: boolean
+    matchday?: boolean
     homeScore?: boolean
     awayScore?: boolean
     timeline?: boolean
@@ -10502,7 +10517,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "state" | "kickoffAt" | "venue" | "stage" | "homeTeamCode" | "homeTeamName" | "homeTeamC1" | "homeTeamC2" | "awayTeamCode" | "awayTeamName" | "awayTeamC1" | "awayTeamC2" | "locked" | "liveMinute" | "homeScore" | "awayScore" | "timeline" | "createdAt" | "updatedAt", ExtArgs["result"]["match"]>
+  export type MatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "state" | "kickoffAt" | "venue" | "stage" | "homeTeamCode" | "homeTeamName" | "homeTeamC1" | "homeTeamC2" | "awayTeamCode" | "awayTeamName" | "awayTeamC1" | "awayTeamC2" | "locked" | "liveMinute" | "matchday" | "homeScore" | "awayScore" | "timeline" | "createdAt" | "updatedAt", ExtArgs["result"]["match"]>
   export type MatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     predictions?: boolean | Match$predictionsArgs<ExtArgs>
     _count?: boolean | MatchCountOutputTypeDefaultArgs<ExtArgs>
@@ -10531,6 +10546,7 @@ export namespace Prisma {
       awayTeamC2: string
       locked: boolean
       liveMinute: number | null
+      matchday: number | null
       homeScore: number | null
       awayScore: number | null
       timeline: Prisma.JsonValue | null
@@ -10975,6 +10991,7 @@ export namespace Prisma {
     readonly awayTeamC2: FieldRef<"Match", 'String'>
     readonly locked: FieldRef<"Match", 'Boolean'>
     readonly liveMinute: FieldRef<"Match", 'Int'>
+    readonly matchday: FieldRef<"Match", 'Int'>
     readonly homeScore: FieldRef<"Match", 'Int'>
     readonly awayScore: FieldRef<"Match", 'Int'>
     readonly timeline: FieldRef<"Match", 'Json'>
@@ -16137,6 +16154,7 @@ export namespace Prisma {
     awayTeamC2: 'awayTeamC2',
     locked: 'locked',
     liveMinute: 'liveMinute',
+    matchday: 'matchday',
     homeScore: 'homeScore',
     awayScore: 'awayScore',
     timeline: 'timeline',
@@ -16911,6 +16929,7 @@ export namespace Prisma {
     awayTeamC2?: StringFilter<"Match"> | string
     locked?: BoolFilter<"Match"> | boolean
     liveMinute?: IntNullableFilter<"Match"> | number | null
+    matchday?: IntNullableFilter<"Match"> | number | null
     homeScore?: IntNullableFilter<"Match"> | number | null
     awayScore?: IntNullableFilter<"Match"> | number | null
     timeline?: JsonNullableFilter<"Match">
@@ -16935,6 +16954,7 @@ export namespace Prisma {
     awayTeamC2?: SortOrder
     locked?: SortOrder
     liveMinute?: SortOrderInput | SortOrder
+    matchday?: SortOrderInput | SortOrder
     homeScore?: SortOrderInput | SortOrder
     awayScore?: SortOrderInput | SortOrder
     timeline?: SortOrderInput | SortOrder
@@ -16962,6 +16982,7 @@ export namespace Prisma {
     awayTeamC2?: StringFilter<"Match"> | string
     locked?: BoolFilter<"Match"> | boolean
     liveMinute?: IntNullableFilter<"Match"> | number | null
+    matchday?: IntNullableFilter<"Match"> | number | null
     homeScore?: IntNullableFilter<"Match"> | number | null
     awayScore?: IntNullableFilter<"Match"> | number | null
     timeline?: JsonNullableFilter<"Match">
@@ -16986,6 +17007,7 @@ export namespace Prisma {
     awayTeamC2?: SortOrder
     locked?: SortOrder
     liveMinute?: SortOrderInput | SortOrder
+    matchday?: SortOrderInput | SortOrder
     homeScore?: SortOrderInput | SortOrder
     awayScore?: SortOrderInput | SortOrder
     timeline?: SortOrderInput | SortOrder
@@ -17017,6 +17039,7 @@ export namespace Prisma {
     awayTeamC2?: StringWithAggregatesFilter<"Match"> | string
     locked?: BoolWithAggregatesFilter<"Match"> | boolean
     liveMinute?: IntNullableWithAggregatesFilter<"Match"> | number | null
+    matchday?: IntNullableWithAggregatesFilter<"Match"> | number | null
     homeScore?: IntNullableWithAggregatesFilter<"Match"> | number | null
     awayScore?: IntNullableWithAggregatesFilter<"Match"> | number | null
     timeline?: JsonNullableWithAggregatesFilter<"Match">
@@ -17896,6 +17919,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked?: boolean
     liveMinute?: number | null
+    matchday?: number | null
     homeScore?: number | null
     awayScore?: number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -17920,6 +17944,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked?: boolean
     liveMinute?: number | null
+    matchday?: number | null
     homeScore?: number | null
     awayScore?: number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -17944,6 +17969,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -17968,6 +17994,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -17992,6 +18019,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked?: boolean
     liveMinute?: number | null
+    matchday?: number | null
     homeScore?: number | null
     awayScore?: number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -18015,6 +18043,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -18038,6 +18067,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -18914,6 +18944,7 @@ export namespace Prisma {
     awayTeamC2?: SortOrder
     locked?: SortOrder
     liveMinute?: SortOrder
+    matchday?: SortOrder
     homeScore?: SortOrder
     awayScore?: SortOrder
     timeline?: SortOrder
@@ -18923,6 +18954,7 @@ export namespace Prisma {
 
   export type MatchAvgOrderByAggregateInput = {
     liveMinute?: SortOrder
+    matchday?: SortOrder
     homeScore?: SortOrder
     awayScore?: SortOrder
   }
@@ -18943,6 +18975,7 @@ export namespace Prisma {
     awayTeamC2?: SortOrder
     locked?: SortOrder
     liveMinute?: SortOrder
+    matchday?: SortOrder
     homeScore?: SortOrder
     awayScore?: SortOrder
     createdAt?: SortOrder
@@ -18965,6 +18998,7 @@ export namespace Prisma {
     awayTeamC2?: SortOrder
     locked?: SortOrder
     liveMinute?: SortOrder
+    matchday?: SortOrder
     homeScore?: SortOrder
     awayScore?: SortOrder
     createdAt?: SortOrder
@@ -18973,6 +19007,7 @@ export namespace Prisma {
 
   export type MatchSumOrderByAggregateInput = {
     liveMinute?: SortOrder
+    matchday?: SortOrder
     homeScore?: SortOrder
     awayScore?: SortOrder
   }
@@ -21775,6 +21810,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked?: boolean
     liveMinute?: number | null
+    matchday?: number | null
     homeScore?: number | null
     awayScore?: number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -21798,6 +21834,7 @@ export namespace Prisma {
     awayTeamC2: string
     locked?: boolean
     liveMinute?: number | null
+    matchday?: number | null
     homeScore?: number | null
     awayScore?: number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -21886,6 +21923,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue
@@ -21909,6 +21947,7 @@ export namespace Prisma {
     awayTeamC2?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     liveMinute?: NullableIntFieldUpdateOperationsInput | number | null
+    matchday?: NullableIntFieldUpdateOperationsInput | number | null
     homeScore?: NullableIntFieldUpdateOperationsInput | number | null
     awayScore?: NullableIntFieldUpdateOperationsInput | number | null
     timeline?: NullableJsonNullValueInput | InputJsonValue

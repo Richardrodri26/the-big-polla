@@ -24,13 +24,20 @@ export default async function DashboardPage() {
 
   const leagueId = firstMembership.leagueId
 
-  const [matches, members, league, totalFinalMatches, weeklyPts] = await Promise.all([
+  const [matches, members, league, totalFinalMatches, weeklyPts, currentMatchdayRow] = await Promise.all([
     getMatchRepository().getMatches(),
     getLeagueRepository(userId).getMembers(leagueId),
     prisma.league.findUnique({ where: { id: leagueId }, select: { name: true } }),
     prisma.match.count({ where: { state: 'FINAL' } }),
     getWeeklyPts(userId, leagueId),
+    prisma.match.findFirst({
+      where: { matchday: { not: null }, state: { in: ['PENDING', 'LIVE'] as any } },
+      orderBy: { kickoffAt: 'asc' },
+      select: { matchday: true },
+    }),
   ])
+
+  const currentMatchday = currentMatchdayRow?.matchday ?? null
 
   return (
     <DashboardScreen
@@ -39,6 +46,7 @@ export default async function DashboardPage() {
       leagueName={league?.name ?? ''}
       totalFinalMatches={totalFinalMatches}
       weeklyPts={weeklyPts}
+      currentMatchday={currentMatchday}
     />
   )
 }

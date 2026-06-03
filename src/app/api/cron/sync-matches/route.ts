@@ -29,7 +29,12 @@ export async function GET(req: NextRequest) {
     if (current.state === 'PENDING' && ext.state === 'LIVE') {
       await prisma.match.update({
         where: { id: ext.id },
-        data: { state: 'LIVE', locked: true, liveMinute: ext.liveMinute ?? 0 },
+        data: {
+          state: 'LIVE',
+          locked: true,
+          liveMinute: ext.liveMinute ?? 0,
+          ...(ext.matchday !== null ? { matchday: ext.matchday } : {}),
+        },
       })
       results.locked++
     }
@@ -61,6 +66,14 @@ export async function GET(req: NextRequest) {
       const service = new ScoringService()
       await service.scoreMatch(ext.id)
       results.scored++
+    }
+
+    // Sync matchday whenever the external data includes it
+    if (ext.matchday !== null && current.matchday !== ext.matchday) {
+      await prisma.match.update({
+        where: { id: ext.id },
+        data: { matchday: ext.matchday },
+      })
     }
   }
 

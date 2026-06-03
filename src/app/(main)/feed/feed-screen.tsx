@@ -110,9 +110,10 @@ interface FeedScreenProps {
   totalMembers: number
   ptsBehindLeader: number
   weeklyPts: number
+  currentMatchday: number | null
 }
 
-export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLeader, weeklyPts }: FeedScreenProps) {
+export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLeader, weeklyPts, currentMatchday }: FeedScreenProps) {
   const { openPredictor } = useAppStore()
   const [filter, setFilter] = useState<'all' | 'pred' | 'no'>('all')
 
@@ -176,7 +177,7 @@ export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLea
       {/* Desktop page header */}
       <div className="dk-page-head">
         <div>
-          <div className="sub">JORNADA 04 · {matches.length} PARTIDOS</div>
+          <div className="sub">{`JORNADA ${currentMatchday ?? '—'} · ${matches.length} PARTIDOS`}</div>
           <div className="title">PARTIDOS</div>
         </div>
         <div className="actions">
@@ -205,7 +206,10 @@ export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLea
           <div className="kpi">
             <div>
               <span className="label">JORNADA</span>
-              <span className="value">04<span className="small">/{totalMembers}</span></span>
+              <span className="value">
+              {currentMatchday !== null ? String(currentMatchday).padStart(2, '0') : '—'}
+              <span className="small">/{totalMembers}</span>
+            </span>
             </div>
             <div>
               <span className="label">HOY</span>
@@ -238,7 +242,10 @@ export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLea
             </div>
             <div>
               <span className="label">JORNADA</span>
-              <span className="value">04<span className="small">/{totalMembers}</span></span>
+              <span className="value">
+                {currentMatchday !== null ? String(currentMatchday).padStart(2, '0') : '—'}
+                <span className="small">/{totalMembers}</span>
+              </span>
               <span className="foot">{totalToday} PARTIDOS HOY</span>
             </div>
           </div>

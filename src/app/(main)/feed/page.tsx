@@ -20,7 +20,7 @@ export default async function FeedPage() {
 
   const leagueId = firstMembership?.leagueId
 
-  const [matches, members, predictions, league, weeklyPts] = await Promise.all([
+  const [matches, members, predictions, league, weeklyPts, currentMatchdayRow] = await Promise.all([
     getMatchRepository().getMatches(),
     leagueId ? getLeagueRepository(userId).getMembers(leagueId) : Promise.resolve([]),
     getPredictionRepository(userId).getPredictions(userId),
@@ -28,7 +28,14 @@ export default async function FeedPage() {
       ? prisma.league.findUnique({ where: { id: leagueId }, select: { name: true } })
       : Promise.resolve(null),
     leagueId ? getWeeklyPts(userId, leagueId) : Promise.resolve(0),
+    prisma.match.findFirst({
+      where: { matchday: { not: null }, state: { in: ['PENDING', 'LIVE'] as any } },
+      orderBy: { kickoffAt: 'asc' },
+      select: { matchday: true },
+    }),
   ])
+
+  const currentMatchday = currentMatchdayRow?.matchday ?? null
 
   const predMap = new Map(predictions.map(p => [p.matchId, p.score]))
   const matchesWithPreds = matches.map(m => ({ ...m, userPrediction: predMap.get(m.id) ?? null }))
@@ -53,6 +60,7 @@ export default async function FeedPage() {
       totalMembers={members.length}
       ptsBehindLeader={ptsBehindLeader}
       weeklyPts={weeklyPts}
+      currentMatchday={currentMatchday}
     />
   )
 }

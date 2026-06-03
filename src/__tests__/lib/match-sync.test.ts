@@ -9,6 +9,7 @@ const mockApiResponse = {
   matches: [
     {
       id: 417862,
+      matchday: 3,
       status: 'FINISHED',
       score: {
         fullTime: { home: 3, away: 0 },
@@ -17,6 +18,7 @@ const mockApiResponse = {
     },
     {
       id: 417863,
+      matchday: 3,
       status: 'IN_PLAY',
       score: {
         fullTime: { home: null, away: null },
@@ -25,6 +27,7 @@ const mockApiResponse = {
     },
     {
       id: 417864,
+      matchday: 4,
       status: 'TIMED',
       score: {
         fullTime: { home: null, away: null },
@@ -107,5 +110,12 @@ describe('fetchExternalMatches', () => {
     expect(matches).toEqual([])
     expect(consoleSpy).toHaveBeenCalled()
     consoleSpy.mockRestore()
+  })
+
+  it('includes matchday in mapped result', async () => {
+    mockFetch.mockResolvedValue({ ok: true, json: async () => mockApiResponse } as any)
+    const matches = await fetchExternalMatches()
+    expect(matches.find(m => m.id === '417862')?.matchday).toBe(3)
+    expect(matches.find(m => m.id === '417864')?.matchday).toBe(4)
   })
 })

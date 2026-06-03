@@ -210,6 +210,7 @@ exports.Prisma.MatchScalarFieldEnum = {
   awayTeamC2: 'awayTeamC2',
   locked: 'locked',
   liveMinute: 'liveMinute',
+  matchday: 'matchday',
   homeScore: 'homeScore',
   awayScore: 'awayScore',
   timeline: 'timeline',
