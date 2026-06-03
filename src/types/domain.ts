@@ -76,3 +76,26 @@ export interface Badge {
   label: string
   unlocked: boolean
 }
+
+export interface League {
+  id: string
+  name: string
+  ownerId: string
+  type: 'PUBLIC' | 'PRIVATE'
+  createdAt: string  // ISO 8601
+  memberCount?: number
+}
+
+export interface LeagueMember {
+  leagueId: string
+  userId: string
+  joinedAt: string
+}
+
+export interface LeagueRequest {
+  id: string
+  leagueId: string
+  userId: string
+  status: 'PENDING' | 'APPROVED' | 'REJECTED'
+  createdAt: string
+}
