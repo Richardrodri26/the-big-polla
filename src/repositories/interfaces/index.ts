@@ -1,4 +1,4 @@
-import type { Badge, League, LeagueMember, LeagueRequest, Match, MatchState, Member, Prediction, ScoringRules } from '@/types/domain'
+import type { Badge, League, LeagueMember, LeagueRequest, Match, MatchState, Member, Prediction, ScoringRules, ScoreLogEntry } from '@/types/domain'
 
 export interface IMatchRepository {
   getMatches(filters?: { state?: MatchState }): Promise<Match[]>
@@ -29,4 +29,9 @@ export interface ILeagueManagementRepository {
   getLeague(id: string): Promise<League | null>
   getUserLeagues(userId: string): Promise<League[]>
   getPendingRequests(leagueId: string, ownerId: string): Promise<LeagueRequest[]>
+}
+
+export interface IScoreLogRepository {
+  getScoreLog(userId: string, leagueId: string): Promise<ScoreLogEntry[]>
+  getMatchScoreLog(userId: string, leagueId: string, matchId: string): Promise<ScoreLogEntry | null>
 }
