@@ -8,7 +8,7 @@ interface Props {
 export function LeaguesScreen({ leagues }: Props) {
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '24px 16px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <h1 style={{
           fontFamily: 'var(--font-inter, sans-serif)',
           fontWeight: 900,
@@ -31,6 +31,19 @@ export function LeaguesScreen({ leagues }: Props) {
           + CREAR
         </Link>
       </div>
+
+      <Link
+        href="/leagues/browse"
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          padding: '10px 16px', borderRadius: 10, marginBottom: 24,
+          border: '1px solid var(--line)', color: 'var(--fg-dim)',
+          fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 700,
+          fontSize: 13, textDecoration: 'none',
+        }}
+      >
+        🌐 Explorar ligas públicas
+      </Link>
 
       {leagues.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '48px 0' }}>
