@@ -27,6 +27,7 @@ model User {
   leagueRequests    LeagueRequest[]
   ownedLeagues      League[]        @relation("LeagueOwner")
   leagueMemberships LeagueMember[]
+  leagueInvites     LeagueInvite[] @relation("LeagueInviteCreator")
 }
 
 model Session {
@@ -82,6 +83,7 @@ model League {
   members  LeagueMember[]
   requests LeagueRequest[]
   scores   Score[]
+  invites  LeagueInvite[]
 }
 
 enum LeagueType {
@@ -192,4 +194,16 @@ model ScoreLog {
   type      String
   detail    Json     @default("{}")
   createdAt DateTime @default(now())
+}
+
+model LeagueInvite {
+  id        String    @id @default(cuid())
+  leagueId  String
+  league    League    @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  token     String    @unique @default(cuid())
+  createdBy String
+  creator   User      @relation("LeagueInviteCreator", fields: [createdBy], references: [id])
+  expiresAt DateTime?
+  usedCount Int       @default(0)
+  createdAt DateTime  @default(now())
 }

@@ -250,6 +250,16 @@ exports.Prisma.ScoreLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LeagueInviteScalarFieldEnum = {
+  id: 'id',
+  leagueId: 'leagueId',
+  token: 'token',
+  createdBy: 'createdBy',
+  expiresAt: 'expiresAt',
+  usedCount: 'usedCount',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -307,7 +317,8 @@ exports.Prisma.ModelName = {
   Match: 'Match',
   Prediction: 'Prediction',
   Score: 'Score',
-  ScoreLog: 'ScoreLog'
+  ScoreLog: 'ScoreLog',
+  LeagueInvite: 'LeagueInvite'
 };
 
 /**
