@@ -70,13 +70,21 @@
 - [x] Pantallas: Mis Ligas, Detalle de Liga, Crear Liga.
 
 ### Fase 7: Pendiente
-- [ ] `ScoreLog` — desglose detallado de puntos por partido (transparencia).
-- [ ] Invitaciones por link a liga privada.
-- [ ] Ligas públicas paginadas/buscables (directorio).
-- [ ] Límite configurable de miembros por liga.
-- [ ] Leaderboard en tiempo real (polling o Server-Sent Events).
-- [ ] Pantalla de perfil con historial de predicciones detallado.
-- [ ] Integración real con API oficial de partidos del Mundial 2026.
+
+> Orden de ejecución recomendado. Planes en `docs/superpowers/plans/2026-06-03-*.md`.
+
+#### Grupo 1 — Sin dependencias ✅
+- [x] Integración real con API oficial de partidos del Mundial 2026. (`football-api-integration`)
+- [x] Límite configurable de miembros por liga. (`league-member-limit`)
+
+#### Grupo 2 — Lectura de datos existentes
+- [ ] `ScoreLog` — desglose detallado de puntos por partido (transparencia). (`score-log-ui`)
+- [ ] Pantalla de perfil con historial de predicciones detallado. (`profile-prediction-history`)
+
+#### Grupo 3 — Nuevas features de liga
+- [ ] Leaderboard en tiempo real (polling 30s). (`leaderboard-realtime`)
+- [ ] Ligas públicas paginadas/buscables (directorio). (`public-league-directory`)
+- [ ] Invitaciones por link a liga privada (+ Resend opcional). (`league-invites`)
 
 ---
 
