@@ -18,8 +18,8 @@ export interface IPredictionRepository {
 }
 
 export interface ILeagueManagementRepository {
-  createLeague(data: { name: string; type: 'PUBLIC' | 'PRIVATE'; ownerId: string }): Promise<League>
-  updateLeague(id: string, data: { name?: string; type?: 'PUBLIC' | 'PRIVATE' }, ownerId: string): Promise<League>
+  createLeague(data: { name: string; type: 'PUBLIC' | 'PRIVATE'; ownerId: string; maxMembers?: number | null }): Promise<League>
+  updateLeague(id: string, data: { name?: string; type?: 'PUBLIC' | 'PRIVATE'; maxMembers?: number | null }, ownerId: string): Promise<League>
   deleteLeague(id: string, ownerId: string): Promise<void>
   joinLeague(leagueId: string, userId: string): Promise<void>
   leaveLeague(leagueId: string, userId: string): Promise<void>

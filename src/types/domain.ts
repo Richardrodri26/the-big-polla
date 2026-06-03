@@ -84,6 +84,7 @@ export interface League {
   type: 'PUBLIC' | 'PRIVATE'
   createdAt: string  // ISO 8601
   memberCount?: number
+  maxMembers?: number | null
 }
 
 export interface LeagueMember {
