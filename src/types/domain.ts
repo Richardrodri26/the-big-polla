@@ -31,6 +31,12 @@ export interface Match {
   correctOutcome?: boolean
   correctScore?: boolean
   timeline?: MatchTimeline[]
+  predictionBreakdown?: {
+    homeWin: number
+    draw: number
+    awayWin: number
+    total: number
+  }
 }
 
 export interface Member {

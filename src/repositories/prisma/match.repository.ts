@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { computePredictionBreakdown } from '@/lib/prediction-breakdown'
 import type { IMatchRepository } from '@/repositories/interfaces'
 import type { Match, MatchState, MatchTimeline } from '@/types/domain'
 import type { Match as PrismaMatch } from '@/generated/prisma'
@@ -42,7 +43,17 @@ export class PrismaMatchRepository implements IMatchRepository {
   }
 
   async getMatch(id: string): Promise<Match | null> {
-    const row = await prisma.match.findUnique({ where: { id } })
-    return row ? toDomainMatch(row) : null
+    const [row, preds] = await Promise.all([
+      prisma.match.findUnique({ where: { id } }),
+      prisma.prediction.findMany({
+        where: { matchId: id },
+        select: { homeScore: true, awayScore: true },
+      }),
+    ])
+    if (!row) return null
+    const domain = toDomainMatch(row)
+    const breakdown = computePredictionBreakdown(preds)
+    if (breakdown) domain.predictionBreakdown = breakdown
+    return domain
   }
 }

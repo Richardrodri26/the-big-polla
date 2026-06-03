@@ -117,7 +117,7 @@ function MobileMatchDetail({ match, myPred, time, live, final, pending, score, h
         </div>
         <div className="detail-meta-row">
           <span>TU PRED · {myPred ? `${myPred[0]}–${myPred[1]}` : '—'}</span>
-          <span>VS · LIGA · 8 PRED</span>
+          <span>VS · LIGA · {match.predictionBreakdown?.total ?? 0} PRED</span>
         </div>
       </div>
 
@@ -142,25 +142,34 @@ function MobileMatchDetail({ match, myPred, time, live, final, pending, score, h
       )}
 
       <div className="section-head">
-        <div className="num">LIGA · 8 PRED</div>
+        <div className="num">LIGA · {match.predictionBreakdown?.total ?? 0} PRED</div>
         <div className="title">¿QUÉ DICE LA TRIBUNA?</div>
       </div>
       <div style={{ padding: '0 20px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {[
-          { who: `Gana ${home.name}`, pct: 62, color: home.c1 },
-          { who: 'Empate', pct: 25, color: 'var(--fg-mute)' },
-          { who: `Gana ${away.name}`, pct: 13, color: away.c1 },
-        ].map((row) => (
-          <div key={row.who}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg-dim)' }}>{row.who}</span>
-              <span className="t-num" style={{ fontSize: 13 }}>{row.pct}%</span>
+        {(() => {
+          const bd = match.predictionBreakdown
+          const tributaRows = bd
+            ? [
+                { who: `Gana ${home.name}`, pct: bd.homeWin, color: home.c1 },
+                { who: 'Empate', pct: bd.draw, color: 'var(--fg-mute)' },
+                { who: `Gana ${away.name}`, pct: bd.awayWin, color: away.c1 },
+              ]
+            : []
+          if (tributaRows.length === 0) {
+            return <div className="t-meta">Sin predicciones aún</div>
+          }
+          return tributaRows.map((row) => (
+            <div key={row.who}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg-dim)' }}>{row.who}</span>
+                <span className="t-num" style={{ fontSize: 13 }}>{row.pct}%</span>
+              </div>
+              <div style={{ height: 6, background: 'rgba(255,255,255,0.05)', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{ width: `${row.pct}%`, height: '100%', background: row.color }} />
+              </div>
             </div>
-            <div style={{ height: 6, background: 'rgba(255,255,255,0.05)', borderRadius: 3, overflow: 'hidden' }}>
-              <div style={{ width: `${row.pct}%`, height: '100%', background: row.color }} />
-            </div>
-          </div>
-        ))}
+          ))
+        })()}
       </div>
 
       {pending && (
@@ -270,18 +279,28 @@ function DesktopMatchDetail({ match, myPred, time, live, final, pending, score, 
           </div>
         )}
         <div className="dk-card">
-          <div className="t-eyebrow">LIGA · 8 PREDICCIONES</div>
+          <div className="t-eyebrow">LIGA · {match.predictionBreakdown?.total ?? 0} PREDICCIONES</div>
           <div className="t-h3" style={{ fontSize: 16, marginTop: 4, marginBottom: 14 }}>¿QUÉ DICE LA TRIBUNA?</div>
-          {[
-            { who: `Gana ${home.name}`, pct: 62, color: home.c1 },
-            { who: 'Empate', pct: 25, color: 'rgba(255,255,255,0.3)' },
-            { who: `Gana ${away.name}`, pct: 13, color: away.c1 },
-          ].map(r => (
-            <div className="dk-tribuna-row" key={r.who}>
-              <div className="head"><span className="label">{r.who}</span><span className="pct">{r.pct}%</span></div>
-              <div className="bar"><div style={{ width: `${r.pct}%`, background: r.color }} /></div>
-            </div>
-          ))}
+          {(() => {
+            const bd = match.predictionBreakdown
+            const tributaRows = bd
+              ? [
+                  { who: `Gana ${home.name}`, pct: bd.homeWin, color: home.c1 },
+                  { who: 'Empate', pct: bd.draw, color: 'rgba(255,255,255,0.3)' },
+                  { who: `Gana ${away.name}`, pct: bd.awayWin, color: away.c1 },
+                ]
+              : []
+            if (tributaRows.length === 0) {
+              return <div className="t-meta">Sin predicciones aún</div>
+            }
+            return tributaRows.map(r => (
+              <div className="dk-tribuna-row" key={r.who}>
+                <div className="head"><span className="label">{r.who}</span><span className="pct">{r.pct}%</span></div>
+                <div className="bar"><div style={{ width: `${r.pct}%`, background: r.color }} /></div>
+              </div>
+            ))
+          })()
+          }
         </div>
       </div>
     </div>

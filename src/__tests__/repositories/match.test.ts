@@ -7,6 +7,9 @@ vi.mock('@/lib/prisma', () => ({
       findMany: vi.fn(),
       findUnique: vi.fn(),
     },
+    prediction: {
+      findMany: vi.fn(),
+    },
   },
 }))
 
@@ -92,12 +95,14 @@ describe('PrismaMatchRepository', () => {
   describe('getMatch', () => {
     it('returns null when not found', async () => {
       vi.mocked(prisma.match.findUnique).mockResolvedValue(null)
+      vi.mocked(prisma.prediction.findMany).mockResolvedValue([])
 
       expect(await repo.getMatch('nonexistent')).toBeNull()
     })
 
     it('returns domain Match when found', async () => {
       vi.mocked(prisma.match.findUnique).mockResolvedValue(mockRow as any)
+      vi.mocked(prisma.prediction.findMany).mockResolvedValue([])
 
       expect((await repo.getMatch('m1'))?.id).toBe('m1')
     })
