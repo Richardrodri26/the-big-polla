@@ -32,5 +32,7 @@ export async function POST(req: NextRequest) {
     maxMembers: typeof body.maxMembers === 'number' && body.maxMembers > 0 ? body.maxMembers : null,
   })
 
+  await repo.joinLeague(league.id, session.user.id)
+
   return NextResponse.json({ league }, { status: 201 })
 }
