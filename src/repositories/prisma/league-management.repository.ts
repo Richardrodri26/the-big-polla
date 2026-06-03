@@ -10,6 +10,7 @@ function toDomainLeague(row: any): League {
     type: row.type as 'PUBLIC' | 'PRIVATE',
     createdAt: row.createdAt.toISOString(),
     memberCount: row._count?.members ?? row.members?.length,
+    maxMembers: row.maxMembers ?? null,
   }
 }
 
@@ -24,9 +25,14 @@ function toDomainRequest(row: any): LeagueRequest {
 }
 
 export class PrismaLeagueManagementRepository implements ILeagueManagementRepository {
-  async createLeague(data: { name: string; type: 'PUBLIC' | 'PRIVATE'; ownerId: string }): Promise<League> {
+  async createLeague(data: { name: string; type: 'PUBLIC' | 'PRIVATE'; ownerId: string; maxMembers?: number | null }): Promise<League> {
     const row = await prisma.league.create({
-      data,
+      data: {
+        name: data.name,
+        type: data.type,
+        ownerId: data.ownerId,
+        maxMembers: data.maxMembers ?? null,
+      },
       include: { _count: { select: { members: true } } },
     })
     return toDomainLeague(row)
@@ -40,14 +46,18 @@ export class PrismaLeagueManagementRepository implements ILeagueManagementReposi
     return row ? toDomainLeague(row) : null
   }
 
-  async updateLeague(id: string, data: { name?: string; type?: 'PUBLIC' | 'PRIVATE' }, ownerId: string): Promise<League> {
+  async updateLeague(id: string, data: { name?: string; type?: 'PUBLIC' | 'PRIVATE'; maxMembers?: number | null }, ownerId: string): Promise<League> {
     const existing = await prisma.league.findUnique({ where: { id } })
     if (!existing || existing.ownerId !== ownerId) {
       throw new Error('Not authorized to update this league')
     }
     const row = await prisma.league.update({
       where: { id },
-      data,
+      data: {
+        ...(data.name !== undefined ? { name: data.name } : {}),
+        ...(data.type !== undefined ? { type: data.type } : {}),
+        ...(data.maxMembers !== undefined ? { maxMembers: data.maxMembers } : {}),
+      },
       include: { _count: { select: { members: true } } },
     })
     return toDomainLeague(row)
@@ -62,10 +72,16 @@ export class PrismaLeagueManagementRepository implements ILeagueManagementReposi
   }
 
   async joinLeague(leagueId: string, userId: string): Promise<void> {
-    const existing = await prisma.leagueMember.findUnique({
-      where: { leagueId_userId: { leagueId, userId } },
+    const league = await prisma.league.findUnique({
+      where: { id: leagueId },
+      include: { members: { select: { id: true } } },
     })
-    if (existing) throw new Error('User is already a member of this league')
+    if (!league) throw new Error('League not found')
+
+    if (league.maxMembers != null && (league as any).members.length >= league.maxMembers) {
+      throw new Error('Liga llena')
+    }
+
     await prisma.leagueMember.create({ data: { leagueId, userId } })
   }
 
@@ -91,11 +107,22 @@ export class PrismaLeagueManagementRepository implements ILeagueManagementReposi
   async approveRequest(requestId: string, ownerId: string): Promise<void> {
     const request = await prisma.leagueRequest.findUnique({
       where: { id: requestId },
-      include: { league: { select: { ownerId: true } } },
+      include: {
+        league: {
+          include: { members: { select: { id: true } } },
+        },
+      },
     })
-    if (!request || request.league.ownerId !== ownerId) {
-      throw new Error('Not authorized to approve this request')
+    if (!request) throw new Error('Request not found')
+    if (request.league.ownerId !== ownerId) throw new Error('Not authorized to approve this request')
+
+    if (
+      request.league.maxMembers != null &&
+      (request.league as any).members.length >= request.league.maxMembers
+    ) {
+      throw new Error('Liga llena')
     }
+
     await prisma.$transaction(async (tx) => {
       await tx.leagueMember.create({ data: { leagueId: request.leagueId, userId: request.userId } })
       await tx.leagueRequest.update({ where: { id: requestId }, data: { status: 'APPROVED' } })

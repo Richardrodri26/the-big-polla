@@ -64,21 +64,18 @@ describe('PrismaLeagueManagementRepository', () => {
       })
       expect(prisma.league.create).toHaveBeenCalledWith(
         expect.objectContaining({
-          data: { name: 'Los Cracks', type: 'PRIVATE', ownerId: 'user1' },
+          data: expect.objectContaining({ name: 'Los Cracks', type: 'PRIVATE', ownerId: 'user1' }),
         })
       )
     })
   })
 
   describe('joinLeague', () => {
-    it('throws if user is already a member', async () => {
-      vi.mocked(prisma.leagueMember.findUnique).mockResolvedValue({ id: 'lm1' } as any)
-
-      await expect(repo.joinLeague('league1', 'user1')).rejects.toThrow('already a member')
-    })
-
-    it('creates a LeagueMember when not already a member', async () => {
-      vi.mocked(prisma.leagueMember.findUnique).mockResolvedValue(null)
+    it('creates a LeagueMember when league has no limit', async () => {
+      vi.mocked(prisma.league.findUnique).mockResolvedValue({
+        id: 'league1', maxMembers: null,
+        members: [{ id: 'm1' }, { id: 'm2' }],
+      } as any)
       vi.mocked(prisma.leagueMember.create).mockResolvedValue({ id: 'lm1' } as any)
 
       await repo.joinLeague('league1', 'user2')
@@ -86,6 +83,25 @@ describe('PrismaLeagueManagementRepository', () => {
       expect(prisma.leagueMember.create).toHaveBeenCalledWith({
         data: { leagueId: 'league1', userId: 'user2' },
       })
+    })
+
+    it('throws when league is at maxMembers', async () => {
+      vi.mocked(prisma.league.findUnique).mockResolvedValue({
+        id: 'lg-1', maxMembers: 2,
+        members: [{ id: 'm1' }, { id: 'm2' }],
+      } as any)
+
+      await expect(repo.joinLeague('lg-1', 'user-new')).rejects.toThrow('Liga llena')
+    })
+
+    it('does not throw when league has no maxMembers limit', async () => {
+      vi.mocked(prisma.league.findUnique).mockResolvedValue({
+        id: 'lg-1', maxMembers: null,
+        members: [{ id: 'm1' }, { id: 'm2' }],
+      } as any)
+      vi.mocked(prisma.leagueMember.create).mockResolvedValue({ id: 'new-m' } as any)
+
+      await expect(repo.joinLeague('lg-1', 'user-new')).resolves.not.toThrow()
     })
   })
 
@@ -135,7 +151,7 @@ describe('PrismaLeagueManagementRepository', () => {
         leagueId: 'league1',
         userId: 'user2',
         status: 'PENDING',
-        league: { ownerId: 'user1' },
+        league: { ownerId: 'user1', maxMembers: null, members: [] },
       } as any)
       vi.mocked(prisma.leagueMember.create).mockResolvedValue({ id: 'lm1' } as any)
       vi.mocked(prisma.leagueRequest.update).mockResolvedValue({ id: 'r1' } as any)
