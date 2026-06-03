@@ -16,6 +16,7 @@ export const config = {
     '/dashboard/:path*',
     '/feed/:path*',
     '/leaderboard/:path*',
+    '/leagues/:path*',
     '/oracle/:path*',
     '/profile/:path*',
     '/settings/:path*',
