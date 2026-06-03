@@ -29,6 +29,11 @@ export interface ILeagueManagementRepository {
   getLeague(id: string): Promise<League | null>
   getUserLeagues(userId: string): Promise<League[]>
   getPendingRequests(leagueId: string, ownerId: string): Promise<LeagueRequest[]>
+  getPublicLeagues(opts: {
+    search?: string
+    page?: number
+    limit?: number
+  }): Promise<{ leagues: League[]; total: number; hasMore: boolean }>
 }
 
 export interface IScoreLogRepository {

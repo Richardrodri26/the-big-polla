@@ -149,6 +149,37 @@ export class PrismaLeagueManagementRepository implements ILeagueManagementReposi
     return rows.map(toDomainLeague)
   }
 
+  async getPublicLeagues(opts: {
+    search?: string
+    page?: number
+    limit?: number
+  }): Promise<{ leagues: League[]; total: number; hasMore: boolean }> {
+    const { search, page = 1, limit = 20 } = opts
+    const skip = (page - 1) * limit
+
+    const where = {
+      type: 'PUBLIC' as const,
+      ...(search ? { name: { contains: search, mode: 'insensitive' as const } } : {}),
+    }
+
+    const [rows, total] = await Promise.all([
+      prisma.league.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+        include: { _count: { select: { members: true } } },
+      }),
+      prisma.league.count({ where }),
+    ])
+
+    return {
+      leagues: rows.map(toDomainLeague),
+      total,
+      hasMore: skip + rows.length < total,
+    }
+  }
+
   async getPendingRequests(leagueId: string, ownerId: string): Promise<LeagueRequest[]> {
     const league = await prisma.league.findUnique({ where: { id: leagueId } })
     if (!league || league.ownerId !== ownerId) {

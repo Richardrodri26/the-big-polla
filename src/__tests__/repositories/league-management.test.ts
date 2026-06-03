@@ -9,6 +9,7 @@ vi.mock('@/lib/prisma', () => ({
       update: vi.fn(),
       delete: vi.fn(),
       findMany: vi.fn(),
+      count: vi.fn(),
     },
     leagueMember: {
       create: vi.fn(),
@@ -165,6 +166,37 @@ describe('PrismaLeagueManagementRepository', () => {
         where: { id: 'r1' },
         data: { status: 'APPROVED' },
       })
+    })
+  })
+
+  describe('getPublicLeagues', () => {
+    it('returns only PUBLIC leagues', async () => {
+      vi.mocked(prisma.league.findMany).mockResolvedValue([
+        { id: 'lg-1', name: 'Liga Pública', ownerId: 'u1', type: 'PUBLIC', createdAt: new Date(), updatedAt: new Date(), _count: { members: 5 } },
+      ] as any)
+      vi.mocked(prisma.league.count).mockResolvedValue(1)
+
+      const result = await repo.getPublicLeagues({})
+
+      expect(result.total).toBe(1)
+      expect(result.leagues[0].type).toBe('PUBLIC')
+      expect(result.hasMore).toBe(false)
+    })
+
+    it('filters by search term case-insensitively', async () => {
+      vi.mocked(prisma.league.findMany).mockResolvedValue([])
+      vi.mocked(prisma.league.count).mockResolvedValue(0)
+
+      await repo.getPublicLeagues({ search: 'fútbol' })
+
+      expect(prisma.league.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            type: 'PUBLIC',
+            name: { contains: 'fútbol', mode: 'insensitive' },
+          }),
+        })
+      )
     })
   })
 
