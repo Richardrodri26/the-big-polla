@@ -101,6 +101,24 @@ export interface LeagueRequest {
   createdAt: string
 }
 
+export interface PredictionHistoryItem {
+  matchId: string
+  kickoffAt: string
+  stage: string
+  home: Team
+  away: Team
+  result: [number, number] | null
+  prediction: [number, number] | null
+  pts: number
+  scoreLog: {
+    winner: number
+    goalsHome: number
+    goalsAway: number
+    diff: number
+    streakBonus: number
+  } | null
+}
+
 export interface ScoreLogEntry {
   id: string
   matchId: string
