@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { Avi } from '@/components/ui/avi'
 import { GameIcon } from '@/components/ui/game-icon'
@@ -7,7 +8,7 @@ import { GamePill } from '@/components/ui/game-pill'
 import { TeamFlag } from '@/components/ui/team-flag'
 import { DKTopbar } from '@/components/layout/dk-topbar'
 import { usePredictionStore } from '@/store/prediction-store'
-import type { Badge, Match, Member } from '@/types/domain'
+import type { Badge, Match, Member, ScoreLogEntry } from '@/types/domain'
 
 type ResultKind = 'exact' | 'diff' | 'winner' | 'miss'
 
@@ -54,19 +55,66 @@ function PerformanceBar({ breakdown }: { breakdown: Member['breakdown'] }) {
   )
 }
 
+function MatchScoreLogDrawer({ entry, match, onClose }: {
+  entry: ScoreLogEntry
+  match: Match
+  onClose: () => void
+}) {
+  const d = entry.detail
+  const rows = [
+    { label: 'Ganador/Empate', pts: d.winner, color: 'var(--fg)' },
+    { label: 'Goles local exactos', pts: d.goalsHome, color: 'var(--signal)' },
+    { label: 'Goles visitante exactos', pts: d.goalsAway, color: 'var(--signal)' },
+    { label: 'Diferencia exacta', pts: d.diff, color: 'var(--signal)' },
+    { label: 'Bonus racha', pts: d.streakBonus, color: 'var(--warn)' },
+  ]
+  return (
+    <div style={{ padding: '16px 20px 24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div className="t-eyebrow">DESGLOSE · {match.home.code} vs {match.away.code}</div>
+          <div className="t-meta" style={{ marginTop: 4 }}>
+            Pred: {d.prediction.home}–{d.prediction.away} · Real: {d.result.home}–{d.result.away}
+          </div>
+        </div>
+        <button className="icon-btn" onClick={onClose}><GameIcon name="close" size={14} /></button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {rows.map(r => (
+          <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: 8 }}>
+            <span style={{ fontSize: 13, color: 'var(--fg-dim)' }}>{r.label}</span>
+            <span style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 16, color: r.pts > 0 ? r.color : 'var(--fg-faint)' }}>
+              {r.pts > 0 ? `+${r.pts}` : '0'}
+            </span>
+          </div>
+        ))}
+        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', background: 'var(--surface-2)', borderRadius: 8, marginTop: 4 }}>
+          <span className="t-eyebrow">TOTAL</span>
+          <span style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 24, letterSpacing: '-0.04em', color: entry.pts > 0 ? 'var(--signal)' : 'var(--fg-faint)' }}>
+            +{entry.pts}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 interface ProfileScreenProps {
   me: Member
   members: Member[]
   finishedMatches: Match[]
   badges: Badge[]
+  scoreLogs?: ScoreLogEntry[]
 }
 
-export function ProfileScreen({ me, members, finishedMatches, badges }: ProfileScreenProps) {
+export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs }: ProfileScreenProps) {
   const getPrediction = usePredictionStore(s => s.getPrediction)
   const myIdx = members.findIndex(m => m.me)
   const sliceStart = Math.max(0, myIdx - 2)
   const miniRanking = members.slice(sliceStart, Math.min(members.length, myIdx + 3))
   const hitRate = me.hits > 0 ? Math.round((me.hits / 27) * 100) : 0
+  const [selectedLogMatch, setSelectedLogMatch] = useState<{ match: Match; entry: ScoreLogEntry } | null>(null)
+  const scoreLogMap = new Map((scoreLogs ?? []).map(l => [l.matchId, l]))
 
   return (
     <div className="screen screen-anim">
@@ -182,7 +230,7 @@ export function ProfileScreen({ me, members, finishedMatches, badges }: ProfileS
                   const kind = classifyResult(m)
                   const cfg = kind ? RESULT_CONFIG[kind] : null
                   return (
-                    <div key={m.id} className="dk-card" style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <div key={m.id} className="dk-card" style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 14, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
                       <div style={{ display: 'flex', gap: 4 }}>
                         <TeamFlag team={m.home} size="sm" />
                         <TeamFlag team={m.away} size="sm" />
@@ -313,7 +361,7 @@ export function ProfileScreen({ me, members, finishedMatches, badges }: ProfileS
                 const kind = classifyResult(m)
                 const cfg = kind ? RESULT_CONFIG[kind] : null
                 return (
-                  <div key={m.id} className="card" style={{ padding: 12, display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div key={m.id} className="card" style={{ padding: 12, display: 'flex', alignItems: 'center', gap: 10, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
                     <div style={{ display: 'flex', gap: 4 }}>
                       <TeamFlag team={m.home} size="xs" />
                       <TeamFlag team={m.away} size="xs" />
@@ -332,6 +380,25 @@ export function ProfileScreen({ me, members, finishedMatches, badges }: ProfileS
             </div>
           </div>
         </div>
+
+        {selectedLogMatch && (
+          <div style={{
+            position: 'fixed', inset: 0, zIndex: 50,
+            background: 'rgba(0,0,0,0.6)',
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+          }} onClick={() => setSelectedLogMatch(null)}>
+            <div style={{
+              background: 'var(--bg)', borderRadius: '20px 20px 0 0',
+              width: '100%', maxWidth: 480,
+            }} onClick={e => e.stopPropagation()}>
+              <MatchScoreLogDrawer
+                entry={selectedLogMatch.entry}
+                match={selectedLogMatch.match}
+                onClose={() => setSelectedLogMatch(null)}
+              />
+            </div>
+          </div>
+        )}
 
         <div style={{ height: 96 }} />
       </div>

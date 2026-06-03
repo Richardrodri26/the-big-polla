@@ -11,5 +11,5 @@ export default async function ProfilePage() {
   const me = members.find(m => m.me)
   if (!me) throw new Error('Current user not found in members')
 
-  return <ProfileScreen me={me} members={members} finishedMatches={matches} badges={badges} />
+  return <ProfileScreen me={me} members={members} finishedMatches={matches} badges={badges} scoreLogs={[]} />
 }
