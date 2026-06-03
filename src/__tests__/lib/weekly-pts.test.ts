@@ -30,8 +30,8 @@ describe('getWeeklyPts', () => {
   it('queries logs from start of current ISO week (Monday)', async () => {
     vi.mocked(prisma.scoreLog.findMany).mockResolvedValue([])
     await getWeeklyPts('user1', 'league1')
-    const call = vi.mocked(prisma.scoreLog.findMany).mock.calls[0][0]
-    const gte = (call.where as any).score.leagueId
+    const call = vi.mocked(prisma.scoreLog.findMany).mock.calls[0]?.[0]
+    const gte = (call?.where as any)?.score.leagueId
     expect(gte).toBe('league1')
   })
 })

@@ -98,10 +98,21 @@ function FeedMatchCard({ match }: { match: Match }) {
 
 interface FeedScreenProps {
   matches: Match[]
-  me: { rank: number; pts: number; streak: number }
+  me: {
+    rank: number
+    prevRank: number
+    pts: number
+    streak: number
+    name: string
+    color: string
+  }
+  leagueName: string
+  totalMembers: number
+  ptsBehindLeader: number
+  weeklyPts: number
 }
 
-export function FeedScreen({ matches, me }: FeedScreenProps) {
+export function FeedScreen({ matches, me, leagueName, totalMembers, ptsBehindLeader, weeklyPts }: FeedScreenProps) {
   const { openPredictor } = useAppStore()
   const [filter, setFilter] = useState<'all' | 'pred' | 'no'>('all')
 
@@ -132,15 +143,23 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
   const nextNoPred = matches.find(m => m.state === 'pending' && !m.userPrediction)
   const totalToday = groups['HOY']?.items.length ?? 0
 
+  const rankDelta = me.prevRank - me.rank
+  const rankDeltaLabel = rankDelta > 0
+    ? `▲ SUBISTE ${rankDelta} ${rankDelta === 1 ? 'POSICIÓN' : 'POSICIONES'}`
+    : rankDelta < 0
+      ? `▼ BAJASTE ${Math.abs(rankDelta)} ${Math.abs(rankDelta) === 1 ? 'POSICIÓN' : 'POSICIONES'}`
+      : 'SIN CAMBIOS'
+  const rankDeltaColor = rankDelta > 0 ? 'var(--signal)' : rankDelta < 0 ? 'var(--danger)' : 'var(--fg-mute)'
+
   return (
     <div className="screen screen-anim">
       {/* Mobile topbar — hidden on desktop via CSS */}
       <div className="topbar">
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Avi name="Tú" color="#08F7FE" size={32} />
+          <Avi name={me.name} color={me.color} size={32} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-          <div className="topbar-meta">LIGA · AMIGOS DEL BAR</div>
+          <div className="topbar-meta">{`LIGA · ${leagueName}`}</div>
           <div className="topbar-title">THE BIG POLLA</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -152,7 +171,7 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
       </div>
 
       {/* Desktop topbar */}
-      <DKTopbar crumbs={['LIGA AMIGOS DEL BAR', 'MATCH FEED']} />
+      <DKTopbar crumbs={[`LIGA ${leagueName}`, 'MATCH FEED']} />
 
       {/* Desktop page header */}
       <div className="dk-page-head">
@@ -176,7 +195,7 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
           <span className="sep">·</span>
           <span>{me.pts} PTS</span>
           <span className="sep">·</span>
-          <span style={{ color: 'var(--signal)' }}>+3 ESTA SEMANA</span>
+          <span style={{ color: 'var(--signal)' }}>{`+${weeklyPts} ESTA SEMANA`}</span>
         </div>
       </div>
 
@@ -186,7 +205,7 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
           <div className="kpi">
             <div>
               <span className="label">JORNADA</span>
-              <span className="value">04<span className="small">/12</span></span>
+              <span className="value">04<span className="small">/{totalMembers}</span></span>
             </div>
             <div>
               <span className="label">HOY</span>
@@ -204,13 +223,13 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
           <div className="dk-kpi-big">
             <div>
               <span className="label">TU POSICIÓN</span>
-              <span className="value">#{me.rank}<span className="small">/12</span></span>
-              <span className="foot" style={{ color: 'var(--signal)' }}>▲ SUBISTE 3 POSICIONES</span>
+              <span className="value">#{me.rank}<span className="small">/{totalMembers}</span></span>
+              <span className="foot" style={{ color: rankDeltaColor }}>{rankDeltaLabel}</span>
             </div>
             <div>
               <span className="label">PUNTOS TOTALES</span>
               <span className="value">{me.pts}</span>
-              <span className="foot">A 35 DEL LÍDER</span>
+              <span className="foot">{ptsBehindLeader > 0 ? `A ${ptsBehindLeader} DEL LÍDER` : 'LÍDER DE LA LIGA'}</span>
             </div>
             <div>
               <span className="label">RACHA ACTUAL</span>
@@ -219,7 +238,7 @@ export function FeedScreen({ matches, me }: FeedScreenProps) {
             </div>
             <div>
               <span className="label">JORNADA</span>
-              <span className="value">04<span className="small">/12</span></span>
+              <span className="value">04<span className="small">/{totalMembers}</span></span>
               <span className="foot">{totalToday} PARTIDOS HOY</span>
             </div>
           </div>
