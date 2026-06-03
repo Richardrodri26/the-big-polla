@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -35,7 +35,13 @@ const mockApiResponse = {
 }
 
 describe('fetchExternalMatches', () => {
-  afterEach(() => vi.clearAllMocks())
+  beforeEach(() => {
+    process.env.FOOTBALL_API_KEY = 'test-token'
+  })
+  afterEach(() => {
+    delete process.env.FOOTBALL_API_KEY
+    vi.clearAllMocks()
+  })
 
   it('maps FINISHED match correctly', async () => {
     mockFetch.mockResolvedValue({
