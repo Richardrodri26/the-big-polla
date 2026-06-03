@@ -1,36 +1,88 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState, useEffect } from "react";
 import { GameIcon } from "@/components/ui/game-icon";
 import { TeamFlag } from "@/components/ui/team-flag";
 import { DKTopbar } from "@/components/layout/dk-topbar";
 import {
   BRACKET,
   type BracketSlot,
+  type OracleTeam,
   ROUND_LABELS,
-  TEAMS,
 } from "@/lib/oracle-data";
 
 interface Line { d: string; active: boolean }
 
 export default function OraclePage() {
+  const [teams, setTeams] = useState<Record<string, OracleTeam>>({})
   const [bracket, setBracket] = useState(BRACKET);
   const [zoom, setZoom] = useState(1);
+  const [loading, setLoading] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<Line[]>([]);
 
-  const togglePick = (round: string, slotId: string, teamKey: string) => {
-    setBracket((b) => ({
-      ...b,
-      [round]: b[round].map((s: BracketSlot) =>
-        s.id === slotId
-          ? { ...s, picked: s.picked === teamKey ? null : teamKey }
-          : s,
-      ),
-    }));
-  };
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [teamsRes, picksRes] = await Promise.all([
+          fetch('/api/oracle/teams'),
+          fetch('/api/oracle/picks'),
+        ]);
 
-  // Compute SVG connecting lines after layout
+        if (teamsRes.ok) {
+          const dbTeams = await teamsRes.json() as Array<{
+            code: string; name: string; c1: string; c2: string; group: string; seed: number
+          }>;
+          const record: Record<string, OracleTeam> = {};
+          dbTeams.forEach(t => {
+            const key = `${t.group}${t.seed}`;
+            record[key] = { ...t, key };
+          });
+          setTeams(record);
+        }
+
+        if (picksRes.ok) {
+          const dbPicks = await picksRes.json() as Array<{
+            round: string; slotId: string; teamCode: string
+          }>;
+          setBracket(prev => {
+            const next = { ...prev };
+            for (const [round, slots] of Object.entries(next)) {
+              next[round] = (slots as BracketSlot[]).map(s => {
+                const pick = dbPicks.find(p => p.round === round && p.slotId === s.id);
+                return pick ? { ...s, picked: pick.teamCode } : s;
+              });
+            }
+            return next;
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  const togglePick = useCallback((round: string, slotId: string, teamKey: string) => {
+    setBracket(b => {
+      const next = {
+        ...b,
+        [round]: (b[round] as BracketSlot[]).map(s =>
+          s.id === slotId
+            ? { ...s, picked: s.picked === teamKey ? null : teamKey }
+            : s,
+        ),
+      };
+      const newPicked = (next[round] as BracketSlot[]).find(s => s.id === slotId)?.picked ?? null;
+      fetch('/api/oracle/picks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ round, slotId, teamCode: newPicked }),
+      });
+      return next;
+    });
+  }, []);
+
   useLayoutEffect(() => {
     if (!trackRef.current) return;
     const cont = trackRef.current.getBoundingClientRect();
@@ -78,8 +130,17 @@ export default function OraclePage() {
     return { n, total };
   }, [bracket]);
 
-  const champTeam = TEAMS.A1;
-  const pct = Math.round((pickedTotal.n / pickedTotal.total) * 100);
+  const champKey = (bracket.f[0] as BracketSlot).picked;
+  const champTeam = champKey ? teams[champKey] : null;
+  const pct = pickedTotal.total > 0 ? Math.round((pickedTotal.n / pickedTotal.total) * 100) : 0;
+
+  if (loading) {
+    return (
+      <div className="screen" style={{ display: 'grid', placeItems: 'center' }}>
+        <div className="t-meta">Cargando bracket…</div>
+      </div>
+    );
+  }
 
   return (
     <div className="screen bracket-stage screen-anim">
@@ -112,7 +173,6 @@ export default function OraclePage() {
         </div>
         <div className="actions">
           <div className="dk-tape">CIERRA EN<span>11 JUN · 18:00</span></div>
-          <button className="dk-btn primary">Guardar progreso →</button>
         </div>
       </div>
 
@@ -139,7 +199,7 @@ export default function OraclePage() {
             style={{
               width: 48, height: 48, borderRadius: "50%",
               background: `conic-gradient(var(--signal) 0 ${(pickedTotal.n / pickedTotal.total) * 360}deg, rgba(255,255,255,0.08) 0)`,
-              display: "grid", placeItems: "center", position: "relative",
+              display: "grid", placeItems: "center",
             }}
           >
             <div style={{ width: 38, height: 38, borderRadius: "50%", background: "var(--bg)", display: "grid", placeItems: "center", fontFamily: "var(--display)", fontWeight: 900, fontSize: 12 }}>
@@ -167,16 +227,26 @@ export default function OraclePage() {
           </div>
           <div className="dk-card">
             <div className="t-eyebrow">RONDAS PENDIENTES</div>
-            <div style={{ fontFamily: "var(--font-inter, sans-serif)", fontWeight: 900, fontSize: 44, letterSpacing: "-0.05em", fontVariationSettings: '"wdth" 75', marginTop: 6 }}>3</div>
-            <div className="t-meta" style={{ marginTop: 4 }}>OCTAVOS · CUARTOS · SEMIS</div>
+            <div style={{ fontFamily: "var(--font-inter, sans-serif)", fontWeight: 900, fontSize: 44, letterSpacing: "-0.05em", fontVariationSettings: '"wdth" 75', marginTop: 6 }}>5</div>
+            <div className="t-meta" style={{ marginTop: 4 }}>R32 · OCTAVOS · CUARTOS · SEMIS · FINAL</div>
           </div>
           <div className="dk-champion">
-            <TeamFlag team={champTeam} size="lg" />
-            <div>
-              <div className="label">★ CAMPEÓN MUNDIAL</div>
-              <div className="name">{champTeam?.name?.toUpperCase()}</div>
-              <div className="t-meta" style={{ marginTop: 4 }}>+50 PTS SI ACIERTAS</div>
-            </div>
+            {champTeam ? (
+              <>
+                <TeamFlag team={champTeam} size="lg" />
+                <div>
+                  <div className="label">★ CAMPEÓN MUNDIAL</div>
+                  <div className="name">{champTeam.name.toUpperCase()}</div>
+                  <div className="t-meta" style={{ marginTop: 4 }}>+50 PTS SI ACIERTAS</div>
+                </div>
+              </>
+            ) : (
+              <div>
+                <div className="label">★ CAMPEÓN MUNDIAL</div>
+                <div className="name" style={{ color: "var(--fg-mute)" }}>SIN PICK</div>
+                <div className="t-meta" style={{ marginTop: 4 }}>COMPLETÁ EL BRACKET</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -209,7 +279,7 @@ export default function OraclePage() {
                 <div key={s.id} className="bracket-card">
                   {(["top", "bot"] as const).map((side) => {
                     const teamKey = side === "top" ? s.top : s.bot;
-                    const team = teamKey ? TEAMS[teamKey] : null;
+                    const team = teamKey ? teams[teamKey] : null;
                     const picked = s.picked === teamKey;
                     return (
                       <div
@@ -240,11 +310,20 @@ export default function OraclePage() {
             <div className="title">TU PICK FINAL</div>
           </div>
           <div className="card" style={{ marginTop: 10, padding: 18, background: "linear-gradient(135deg, rgba(255,214,10,0.10), transparent 60%), var(--surface)", borderColor: "rgba(255,214,10,0.3)", display: "flex", alignItems: "center", gap: 14 }}>
-            <TeamFlag team={champTeam} size="lg" />
-            <div style={{ flex: 1 }}>
-              <div className="t-eyebrow" style={{ color: "var(--warn)" }}>★ CAMPEÓN MUNDIAL · +50 PTS</div>
-              <div className="t-h2" style={{ fontSize: 26, marginTop: 4 }}>{champTeam?.name?.toUpperCase()}</div>
-            </div>
+            {champTeam ? (
+              <>
+                <TeamFlag team={champTeam} size="lg" />
+                <div style={{ flex: 1 }}>
+                  <div className="t-eyebrow" style={{ color: "var(--warn)" }}>★ CAMPEÓN MUNDIAL · +50 PTS</div>
+                  <div className="t-h2" style={{ fontSize: 26, marginTop: 4 }}>{champTeam.name.toUpperCase()}</div>
+                </div>
+              </>
+            ) : (
+              <div style={{ flex: 1 }}>
+                <div className="t-eyebrow" style={{ color: "var(--warn)" }}>★ CAMPEÓN MUNDIAL · +50 PTS</div>
+                <div className="t-h2" style={{ fontSize: 26, marginTop: 4, color: "var(--fg-mute)" }}>SIN PICK</div>
+              </div>
+            )}
           </div>
         </div>
         <div style={{ height: 100 }} />
@@ -257,7 +336,6 @@ export default function OraclePage() {
           className="dk-bracket"
           style={{ position: "relative" }}
         >
-          {/* SVG lines layer */}
           <svg
             className="dk-bracket-lines"
             preserveAspectRatio="none"
@@ -268,7 +346,6 @@ export default function OraclePage() {
             ))}
           </svg>
 
-          {/* Bracket grid */}
           <div className="dk-bracket-grid">
             {ROUND_LABELS.map((r) => (
               <div key={r.key} className="dk-bracket-col" data-col={r.key}>
@@ -280,7 +357,7 @@ export default function OraclePage() {
                   <div key={s.id} className="dk-br-match">
                     {(["top", "bot"] as const).map((side) => {
                       const teamKey = side === "top" ? s.top : s.bot;
-                      const team = teamKey ? TEAMS[teamKey] : null;
+                      const team = teamKey ? teams[teamKey] : null;
                       const picked = s.picked === teamKey && !!teamKey;
                       return (
                         <div
