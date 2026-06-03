@@ -6597,8 +6597,18 @@ export namespace Prisma {
 
   export type AggregateLeague = {
     _count: LeagueCountAggregateOutputType | null
+    _avg: LeagueAvgAggregateOutputType | null
+    _sum: LeagueSumAggregateOutputType | null
     _min: LeagueMinAggregateOutputType | null
     _max: LeagueMaxAggregateOutputType | null
+  }
+
+  export type LeagueAvgAggregateOutputType = {
+    maxMembers: number | null
+  }
+
+  export type LeagueSumAggregateOutputType = {
+    maxMembers: number | null
   }
 
   export type LeagueMinAggregateOutputType = {
@@ -6606,6 +6616,7 @@ export namespace Prisma {
     name: string | null
     ownerId: string | null
     type: $Enums.LeagueType | null
+    maxMembers: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6615,6 +6626,7 @@ export namespace Prisma {
     name: string | null
     ownerId: string | null
     type: $Enums.LeagueType | null
+    maxMembers: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6624,17 +6636,27 @@ export namespace Prisma {
     name: number
     ownerId: number
     type: number
+    maxMembers: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type LeagueAvgAggregateInputType = {
+    maxMembers?: true
+  }
+
+  export type LeagueSumAggregateInputType = {
+    maxMembers?: true
+  }
+
   export type LeagueMinAggregateInputType = {
     id?: true
     name?: true
     ownerId?: true
     type?: true
+    maxMembers?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6644,6 +6666,7 @@ export namespace Prisma {
     name?: true
     ownerId?: true
     type?: true
+    maxMembers?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6653,6 +6676,7 @@ export namespace Prisma {
     name?: true
     ownerId?: true
     type?: true
+    maxMembers?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6696,6 +6720,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: LeagueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LeagueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: LeagueMinAggregateInputType
@@ -6726,6 +6762,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: LeagueCountAggregateInputType | true
+    _avg?: LeagueAvgAggregateInputType
+    _sum?: LeagueSumAggregateInputType
     _min?: LeagueMinAggregateInputType
     _max?: LeagueMaxAggregateInputType
   }
@@ -6735,9 +6773,12 @@ export namespace Prisma {
     name: string
     ownerId: string
     type: $Enums.LeagueType
+    maxMembers: number | null
     createdAt: Date
     updatedAt: Date
     _count: LeagueCountAggregateOutputType | null
+    _avg: LeagueAvgAggregateOutputType | null
+    _sum: LeagueSumAggregateOutputType | null
     _min: LeagueMinAggregateOutputType | null
     _max: LeagueMaxAggregateOutputType | null
   }
@@ -6761,6 +6802,7 @@ export namespace Prisma {
     name?: boolean
     ownerId?: boolean
     type?: boolean
+    maxMembers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -6775,6 +6817,7 @@ export namespace Prisma {
     name?: boolean
     ownerId?: boolean
     type?: boolean
+    maxMembers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -6785,6 +6828,7 @@ export namespace Prisma {
     name?: boolean
     ownerId?: boolean
     type?: boolean
+    maxMembers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -6795,11 +6839,12 @@ export namespace Prisma {
     name?: boolean
     ownerId?: boolean
     type?: boolean
+    maxMembers?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LeagueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "ownerId" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["league"]>
+  export type LeagueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "ownerId" | "type" | "maxMembers" | "createdAt" | "updatedAt", ExtArgs["result"]["league"]>
   export type LeagueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | League$membersArgs<ExtArgs>
@@ -6827,6 +6872,7 @@ export namespace Prisma {
       name: string
       ownerId: string
       type: $Enums.LeagueType
+      maxMembers: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["league"]>
@@ -7260,6 +7306,7 @@ export namespace Prisma {
     readonly name: FieldRef<"League", 'String'>
     readonly ownerId: FieldRef<"League", 'String'>
     readonly type: FieldRef<"League", 'LeagueType'>
+    readonly maxMembers: FieldRef<"League", 'Int'>
     readonly createdAt: FieldRef<"League", 'DateTime'>
     readonly updatedAt: FieldRef<"League", 'DateTime'>
   }
@@ -14748,6 +14795,7 @@ export namespace Prisma {
     name: 'name',
     ownerId: 'ownerId',
     type: 'type',
+    maxMembers: 'maxMembers',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14948,6 +14996,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'LeagueRequestStatus'
    */
   export type EnumLeagueRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeagueRequestStatus'>
@@ -14972,20 +15034,6 @@ export namespace Prisma {
    * Reference to a field of type 'MatchState[]'
    */
   export type ListEnumMatchStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatchState[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -15343,6 +15391,7 @@ export namespace Prisma {
     name?: StringFilter<"League"> | string
     ownerId?: StringFilter<"League"> | string
     type?: EnumLeagueTypeFilter<"League"> | $Enums.LeagueType
+    maxMembers?: IntNullableFilter<"League"> | number | null
     createdAt?: DateTimeFilter<"League"> | Date | string
     updatedAt?: DateTimeFilter<"League"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15356,6 +15405,7 @@ export namespace Prisma {
     name?: SortOrder
     ownerId?: SortOrder
     type?: SortOrder
+    maxMembers?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     owner?: UserOrderByWithRelationInput
@@ -15372,6 +15422,7 @@ export namespace Prisma {
     name?: StringFilter<"League"> | string
     ownerId?: StringFilter<"League"> | string
     type?: EnumLeagueTypeFilter<"League"> | $Enums.LeagueType
+    maxMembers?: IntNullableFilter<"League"> | number | null
     createdAt?: DateTimeFilter<"League"> | Date | string
     updatedAt?: DateTimeFilter<"League"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15385,11 +15436,14 @@ export namespace Prisma {
     name?: SortOrder
     ownerId?: SortOrder
     type?: SortOrder
+    maxMembers?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LeagueCountOrderByAggregateInput
+    _avg?: LeagueAvgOrderByAggregateInput
     _max?: LeagueMaxOrderByAggregateInput
     _min?: LeagueMinOrderByAggregateInput
+    _sum?: LeagueSumOrderByAggregateInput
   }
 
   export type LeagueScalarWhereWithAggregatesInput = {
@@ -15400,6 +15454,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"League"> | string
     ownerId?: StringWithAggregatesFilter<"League"> | string
     type?: EnumLeagueTypeWithAggregatesFilter<"League"> | $Enums.LeagueType
+    maxMembers?: IntNullableWithAggregatesFilter<"League"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"League"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"League"> | Date | string
   }
@@ -16247,6 +16302,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutOwnedLeaguesInput
@@ -16260,6 +16316,7 @@ export namespace Prisma {
     name: string
     ownerId: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: LeagueMemberUncheckedCreateNestedManyWithoutLeagueInput
@@ -16271,6 +16328,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutOwnedLeaguesNestedInput
@@ -16284,6 +16342,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ownerId?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: LeagueMemberUncheckedUpdateManyWithoutLeagueNestedInput
@@ -16296,6 +16355,7 @@ export namespace Prisma {
     name: string
     ownerId: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16304,6 +16364,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16313,6 +16374,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ownerId?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17180,13 +17242,29 @@ export namespace Prisma {
     not?: NestedEnumLeagueTypeFilter<$PrismaModel> | $Enums.LeagueType
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type LeagueCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     ownerId?: SortOrder
     type?: SortOrder
+    maxMembers?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type LeagueAvgOrderByAggregateInput = {
+    maxMembers?: SortOrder
   }
 
   export type LeagueMaxOrderByAggregateInput = {
@@ -17194,6 +17272,7 @@ export namespace Prisma {
     name?: SortOrder
     ownerId?: SortOrder
     type?: SortOrder
+    maxMembers?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17203,8 +17282,13 @@ export namespace Prisma {
     name?: SortOrder
     ownerId?: SortOrder
     type?: SortOrder
+    maxMembers?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type LeagueSumOrderByAggregateInput = {
+    maxMembers?: SortOrder
   }
 
   export type EnumLeagueTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -17215,6 +17299,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLeagueTypeFilter<$PrismaModel>
     _max?: NestedEnumLeagueTypeFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type LeagueScalarRelationFilter = {
@@ -17302,17 +17402,6 @@ export namespace Prisma {
     in?: $Enums.MatchState[] | ListEnumMatchStateFieldRefInput<$PrismaModel>
     notIn?: $Enums.MatchState[] | ListEnumMatchStateFieldRefInput<$PrismaModel>
     not?: NestedEnumMatchStateFilter<$PrismaModel> | $Enums.MatchState
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -17425,22 +17514,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMatchStateFilter<$PrismaModel>
     _max?: NestedEnumMatchStateFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -18098,6 +18171,14 @@ export namespace Prisma {
     set?: $Enums.LeagueType
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneRequiredWithoutOwnedLeaguesNestedInput = {
     create?: XOR<UserCreateWithoutOwnedLeaguesInput, UserUncheckedCreateWithoutOwnedLeaguesInput>
     connectOrCreate?: UserCreateOrConnectWithoutOwnedLeaguesInput
@@ -18266,14 +18347,6 @@ export namespace Prisma {
 
   export type EnumMatchStateFieldUpdateOperationsInput = {
     set?: $Enums.MatchState
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type PredictionUpdateManyWithoutMatchNestedInput = {
@@ -18588,6 +18661,33 @@ export namespace Prisma {
     _max?: NestedEnumLeagueTypeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumLeagueRequestStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.LeagueRequestStatus | EnumLeagueRequestStatusFieldRefInput<$PrismaModel>
     in?: $Enums.LeagueRequestStatus[] | ListEnumLeagueRequestStatusFieldRefInput<$PrismaModel>
@@ -18620,33 +18720,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMatchStateFilter<$PrismaModel>
     _max?: NestedEnumMatchStateFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -18886,6 +18959,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: LeagueMemberCreateNestedManyWithoutLeagueInput
@@ -18897,6 +18971,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: LeagueMemberUncheckedCreateNestedManyWithoutLeagueInput
@@ -19114,6 +19189,7 @@ export namespace Prisma {
     name?: StringFilter<"League"> | string
     ownerId?: StringFilter<"League"> | string
     type?: EnumLeagueTypeFilter<"League"> | $Enums.LeagueType
+    maxMembers?: IntNullableFilter<"League"> | number | null
     createdAt?: DateTimeFilter<"League"> | Date | string
     updatedAt?: DateTimeFilter<"League"> | Date | string
   }
@@ -19544,6 +19620,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutOwnedLeaguesInput
@@ -19556,6 +19633,7 @@ export namespace Prisma {
     name: string
     ownerId: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     requests?: LeagueRequestUncheckedCreateNestedManyWithoutLeagueInput
@@ -19623,6 +19701,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutOwnedLeaguesNestedInput
@@ -19635,6 +19714,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ownerId?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     requests?: LeagueRequestUncheckedUpdateManyWithoutLeagueNestedInput
@@ -19692,6 +19772,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutOwnedLeaguesInput
@@ -19704,6 +19785,7 @@ export namespace Prisma {
     name: string
     ownerId: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: LeagueMemberUncheckedCreateNestedManyWithoutLeagueInput
@@ -19771,6 +19853,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutOwnedLeaguesNestedInput
@@ -19783,6 +19866,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ownerId?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: LeagueMemberUncheckedUpdateManyWithoutLeagueNestedInput
@@ -20121,6 +20205,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutOwnedLeaguesInput
@@ -20133,6 +20218,7 @@ export namespace Prisma {
     name: string
     ownerId: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: LeagueMemberUncheckedCreateNestedManyWithoutLeagueInput
@@ -20234,6 +20320,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutOwnedLeaguesNestedInput
@@ -20246,6 +20333,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ownerId?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: LeagueMemberUncheckedUpdateManyWithoutLeagueNestedInput
@@ -20407,6 +20495,7 @@ export namespace Prisma {
     id?: string
     name: string
     type?: $Enums.LeagueType
+    maxMembers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20585,6 +20674,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: LeagueMemberUpdateManyWithoutLeagueNestedInput
@@ -20596,6 +20686,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: LeagueMemberUncheckedUpdateManyWithoutLeagueNestedInput
@@ -20607,6 +20698,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumLeagueTypeFieldUpdateOperationsInput | $Enums.LeagueType
+    maxMembers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

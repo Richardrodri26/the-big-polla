@@ -173,6 +173,7 @@ exports.Prisma.LeagueScalarFieldEnum = {
   name: 'name',
   ownerId: 'ownerId',
   type: 'type',
+  maxMembers: 'maxMembers',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

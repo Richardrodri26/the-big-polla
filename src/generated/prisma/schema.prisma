@@ -70,13 +70,14 @@ model Verification {
 // ─── domain tables ────────────────────────────────────────────────────────────
 
 model League {
-  id        String     @id @default(cuid())
-  name      String
-  ownerId   String
-  owner     User       @relation("LeagueOwner", fields: [ownerId], references: [id])
-  type      LeagueType @default(PRIVATE)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id         String     @id @default(cuid())
+  name       String
+  ownerId    String
+  owner      User       @relation("LeagueOwner", fields: [ownerId], references: [id])
+  type       LeagueType @default(PRIVATE)
+  maxMembers Int?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   members  LeagueMember[]
   requests LeagueRequest[]

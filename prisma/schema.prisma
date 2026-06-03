@@ -74,8 +74,9 @@ model League {
   name      String
   ownerId   String
   owner     User       @relation("LeagueOwner", fields: [ownerId], references: [id])
-  type      LeagueType @default(PRIVATE)
-  createdAt DateTime   @default(now())
+  type       LeagueType @default(PRIVATE)
+  maxMembers Int?
+  createdAt  DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
   members  LeagueMember[]
