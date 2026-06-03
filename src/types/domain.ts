@@ -119,6 +119,16 @@ export interface PredictionHistoryItem {
   } | null
 }
 
+export interface LeagueInvite {
+  id: string
+  leagueId: string
+  token: string
+  createdBy: string
+  expiresAt: string | null
+  usedCount: number
+  createdAt: string
+}
+
 export interface ScoreLogEntry {
   id: string
   matchId: string
