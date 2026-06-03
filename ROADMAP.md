@@ -77,14 +77,14 @@
 - [x] Integración real con API oficial de partidos del Mundial 2026. (`football-api-integration`)
 - [x] Límite configurable de miembros por liga. (`league-member-limit`)
 
-#### Grupo 2 — Lectura de datos existentes
-- [ ] `ScoreLog` — desglose detallado de puntos por partido (transparencia). (`score-log-ui`)
-- [ ] Pantalla de perfil con historial de predicciones detallado. (`profile-prediction-history`)
+#### Grupo 2 — Lectura de datos existentes ✅
+- [x] `ScoreLog` — desglose detallado de puntos por partido (transparencia). (`score-log-ui`)
+- [x] Pantalla de perfil con historial de predicciones detallado. (`profile-prediction-history`)
 
-#### Grupo 3 — Nuevas features de liga
-- [ ] Leaderboard en tiempo real (polling 30s). (`leaderboard-realtime`)
-- [ ] Ligas públicas paginadas/buscables (directorio). (`public-league-directory`)
-- [ ] Invitaciones por link a liga privada (+ Resend opcional). (`league-invites`)
+#### Grupo 3 — Nuevas features de liga ✅
+- [x] Leaderboard en tiempo real (polling 30s). (`leaderboard-realtime`)
+- [x] Ligas públicas paginadas/buscables (directorio). (`public-league-directory`)
+- [x] Invitaciones por link a liga privada (+ Resend opcional). (`league-invites`)
 
 ---
 
