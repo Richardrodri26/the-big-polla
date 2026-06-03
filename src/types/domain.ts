@@ -100,3 +100,20 @@ export interface LeagueRequest {
   status: 'PENDING' | 'APPROVED' | 'REJECTED'
   createdAt: string
 }
+
+export interface ScoreLogEntry {
+  id: string
+  matchId: string
+  pts: number
+  type: string
+  detail: {
+    winner: number
+    goalsHome: number
+    goalsAway: number
+    diff: number
+    streakBonus: number
+    prediction: { home: number; away: number }
+    result: { home: number; away: number }
+  }
+  createdAt: string
+}
