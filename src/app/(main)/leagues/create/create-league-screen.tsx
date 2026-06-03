@@ -7,6 +7,7 @@ export function CreateLeagueScreen() {
   const router = useRouter()
   const [name, setName] = useState('')
   const [type, setType] = useState<'PUBLIC' | 'PRIVATE'>('PRIVATE')
+  const [maxMembers, setMaxMembers] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -18,7 +19,7 @@ export function CreateLeagueScreen() {
     const res = await fetch('/api/leagues', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, type }),
+      body: JSON.stringify({ name, type, maxMembers: maxMembers ? parseInt(maxMembers, 10) : null }),
     })
 
     const data = await res.json()
@@ -107,6 +108,21 @@ export function CreateLeagueScreen() {
               ? 'Los usuarios necesitan tu aprobación para unirse.'
               : 'Cualquiera puede unirse directamente.'}
           </p>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <label className="t-eyebrow" style={{ display: 'block', marginBottom: 6 }}>
+            LÍMITE DE MIEMBROS (vacío = sin límite)
+          </label>
+          <input
+            type="number"
+            min="2"
+            max="200"
+            placeholder="Ej: 10"
+            value={maxMembers}
+            onChange={e => setMaxMembers(e.target.value)}
+            style={inputStyle}
+          />
         </div>
 
         {error && (
