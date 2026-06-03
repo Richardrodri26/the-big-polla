@@ -105,9 +105,10 @@ interface ProfileScreenProps {
   finishedMatches: Match[]
   badges: Badge[]
   scoreLogs?: ScoreLogEntry[]
+  historySection?: React.ReactNode
 }
 
-export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs }: ProfileScreenProps) {
+export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs, historySection }: ProfileScreenProps) {
   const getPrediction = usePredictionStore(s => s.getPrediction)
   const myIdx = members.findIndex(m => m.me)
   const sliceStart = Math.max(0, myIdx - 2)
@@ -223,32 +224,34 @@ export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs 
                 </span>
                 <span className="meta">ÚLTIMAS PREDICCIONES</span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {finishedMatches.map((m) => {
-                  const localPred = getPrediction(m.id)
-                  const displayPred = localPred ?? m.userPrediction
-                  const kind = classifyResult(m)
-                  const cfg = kind ? RESULT_CONFIG[kind] : null
-                  return (
-                    <div key={m.id} className="dk-card" style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 14, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
-                      <div style={{ display: 'flex', gap: 4 }}>
-                        <TeamFlag team={m.home} size="sm" />
-                        <TeamFlag team={m.away} size="sm" />
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 800, fontSize: 14, letterSpacing: '-0.01em' }}>
-                          {m.home.code} {m.score?.[0]}–{m.score?.[1]} {m.away.code}
+              {historySection ?? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {finishedMatches.map((m) => {
+                    const localPred = getPrediction(m.id)
+                    const displayPred = localPred ?? m.userPrediction
+                    const kind = classifyResult(m)
+                    const cfg = kind ? RESULT_CONFIG[kind] : null
+                    return (
+                      <div key={m.id} className="dk-card" style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 14, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
+                        <div style={{ display: 'flex', gap: 4 }}>
+                          <TeamFlag team={m.home} size="sm" />
+                          <TeamFlag team={m.away} size="sm" />
                         </div>
-                        <div className="t-meta">TU: {displayPred ? `${displayPred[0]}–${displayPred[1]}` : '—'} · {m.stage}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 800, fontSize: 14, letterSpacing: '-0.01em' }}>
+                            {m.home.code} {m.score?.[0]}–{m.score?.[1]} {m.away.code}
+                          </div>
+                          <div className="t-meta">TU: {displayPred ? `${displayPred[0]}–${displayPred[1]}` : '—'} · {m.stage}</div>
+                        </div>
+                        {cfg && <span style={{ padding: '3px 8px', borderRadius: 6, background: cfg.bg, color: cfg.color, fontFamily: 'var(--font-jetbrains, monospace)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700 }}>{cfg.label}</span>}
+                        <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 22, letterSpacing: '-0.04em', fontVariationSettings: '"wdth" 75', color: (m.pts ?? 0) > 3 ? 'var(--signal)' : (m.pts ?? 0) > 0 ? 'var(--warn)' : 'var(--fg-faint)', minWidth: 36, textAlign: 'right' }}>
+                          {(m.pts ?? 0) > 0 ? `+${m.pts}` : '0'}
+                        </div>
                       </div>
-                      {cfg && <span style={{ padding: '3px 8px', borderRadius: 6, background: cfg.bg, color: cfg.color, fontFamily: 'var(--font-jetbrains, monospace)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700 }}>{cfg.label}</span>}
-                      <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 22, letterSpacing: '-0.04em', fontVariationSettings: '"wdth" 75', color: (m.pts ?? 0) > 3 ? 'var(--signal)' : (m.pts ?? 0) > 0 ? 'var(--warn)' : 'var(--fg-faint)', minWidth: 36, textAlign: 'right' }}>
-                        {(m.pts ?? 0) > 0 ? `+${m.pts}` : '0'}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Right: streak + points breakdown */}
@@ -354,29 +357,33 @@ export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs 
             <div className="section-head" style={{ padding: 0 }}>
               <div className="num">HISTÓRICO</div><div className="title">ÚLTIMAS PREDICCIONES</div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
-              {finishedMatches.map((m) => {
-                const localPred = getPrediction(m.id)
-                const displayPred = localPred ?? m.userPrediction
-                const kind = classifyResult(m)
-                const cfg = kind ? RESULT_CONFIG[kind] : null
-                return (
-                  <div key={m.id} className="card" style={{ padding: 12, display: 'flex', alignItems: 'center', gap: 10, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      <TeamFlag team={m.home} size="xs" />
-                      <TeamFlag team={m.away} size="xs" />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div className="t-h3" style={{ fontSize: 13 }}>{m.home.code} {m.score?.[0]}–{m.score?.[1]} {m.away.code}</div>
-                      <div className="t-meta">TU: {displayPred ? `${displayPred[0]}–${displayPred[1]}` : '—'} · {m.stage}</div>
-                    </div>
-                    {cfg && <span style={{ padding: '3px 8px', borderRadius: 6, background: cfg.bg, color: cfg.color, fontFamily: 'var(--font-jetbrains, monospace)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700, whiteSpace: 'nowrap' }}>{cfg.label}</span>}
-                    <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 18, color: (m.pts ?? 0) > 3 ? 'var(--signal)' : (m.pts ?? 0) > 0 ? 'var(--warn)' : 'var(--fg-faint)', minWidth: 28, textAlign: 'right' }}>
-                      {(m.pts ?? 0) > 0 ? `+${m.pts}` : '0'}
-                    </div>
-                  </div>
-                )
-              })}
+            <div style={{ marginTop: 12 }}>
+              {historySection ?? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {finishedMatches.map((m) => {
+                    const localPred = getPrediction(m.id)
+                    const displayPred = localPred ?? m.userPrediction
+                    const kind = classifyResult(m)
+                    const cfg = kind ? RESULT_CONFIG[kind] : null
+                    return (
+                      <div key={m.id} className="card" style={{ padding: 12, display: 'flex', alignItems: 'center', gap: 10, cursor: scoreLogMap.has(m.id) ? 'pointer' : 'default' }} onClick={() => { const entry = scoreLogMap.get(m.id); if (entry) setSelectedLogMatch({ match: m, entry }) }}>
+                        <div style={{ display: 'flex', gap: 4 }}>
+                          <TeamFlag team={m.home} size="xs" />
+                          <TeamFlag team={m.away} size="xs" />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div className="t-h3" style={{ fontSize: 13 }}>{m.home.code} {m.score?.[0]}–{m.score?.[1]} {m.away.code}</div>
+                          <div className="t-meta">TU: {displayPred ? `${displayPred[0]}–${displayPred[1]}` : '—'} · {m.stage}</div>
+                        </div>
+                        {cfg && <span style={{ padding: '3px 8px', borderRadius: 6, background: cfg.bg, color: cfg.color, fontFamily: 'var(--font-jetbrains, monospace)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700, whiteSpace: 'nowrap' }}>{cfg.label}</span>}
+                        <div style={{ fontFamily: 'var(--font-inter, sans-serif)', fontWeight: 900, fontSize: 18, color: (m.pts ?? 0) > 3 ? 'var(--signal)' : (m.pts ?? 0) > 0 ? 'var(--warn)' : 'var(--fg-faint)', minWidth: 28, textAlign: 'right' }}>
+                          {(m.pts ?? 0) > 0 ? `+${m.pts}` : '0'}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
