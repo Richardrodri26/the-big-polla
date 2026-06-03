@@ -38,7 +38,7 @@ export const TEAM_COLORS: Record<string, { c1: string; c2: string }> = {
   ESP: { c1: '#AA151B', c2: '#F1BF00' },
   CPV: { c1: '#003893', c2: '#CF2027' },
   KSA: { c1: '#006C35', c2: '#FFFFFF' },
-  URU: { c1: '#5CBFEB', c2: '#FFFFFF' },
+  URY: { c1: '#5CBFEB', c2: '#FFFFFF' },
   // Grupo I
   FRA: { c1: '#0055A4', c2: '#EF4135' },
   SEN: { c1: '#00853F', c2: '#FDEF42' },

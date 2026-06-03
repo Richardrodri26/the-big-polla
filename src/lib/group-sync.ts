@@ -43,14 +43,14 @@ export async function syncWorldCupGroups(): Promise<{ synced: number; skipped: n
   const data: FDStandingsResponse = await res.json()
 
   const groupStandings = data.standings.filter(
-    s => s.stage === 'GROUP_STAGE' && s.type === 'TOTAL',
+    s => s.type === 'TOTAL' && !!s.group,
   )
 
   let synced = 0
   let skipped = 0
 
   for (const standing of groupStandings) {
-    const groupLetter = standing.group.replace('GROUP_', '')
+    const groupLetter = standing.group.replace('Group ', '')
 
     for (const row of standing.table) {
       const { tla, name } = row.team
