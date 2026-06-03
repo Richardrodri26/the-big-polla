@@ -73,6 +73,16 @@ export type ScoreLog = $Result.DefaultSelection<Prisma.$ScoreLogPayload>
  * 
  */
 export type LeagueInvite = $Result.DefaultSelection<Prisma.$LeagueInvitePayload>
+/**
+ * Model WorldCupTeam
+ * 
+ */
+export type WorldCupTeam = $Result.DefaultSelection<Prisma.$WorldCupTeamPayload>
+/**
+ * Model OraclePick
+ * 
+ */
+export type OraclePick = $Result.DefaultSelection<Prisma.$OraclePickPayload>
 
 /**
  * Enums
@@ -357,6 +367,26 @@ export class PrismaClient<
     * ```
     */
   get leagueInvite(): Prisma.LeagueInviteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.worldCupTeam`: Exposes CRUD operations for the **WorldCupTeam** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WorldCupTeams
+    * const worldCupTeams = await prisma.worldCupTeam.findMany()
+    * ```
+    */
+  get worldCupTeam(): Prisma.WorldCupTeamDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.oraclePick`: Exposes CRUD operations for the **OraclePick** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OraclePicks
+    * const oraclePicks = await prisma.oraclePick.findMany()
+    * ```
+    */
+  get oraclePick(): Prisma.OraclePickDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -802,7 +832,9 @@ export namespace Prisma {
     Prediction: 'Prediction',
     Score: 'Score',
     ScoreLog: 'ScoreLog',
-    LeagueInvite: 'LeagueInvite'
+    LeagueInvite: 'LeagueInvite',
+    WorldCupTeam: 'WorldCupTeam',
+    OraclePick: 'OraclePick'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -818,7 +850,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "league" | "leagueMember" | "leagueRequest" | "match" | "prediction" | "score" | "scoreLog" | "leagueInvite"
+      modelProps: "user" | "session" | "account" | "verification" | "league" | "leagueMember" | "leagueRequest" | "match" | "prediction" | "score" | "scoreLog" | "leagueInvite" | "worldCupTeam" | "oraclePick"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1710,6 +1742,154 @@ export namespace Prisma {
           }
         }
       }
+      WorldCupTeam: {
+        payload: Prisma.$WorldCupTeamPayload<ExtArgs>
+        fields: Prisma.WorldCupTeamFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WorldCupTeamFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WorldCupTeamFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          findFirst: {
+            args: Prisma.WorldCupTeamFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WorldCupTeamFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          findMany: {
+            args: Prisma.WorldCupTeamFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>[]
+          }
+          create: {
+            args: Prisma.WorldCupTeamCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          createMany: {
+            args: Prisma.WorldCupTeamCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WorldCupTeamCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>[]
+          }
+          delete: {
+            args: Prisma.WorldCupTeamDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          update: {
+            args: Prisma.WorldCupTeamUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          deleteMany: {
+            args: Prisma.WorldCupTeamDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WorldCupTeamUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WorldCupTeamUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>[]
+          }
+          upsert: {
+            args: Prisma.WorldCupTeamUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WorldCupTeamPayload>
+          }
+          aggregate: {
+            args: Prisma.WorldCupTeamAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWorldCupTeam>
+          }
+          groupBy: {
+            args: Prisma.WorldCupTeamGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WorldCupTeamGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WorldCupTeamCountArgs<ExtArgs>
+            result: $Utils.Optional<WorldCupTeamCountAggregateOutputType> | number
+          }
+        }
+      }
+      OraclePick: {
+        payload: Prisma.$OraclePickPayload<ExtArgs>
+        fields: Prisma.OraclePickFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OraclePickFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OraclePickFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          findFirst: {
+            args: Prisma.OraclePickFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OraclePickFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          findMany: {
+            args: Prisma.OraclePickFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>[]
+          }
+          create: {
+            args: Prisma.OraclePickCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          createMany: {
+            args: Prisma.OraclePickCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OraclePickCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>[]
+          }
+          delete: {
+            args: Prisma.OraclePickDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          update: {
+            args: Prisma.OraclePickUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          deleteMany: {
+            args: Prisma.OraclePickDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OraclePickUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OraclePickUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>[]
+          }
+          upsert: {
+            args: Prisma.OraclePickUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OraclePickPayload>
+          }
+          aggregate: {
+            args: Prisma.OraclePickAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOraclePick>
+          }
+          groupBy: {
+            args: Prisma.OraclePickGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OraclePickGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OraclePickCountArgs<ExtArgs>
+            result: $Utils.Optional<OraclePickCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1830,6 +2010,8 @@ export namespace Prisma {
     score?: ScoreOmit
     scoreLog?: ScoreLogOmit
     leagueInvite?: LeagueInviteOmit
+    worldCupTeam?: WorldCupTeamOmit
+    oraclePick?: OraclePickOmit
   }
 
   /* Types for Logging */
@@ -1918,6 +2100,7 @@ export namespace Prisma {
     ownedLeagues: number
     leagueMemberships: number
     leagueInvites: number
+    oraclePicks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1929,6 +2112,7 @@ export namespace Prisma {
     ownedLeagues?: boolean | UserCountOutputTypeCountOwnedLeaguesArgs
     leagueMemberships?: boolean | UserCountOutputTypeCountLeagueMembershipsArgs
     leagueInvites?: boolean | UserCountOutputTypeCountLeagueInvitesArgs
+    oraclePicks?: boolean | UserCountOutputTypeCountOraclePicksArgs
   }
 
   // Custom InputTypes
@@ -1996,6 +2180,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLeagueInvitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeagueInviteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOraclePicksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OraclePickWhereInput
   }
 
 
@@ -2327,6 +2518,7 @@ export namespace Prisma {
     ownedLeagues?: boolean | User$ownedLeaguesArgs<ExtArgs>
     leagueMemberships?: boolean | User$leagueMembershipsArgs<ExtArgs>
     leagueInvites?: boolean | User$leagueInvitesArgs<ExtArgs>
+    oraclePicks?: boolean | User$oraclePicksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2376,6 +2568,7 @@ export namespace Prisma {
     ownedLeagues?: boolean | User$ownedLeaguesArgs<ExtArgs>
     leagueMemberships?: boolean | User$leagueMembershipsArgs<ExtArgs>
     leagueInvites?: boolean | User$leagueInvitesArgs<ExtArgs>
+    oraclePicks?: boolean | User$oraclePicksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2392,6 +2585,7 @@ export namespace Prisma {
       ownedLeagues: Prisma.$LeaguePayload<ExtArgs>[]
       leagueMemberships: Prisma.$LeagueMemberPayload<ExtArgs>[]
       leagueInvites: Prisma.$LeagueInvitePayload<ExtArgs>[]
+      oraclePicks: Prisma.$OraclePickPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2805,6 +2999,7 @@ export namespace Prisma {
     ownedLeagues<T extends User$ownedLeaguesArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedLeaguesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leagueMemberships<T extends User$leagueMembershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$leagueMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeagueMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leagueInvites<T extends User$leagueInvitesArgs<ExtArgs> = {}>(args?: Subset<T, User$leagueInvitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeagueInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    oraclePicks<T extends User$oraclePicksArgs<ExtArgs> = {}>(args?: Subset<T, User$oraclePicksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3425,6 +3620,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeagueInviteScalarFieldEnum | LeagueInviteScalarFieldEnum[]
+  }
+
+  /**
+   * User.oraclePicks
+   */
+  export type User$oraclePicksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    where?: OraclePickWhereInput
+    orderBy?: OraclePickOrderByWithRelationInput | OraclePickOrderByWithRelationInput[]
+    cursor?: OraclePickWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OraclePickScalarFieldEnum | OraclePickScalarFieldEnum[]
   }
 
   /**
@@ -16030,6 +16249,2181 @@ export namespace Prisma {
 
 
   /**
+   * Model WorldCupTeam
+   */
+
+  export type AggregateWorldCupTeam = {
+    _count: WorldCupTeamCountAggregateOutputType | null
+    _avg: WorldCupTeamAvgAggregateOutputType | null
+    _sum: WorldCupTeamSumAggregateOutputType | null
+    _min: WorldCupTeamMinAggregateOutputType | null
+    _max: WorldCupTeamMaxAggregateOutputType | null
+  }
+
+  export type WorldCupTeamAvgAggregateOutputType = {
+    seed: number | null
+  }
+
+  export type WorldCupTeamSumAggregateOutputType = {
+    seed: number | null
+  }
+
+  export type WorldCupTeamMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    c1: string | null
+    c2: string | null
+    group: string | null
+    seed: number | null
+    syncedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WorldCupTeamMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    c1: string | null
+    c2: string | null
+    group: string | null
+    seed: number | null
+    syncedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WorldCupTeamCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    c1: number
+    c2: number
+    group: number
+    seed: number
+    syncedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WorldCupTeamAvgAggregateInputType = {
+    seed?: true
+  }
+
+  export type WorldCupTeamSumAggregateInputType = {
+    seed?: true
+  }
+
+  export type WorldCupTeamMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    c1?: true
+    c2?: true
+    group?: true
+    seed?: true
+    syncedAt?: true
+    updatedAt?: true
+  }
+
+  export type WorldCupTeamMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    c1?: true
+    c2?: true
+    group?: true
+    seed?: true
+    syncedAt?: true
+    updatedAt?: true
+  }
+
+  export type WorldCupTeamCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    c1?: true
+    c2?: true
+    group?: true
+    seed?: true
+    syncedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WorldCupTeamAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WorldCupTeam to aggregate.
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorldCupTeams to fetch.
+     */
+    orderBy?: WorldCupTeamOrderByWithRelationInput | WorldCupTeamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WorldCupTeamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorldCupTeams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorldCupTeams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WorldCupTeams
+    **/
+    _count?: true | WorldCupTeamCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WorldCupTeamAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WorldCupTeamSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WorldCupTeamMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WorldCupTeamMaxAggregateInputType
+  }
+
+  export type GetWorldCupTeamAggregateType<T extends WorldCupTeamAggregateArgs> = {
+        [P in keyof T & keyof AggregateWorldCupTeam]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWorldCupTeam[P]>
+      : GetScalarType<T[P], AggregateWorldCupTeam[P]>
+  }
+
+
+
+
+  export type WorldCupTeamGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorldCupTeamWhereInput
+    orderBy?: WorldCupTeamOrderByWithAggregationInput | WorldCupTeamOrderByWithAggregationInput[]
+    by: WorldCupTeamScalarFieldEnum[] | WorldCupTeamScalarFieldEnum
+    having?: WorldCupTeamScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WorldCupTeamCountAggregateInputType | true
+    _avg?: WorldCupTeamAvgAggregateInputType
+    _sum?: WorldCupTeamSumAggregateInputType
+    _min?: WorldCupTeamMinAggregateInputType
+    _max?: WorldCupTeamMaxAggregateInputType
+  }
+
+  export type WorldCupTeamGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    c1: string
+    c2: string
+    group: string
+    seed: number
+    syncedAt: Date
+    updatedAt: Date
+    _count: WorldCupTeamCountAggregateOutputType | null
+    _avg: WorldCupTeamAvgAggregateOutputType | null
+    _sum: WorldCupTeamSumAggregateOutputType | null
+    _min: WorldCupTeamMinAggregateOutputType | null
+    _max: WorldCupTeamMaxAggregateOutputType | null
+  }
+
+  type GetWorldCupTeamGroupByPayload<T extends WorldCupTeamGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WorldCupTeamGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WorldCupTeamGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WorldCupTeamGroupByOutputType[P]>
+            : GetScalarType<T[P], WorldCupTeamGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WorldCupTeamSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    c1?: boolean
+    c2?: boolean
+    group?: boolean
+    seed?: boolean
+    syncedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["worldCupTeam"]>
+
+  export type WorldCupTeamSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    c1?: boolean
+    c2?: boolean
+    group?: boolean
+    seed?: boolean
+    syncedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["worldCupTeam"]>
+
+  export type WorldCupTeamSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    c1?: boolean
+    c2?: boolean
+    group?: boolean
+    seed?: boolean
+    syncedAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["worldCupTeam"]>
+
+  export type WorldCupTeamSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    c1?: boolean
+    c2?: boolean
+    group?: boolean
+    seed?: boolean
+    syncedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WorldCupTeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "c1" | "c2" | "group" | "seed" | "syncedAt" | "updatedAt", ExtArgs["result"]["worldCupTeam"]>
+
+  export type $WorldCupTeamPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WorldCupTeam"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      c1: string
+      c2: string
+      group: string
+      seed: number
+      syncedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["worldCupTeam"]>
+    composites: {}
+  }
+
+  type WorldCupTeamGetPayload<S extends boolean | null | undefined | WorldCupTeamDefaultArgs> = $Result.GetResult<Prisma.$WorldCupTeamPayload, S>
+
+  type WorldCupTeamCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WorldCupTeamFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WorldCupTeamCountAggregateInputType | true
+    }
+
+  export interface WorldCupTeamDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WorldCupTeam'], meta: { name: 'WorldCupTeam' } }
+    /**
+     * Find zero or one WorldCupTeam that matches the filter.
+     * @param {WorldCupTeamFindUniqueArgs} args - Arguments to find a WorldCupTeam
+     * @example
+     * // Get one WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WorldCupTeamFindUniqueArgs>(args: SelectSubset<T, WorldCupTeamFindUniqueArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WorldCupTeam that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WorldCupTeamFindUniqueOrThrowArgs} args - Arguments to find a WorldCupTeam
+     * @example
+     * // Get one WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WorldCupTeamFindUniqueOrThrowArgs>(args: SelectSubset<T, WorldCupTeamFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WorldCupTeam that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamFindFirstArgs} args - Arguments to find a WorldCupTeam
+     * @example
+     * // Get one WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WorldCupTeamFindFirstArgs>(args?: SelectSubset<T, WorldCupTeamFindFirstArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WorldCupTeam that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamFindFirstOrThrowArgs} args - Arguments to find a WorldCupTeam
+     * @example
+     * // Get one WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WorldCupTeamFindFirstOrThrowArgs>(args?: SelectSubset<T, WorldCupTeamFindFirstOrThrowArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WorldCupTeams that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WorldCupTeams
+     * const worldCupTeams = await prisma.worldCupTeam.findMany()
+     * 
+     * // Get first 10 WorldCupTeams
+     * const worldCupTeams = await prisma.worldCupTeam.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const worldCupTeamWithIdOnly = await prisma.worldCupTeam.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WorldCupTeamFindManyArgs>(args?: SelectSubset<T, WorldCupTeamFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WorldCupTeam.
+     * @param {WorldCupTeamCreateArgs} args - Arguments to create a WorldCupTeam.
+     * @example
+     * // Create one WorldCupTeam
+     * const WorldCupTeam = await prisma.worldCupTeam.create({
+     *   data: {
+     *     // ... data to create a WorldCupTeam
+     *   }
+     * })
+     * 
+     */
+    create<T extends WorldCupTeamCreateArgs>(args: SelectSubset<T, WorldCupTeamCreateArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WorldCupTeams.
+     * @param {WorldCupTeamCreateManyArgs} args - Arguments to create many WorldCupTeams.
+     * @example
+     * // Create many WorldCupTeams
+     * const worldCupTeam = await prisma.worldCupTeam.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WorldCupTeamCreateManyArgs>(args?: SelectSubset<T, WorldCupTeamCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WorldCupTeams and returns the data saved in the database.
+     * @param {WorldCupTeamCreateManyAndReturnArgs} args - Arguments to create many WorldCupTeams.
+     * @example
+     * // Create many WorldCupTeams
+     * const worldCupTeam = await prisma.worldCupTeam.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WorldCupTeams and only return the `id`
+     * const worldCupTeamWithIdOnly = await prisma.worldCupTeam.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WorldCupTeamCreateManyAndReturnArgs>(args?: SelectSubset<T, WorldCupTeamCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WorldCupTeam.
+     * @param {WorldCupTeamDeleteArgs} args - Arguments to delete one WorldCupTeam.
+     * @example
+     * // Delete one WorldCupTeam
+     * const WorldCupTeam = await prisma.worldCupTeam.delete({
+     *   where: {
+     *     // ... filter to delete one WorldCupTeam
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WorldCupTeamDeleteArgs>(args: SelectSubset<T, WorldCupTeamDeleteArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WorldCupTeam.
+     * @param {WorldCupTeamUpdateArgs} args - Arguments to update one WorldCupTeam.
+     * @example
+     * // Update one WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WorldCupTeamUpdateArgs>(args: SelectSubset<T, WorldCupTeamUpdateArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WorldCupTeams.
+     * @param {WorldCupTeamDeleteManyArgs} args - Arguments to filter WorldCupTeams to delete.
+     * @example
+     * // Delete a few WorldCupTeams
+     * const { count } = await prisma.worldCupTeam.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WorldCupTeamDeleteManyArgs>(args?: SelectSubset<T, WorldCupTeamDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WorldCupTeams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WorldCupTeams
+     * const worldCupTeam = await prisma.worldCupTeam.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WorldCupTeamUpdateManyArgs>(args: SelectSubset<T, WorldCupTeamUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WorldCupTeams and returns the data updated in the database.
+     * @param {WorldCupTeamUpdateManyAndReturnArgs} args - Arguments to update many WorldCupTeams.
+     * @example
+     * // Update many WorldCupTeams
+     * const worldCupTeam = await prisma.worldCupTeam.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WorldCupTeams and only return the `id`
+     * const worldCupTeamWithIdOnly = await prisma.worldCupTeam.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WorldCupTeamUpdateManyAndReturnArgs>(args: SelectSubset<T, WorldCupTeamUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WorldCupTeam.
+     * @param {WorldCupTeamUpsertArgs} args - Arguments to update or create a WorldCupTeam.
+     * @example
+     * // Update or create a WorldCupTeam
+     * const worldCupTeam = await prisma.worldCupTeam.upsert({
+     *   create: {
+     *     // ... data to create a WorldCupTeam
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WorldCupTeam we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WorldCupTeamUpsertArgs>(args: SelectSubset<T, WorldCupTeamUpsertArgs<ExtArgs>>): Prisma__WorldCupTeamClient<$Result.GetResult<Prisma.$WorldCupTeamPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WorldCupTeams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamCountArgs} args - Arguments to filter WorldCupTeams to count.
+     * @example
+     * // Count the number of WorldCupTeams
+     * const count = await prisma.worldCupTeam.count({
+     *   where: {
+     *     // ... the filter for the WorldCupTeams we want to count
+     *   }
+     * })
+    **/
+    count<T extends WorldCupTeamCountArgs>(
+      args?: Subset<T, WorldCupTeamCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WorldCupTeamCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WorldCupTeam.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WorldCupTeamAggregateArgs>(args: Subset<T, WorldCupTeamAggregateArgs>): Prisma.PrismaPromise<GetWorldCupTeamAggregateType<T>>
+
+    /**
+     * Group by WorldCupTeam.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WorldCupTeamGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WorldCupTeamGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WorldCupTeamGroupByArgs['orderBy'] }
+        : { orderBy?: WorldCupTeamGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WorldCupTeamGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWorldCupTeamGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WorldCupTeam model
+   */
+  readonly fields: WorldCupTeamFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WorldCupTeam.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WorldCupTeamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WorldCupTeam model
+   */
+  interface WorldCupTeamFieldRefs {
+    readonly id: FieldRef<"WorldCupTeam", 'String'>
+    readonly code: FieldRef<"WorldCupTeam", 'String'>
+    readonly name: FieldRef<"WorldCupTeam", 'String'>
+    readonly c1: FieldRef<"WorldCupTeam", 'String'>
+    readonly c2: FieldRef<"WorldCupTeam", 'String'>
+    readonly group: FieldRef<"WorldCupTeam", 'String'>
+    readonly seed: FieldRef<"WorldCupTeam", 'Int'>
+    readonly syncedAt: FieldRef<"WorldCupTeam", 'DateTime'>
+    readonly updatedAt: FieldRef<"WorldCupTeam", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WorldCupTeam findUnique
+   */
+  export type WorldCupTeamFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter, which WorldCupTeam to fetch.
+     */
+    where: WorldCupTeamWhereUniqueInput
+  }
+
+  /**
+   * WorldCupTeam findUniqueOrThrow
+   */
+  export type WorldCupTeamFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter, which WorldCupTeam to fetch.
+     */
+    where: WorldCupTeamWhereUniqueInput
+  }
+
+  /**
+   * WorldCupTeam findFirst
+   */
+  export type WorldCupTeamFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter, which WorldCupTeam to fetch.
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorldCupTeams to fetch.
+     */
+    orderBy?: WorldCupTeamOrderByWithRelationInput | WorldCupTeamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WorldCupTeams.
+     */
+    cursor?: WorldCupTeamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorldCupTeams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorldCupTeams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WorldCupTeams.
+     */
+    distinct?: WorldCupTeamScalarFieldEnum | WorldCupTeamScalarFieldEnum[]
+  }
+
+  /**
+   * WorldCupTeam findFirstOrThrow
+   */
+  export type WorldCupTeamFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter, which WorldCupTeam to fetch.
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorldCupTeams to fetch.
+     */
+    orderBy?: WorldCupTeamOrderByWithRelationInput | WorldCupTeamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WorldCupTeams.
+     */
+    cursor?: WorldCupTeamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorldCupTeams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorldCupTeams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WorldCupTeams.
+     */
+    distinct?: WorldCupTeamScalarFieldEnum | WorldCupTeamScalarFieldEnum[]
+  }
+
+  /**
+   * WorldCupTeam findMany
+   */
+  export type WorldCupTeamFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter, which WorldCupTeams to fetch.
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WorldCupTeams to fetch.
+     */
+    orderBy?: WorldCupTeamOrderByWithRelationInput | WorldCupTeamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WorldCupTeams.
+     */
+    cursor?: WorldCupTeamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WorldCupTeams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WorldCupTeams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WorldCupTeams.
+     */
+    distinct?: WorldCupTeamScalarFieldEnum | WorldCupTeamScalarFieldEnum[]
+  }
+
+  /**
+   * WorldCupTeam create
+   */
+  export type WorldCupTeamCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * The data needed to create a WorldCupTeam.
+     */
+    data: XOR<WorldCupTeamCreateInput, WorldCupTeamUncheckedCreateInput>
+  }
+
+  /**
+   * WorldCupTeam createMany
+   */
+  export type WorldCupTeamCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WorldCupTeams.
+     */
+    data: WorldCupTeamCreateManyInput | WorldCupTeamCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WorldCupTeam createManyAndReturn
+   */
+  export type WorldCupTeamCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * The data used to create many WorldCupTeams.
+     */
+    data: WorldCupTeamCreateManyInput | WorldCupTeamCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WorldCupTeam update
+   */
+  export type WorldCupTeamUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * The data needed to update a WorldCupTeam.
+     */
+    data: XOR<WorldCupTeamUpdateInput, WorldCupTeamUncheckedUpdateInput>
+    /**
+     * Choose, which WorldCupTeam to update.
+     */
+    where: WorldCupTeamWhereUniqueInput
+  }
+
+  /**
+   * WorldCupTeam updateMany
+   */
+  export type WorldCupTeamUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WorldCupTeams.
+     */
+    data: XOR<WorldCupTeamUpdateManyMutationInput, WorldCupTeamUncheckedUpdateManyInput>
+    /**
+     * Filter which WorldCupTeams to update
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * Limit how many WorldCupTeams to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WorldCupTeam updateManyAndReturn
+   */
+  export type WorldCupTeamUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * The data used to update WorldCupTeams.
+     */
+    data: XOR<WorldCupTeamUpdateManyMutationInput, WorldCupTeamUncheckedUpdateManyInput>
+    /**
+     * Filter which WorldCupTeams to update
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * Limit how many WorldCupTeams to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WorldCupTeam upsert
+   */
+  export type WorldCupTeamUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * The filter to search for the WorldCupTeam to update in case it exists.
+     */
+    where: WorldCupTeamWhereUniqueInput
+    /**
+     * In case the WorldCupTeam found by the `where` argument doesn't exist, create a new WorldCupTeam with this data.
+     */
+    create: XOR<WorldCupTeamCreateInput, WorldCupTeamUncheckedCreateInput>
+    /**
+     * In case the WorldCupTeam was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WorldCupTeamUpdateInput, WorldCupTeamUncheckedUpdateInput>
+  }
+
+  /**
+   * WorldCupTeam delete
+   */
+  export type WorldCupTeamDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+    /**
+     * Filter which WorldCupTeam to delete.
+     */
+    where: WorldCupTeamWhereUniqueInput
+  }
+
+  /**
+   * WorldCupTeam deleteMany
+   */
+  export type WorldCupTeamDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WorldCupTeams to delete
+     */
+    where?: WorldCupTeamWhereInput
+    /**
+     * Limit how many WorldCupTeams to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WorldCupTeam without action
+   */
+  export type WorldCupTeamDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorldCupTeam
+     */
+    select?: WorldCupTeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorldCupTeam
+     */
+    omit?: WorldCupTeamOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OraclePick
+   */
+
+  export type AggregateOraclePick = {
+    _count: OraclePickCountAggregateOutputType | null
+    _min: OraclePickMinAggregateOutputType | null
+    _max: OraclePickMaxAggregateOutputType | null
+  }
+
+  export type OraclePickMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    round: string | null
+    slotId: string | null
+    teamCode: string | null
+    savedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OraclePickMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    round: string | null
+    slotId: string | null
+    teamCode: string | null
+    savedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OraclePickCountAggregateOutputType = {
+    id: number
+    userId: number
+    round: number
+    slotId: number
+    teamCode: number
+    savedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OraclePickMinAggregateInputType = {
+    id?: true
+    userId?: true
+    round?: true
+    slotId?: true
+    teamCode?: true
+    savedAt?: true
+    updatedAt?: true
+  }
+
+  export type OraclePickMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    round?: true
+    slotId?: true
+    teamCode?: true
+    savedAt?: true
+    updatedAt?: true
+  }
+
+  export type OraclePickCountAggregateInputType = {
+    id?: true
+    userId?: true
+    round?: true
+    slotId?: true
+    teamCode?: true
+    savedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OraclePickAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OraclePick to aggregate.
+     */
+    where?: OraclePickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OraclePicks to fetch.
+     */
+    orderBy?: OraclePickOrderByWithRelationInput | OraclePickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OraclePickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OraclePicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OraclePicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OraclePicks
+    **/
+    _count?: true | OraclePickCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OraclePickMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OraclePickMaxAggregateInputType
+  }
+
+  export type GetOraclePickAggregateType<T extends OraclePickAggregateArgs> = {
+        [P in keyof T & keyof AggregateOraclePick]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOraclePick[P]>
+      : GetScalarType<T[P], AggregateOraclePick[P]>
+  }
+
+
+
+
+  export type OraclePickGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OraclePickWhereInput
+    orderBy?: OraclePickOrderByWithAggregationInput | OraclePickOrderByWithAggregationInput[]
+    by: OraclePickScalarFieldEnum[] | OraclePickScalarFieldEnum
+    having?: OraclePickScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OraclePickCountAggregateInputType | true
+    _min?: OraclePickMinAggregateInputType
+    _max?: OraclePickMaxAggregateInputType
+  }
+
+  export type OraclePickGroupByOutputType = {
+    id: string
+    userId: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt: Date
+    updatedAt: Date
+    _count: OraclePickCountAggregateOutputType | null
+    _min: OraclePickMinAggregateOutputType | null
+    _max: OraclePickMaxAggregateOutputType | null
+  }
+
+  type GetOraclePickGroupByPayload<T extends OraclePickGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OraclePickGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OraclePickGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OraclePickGroupByOutputType[P]>
+            : GetScalarType<T[P], OraclePickGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OraclePickSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    round?: boolean
+    slotId?: boolean
+    teamCode?: boolean
+    savedAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oraclePick"]>
+
+  export type OraclePickSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    round?: boolean
+    slotId?: boolean
+    teamCode?: boolean
+    savedAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oraclePick"]>
+
+  export type OraclePickSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    round?: boolean
+    slotId?: boolean
+    teamCode?: boolean
+    savedAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["oraclePick"]>
+
+  export type OraclePickSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    round?: boolean
+    slotId?: boolean
+    teamCode?: boolean
+    savedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OraclePickOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "round" | "slotId" | "teamCode" | "savedAt" | "updatedAt", ExtArgs["result"]["oraclePick"]>
+  export type OraclePickInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type OraclePickIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type OraclePickIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $OraclePickPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OraclePick"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      round: string
+      slotId: string
+      teamCode: string
+      savedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["oraclePick"]>
+    composites: {}
+  }
+
+  type OraclePickGetPayload<S extends boolean | null | undefined | OraclePickDefaultArgs> = $Result.GetResult<Prisma.$OraclePickPayload, S>
+
+  type OraclePickCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OraclePickFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OraclePickCountAggregateInputType | true
+    }
+
+  export interface OraclePickDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OraclePick'], meta: { name: 'OraclePick' } }
+    /**
+     * Find zero or one OraclePick that matches the filter.
+     * @param {OraclePickFindUniqueArgs} args - Arguments to find a OraclePick
+     * @example
+     * // Get one OraclePick
+     * const oraclePick = await prisma.oraclePick.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OraclePickFindUniqueArgs>(args: SelectSubset<T, OraclePickFindUniqueArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OraclePick that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OraclePickFindUniqueOrThrowArgs} args - Arguments to find a OraclePick
+     * @example
+     * // Get one OraclePick
+     * const oraclePick = await prisma.oraclePick.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OraclePickFindUniqueOrThrowArgs>(args: SelectSubset<T, OraclePickFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OraclePick that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickFindFirstArgs} args - Arguments to find a OraclePick
+     * @example
+     * // Get one OraclePick
+     * const oraclePick = await prisma.oraclePick.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OraclePickFindFirstArgs>(args?: SelectSubset<T, OraclePickFindFirstArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OraclePick that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickFindFirstOrThrowArgs} args - Arguments to find a OraclePick
+     * @example
+     * // Get one OraclePick
+     * const oraclePick = await prisma.oraclePick.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OraclePickFindFirstOrThrowArgs>(args?: SelectSubset<T, OraclePickFindFirstOrThrowArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OraclePicks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OraclePicks
+     * const oraclePicks = await prisma.oraclePick.findMany()
+     * 
+     * // Get first 10 OraclePicks
+     * const oraclePicks = await prisma.oraclePick.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const oraclePickWithIdOnly = await prisma.oraclePick.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OraclePickFindManyArgs>(args?: SelectSubset<T, OraclePickFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OraclePick.
+     * @param {OraclePickCreateArgs} args - Arguments to create a OraclePick.
+     * @example
+     * // Create one OraclePick
+     * const OraclePick = await prisma.oraclePick.create({
+     *   data: {
+     *     // ... data to create a OraclePick
+     *   }
+     * })
+     * 
+     */
+    create<T extends OraclePickCreateArgs>(args: SelectSubset<T, OraclePickCreateArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OraclePicks.
+     * @param {OraclePickCreateManyArgs} args - Arguments to create many OraclePicks.
+     * @example
+     * // Create many OraclePicks
+     * const oraclePick = await prisma.oraclePick.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OraclePickCreateManyArgs>(args?: SelectSubset<T, OraclePickCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OraclePicks and returns the data saved in the database.
+     * @param {OraclePickCreateManyAndReturnArgs} args - Arguments to create many OraclePicks.
+     * @example
+     * // Create many OraclePicks
+     * const oraclePick = await prisma.oraclePick.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OraclePicks and only return the `id`
+     * const oraclePickWithIdOnly = await prisma.oraclePick.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OraclePickCreateManyAndReturnArgs>(args?: SelectSubset<T, OraclePickCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OraclePick.
+     * @param {OraclePickDeleteArgs} args - Arguments to delete one OraclePick.
+     * @example
+     * // Delete one OraclePick
+     * const OraclePick = await prisma.oraclePick.delete({
+     *   where: {
+     *     // ... filter to delete one OraclePick
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OraclePickDeleteArgs>(args: SelectSubset<T, OraclePickDeleteArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OraclePick.
+     * @param {OraclePickUpdateArgs} args - Arguments to update one OraclePick.
+     * @example
+     * // Update one OraclePick
+     * const oraclePick = await prisma.oraclePick.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OraclePickUpdateArgs>(args: SelectSubset<T, OraclePickUpdateArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OraclePicks.
+     * @param {OraclePickDeleteManyArgs} args - Arguments to filter OraclePicks to delete.
+     * @example
+     * // Delete a few OraclePicks
+     * const { count } = await prisma.oraclePick.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OraclePickDeleteManyArgs>(args?: SelectSubset<T, OraclePickDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OraclePicks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OraclePicks
+     * const oraclePick = await prisma.oraclePick.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OraclePickUpdateManyArgs>(args: SelectSubset<T, OraclePickUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OraclePicks and returns the data updated in the database.
+     * @param {OraclePickUpdateManyAndReturnArgs} args - Arguments to update many OraclePicks.
+     * @example
+     * // Update many OraclePicks
+     * const oraclePick = await prisma.oraclePick.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OraclePicks and only return the `id`
+     * const oraclePickWithIdOnly = await prisma.oraclePick.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OraclePickUpdateManyAndReturnArgs>(args: SelectSubset<T, OraclePickUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OraclePick.
+     * @param {OraclePickUpsertArgs} args - Arguments to update or create a OraclePick.
+     * @example
+     * // Update or create a OraclePick
+     * const oraclePick = await prisma.oraclePick.upsert({
+     *   create: {
+     *     // ... data to create a OraclePick
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OraclePick we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OraclePickUpsertArgs>(args: SelectSubset<T, OraclePickUpsertArgs<ExtArgs>>): Prisma__OraclePickClient<$Result.GetResult<Prisma.$OraclePickPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OraclePicks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickCountArgs} args - Arguments to filter OraclePicks to count.
+     * @example
+     * // Count the number of OraclePicks
+     * const count = await prisma.oraclePick.count({
+     *   where: {
+     *     // ... the filter for the OraclePicks we want to count
+     *   }
+     * })
+    **/
+    count<T extends OraclePickCountArgs>(
+      args?: Subset<T, OraclePickCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OraclePickCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OraclePick.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OraclePickAggregateArgs>(args: Subset<T, OraclePickAggregateArgs>): Prisma.PrismaPromise<GetOraclePickAggregateType<T>>
+
+    /**
+     * Group by OraclePick.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OraclePickGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OraclePickGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OraclePickGroupByArgs['orderBy'] }
+        : { orderBy?: OraclePickGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OraclePickGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOraclePickGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OraclePick model
+   */
+  readonly fields: OraclePickFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OraclePick.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OraclePickClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OraclePick model
+   */
+  interface OraclePickFieldRefs {
+    readonly id: FieldRef<"OraclePick", 'String'>
+    readonly userId: FieldRef<"OraclePick", 'String'>
+    readonly round: FieldRef<"OraclePick", 'String'>
+    readonly slotId: FieldRef<"OraclePick", 'String'>
+    readonly teamCode: FieldRef<"OraclePick", 'String'>
+    readonly savedAt: FieldRef<"OraclePick", 'DateTime'>
+    readonly updatedAt: FieldRef<"OraclePick", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OraclePick findUnique
+   */
+  export type OraclePickFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter, which OraclePick to fetch.
+     */
+    where: OraclePickWhereUniqueInput
+  }
+
+  /**
+   * OraclePick findUniqueOrThrow
+   */
+  export type OraclePickFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter, which OraclePick to fetch.
+     */
+    where: OraclePickWhereUniqueInput
+  }
+
+  /**
+   * OraclePick findFirst
+   */
+  export type OraclePickFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter, which OraclePick to fetch.
+     */
+    where?: OraclePickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OraclePicks to fetch.
+     */
+    orderBy?: OraclePickOrderByWithRelationInput | OraclePickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OraclePicks.
+     */
+    cursor?: OraclePickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OraclePicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OraclePicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OraclePicks.
+     */
+    distinct?: OraclePickScalarFieldEnum | OraclePickScalarFieldEnum[]
+  }
+
+  /**
+   * OraclePick findFirstOrThrow
+   */
+  export type OraclePickFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter, which OraclePick to fetch.
+     */
+    where?: OraclePickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OraclePicks to fetch.
+     */
+    orderBy?: OraclePickOrderByWithRelationInput | OraclePickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OraclePicks.
+     */
+    cursor?: OraclePickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OraclePicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OraclePicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OraclePicks.
+     */
+    distinct?: OraclePickScalarFieldEnum | OraclePickScalarFieldEnum[]
+  }
+
+  /**
+   * OraclePick findMany
+   */
+  export type OraclePickFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter, which OraclePicks to fetch.
+     */
+    where?: OraclePickWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OraclePicks to fetch.
+     */
+    orderBy?: OraclePickOrderByWithRelationInput | OraclePickOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OraclePicks.
+     */
+    cursor?: OraclePickWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OraclePicks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OraclePicks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OraclePicks.
+     */
+    distinct?: OraclePickScalarFieldEnum | OraclePickScalarFieldEnum[]
+  }
+
+  /**
+   * OraclePick create
+   */
+  export type OraclePickCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OraclePick.
+     */
+    data: XOR<OraclePickCreateInput, OraclePickUncheckedCreateInput>
+  }
+
+  /**
+   * OraclePick createMany
+   */
+  export type OraclePickCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OraclePicks.
+     */
+    data: OraclePickCreateManyInput | OraclePickCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OraclePick createManyAndReturn
+   */
+  export type OraclePickCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * The data used to create many OraclePicks.
+     */
+    data: OraclePickCreateManyInput | OraclePickCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OraclePick update
+   */
+  export type OraclePickUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OraclePick.
+     */
+    data: XOR<OraclePickUpdateInput, OraclePickUncheckedUpdateInput>
+    /**
+     * Choose, which OraclePick to update.
+     */
+    where: OraclePickWhereUniqueInput
+  }
+
+  /**
+   * OraclePick updateMany
+   */
+  export type OraclePickUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OraclePicks.
+     */
+    data: XOR<OraclePickUpdateManyMutationInput, OraclePickUncheckedUpdateManyInput>
+    /**
+     * Filter which OraclePicks to update
+     */
+    where?: OraclePickWhereInput
+    /**
+     * Limit how many OraclePicks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OraclePick updateManyAndReturn
+   */
+  export type OraclePickUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * The data used to update OraclePicks.
+     */
+    data: XOR<OraclePickUpdateManyMutationInput, OraclePickUncheckedUpdateManyInput>
+    /**
+     * Filter which OraclePicks to update
+     */
+    where?: OraclePickWhereInput
+    /**
+     * Limit how many OraclePicks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OraclePick upsert
+   */
+  export type OraclePickUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OraclePick to update in case it exists.
+     */
+    where: OraclePickWhereUniqueInput
+    /**
+     * In case the OraclePick found by the `where` argument doesn't exist, create a new OraclePick with this data.
+     */
+    create: XOR<OraclePickCreateInput, OraclePickUncheckedCreateInput>
+    /**
+     * In case the OraclePick was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OraclePickUpdateInput, OraclePickUncheckedUpdateInput>
+  }
+
+  /**
+   * OraclePick delete
+   */
+  export type OraclePickDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+    /**
+     * Filter which OraclePick to delete.
+     */
+    where: OraclePickWhereUniqueInput
+  }
+
+  /**
+   * OraclePick deleteMany
+   */
+  export type OraclePickDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OraclePicks to delete
+     */
+    where?: OraclePickWhereInput
+    /**
+     * Limit how many OraclePicks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OraclePick without action
+   */
+  export type OraclePickDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OraclePick
+     */
+    select?: OraclePickSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OraclePick
+     */
+    omit?: OraclePickOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OraclePickInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16218,6 +18612,34 @@ export namespace Prisma {
   };
 
   export type LeagueInviteScalarFieldEnum = (typeof LeagueInviteScalarFieldEnum)[keyof typeof LeagueInviteScalarFieldEnum]
+
+
+  export const WorldCupTeamScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    c1: 'c1',
+    c2: 'c2',
+    group: 'group',
+    seed: 'seed',
+    syncedAt: 'syncedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WorldCupTeamScalarFieldEnum = (typeof WorldCupTeamScalarFieldEnum)[keyof typeof WorldCupTeamScalarFieldEnum]
+
+
+  export const OraclePickScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    round: 'round',
+    slotId: 'slotId',
+    teamCode: 'teamCode',
+    savedAt: 'savedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OraclePickScalarFieldEnum = (typeof OraclePickScalarFieldEnum)[keyof typeof OraclePickScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -16416,6 +18838,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueListRelationFilter
     leagueMemberships?: LeagueMemberListRelationFilter
     leagueInvites?: LeagueInviteListRelationFilter
+    oraclePicks?: OraclePickListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -16436,6 +18859,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueOrderByRelationAggregateInput
     leagueMemberships?: LeagueMemberOrderByRelationAggregateInput
     leagueInvites?: LeagueInviteOrderByRelationAggregateInput
+    oraclePicks?: OraclePickOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -16459,6 +18883,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueListRelationFilter
     leagueMemberships?: LeagueMemberListRelationFilter
     leagueInvites?: LeagueInviteListRelationFilter
+    oraclePicks?: OraclePickListRelationFilter
   }, "id" | "email" | "handle">
 
   export type UserOrderByWithAggregationInput = {
@@ -17344,6 +19769,146 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LeagueInvite"> | Date | string
   }
 
+  export type WorldCupTeamWhereInput = {
+    AND?: WorldCupTeamWhereInput | WorldCupTeamWhereInput[]
+    OR?: WorldCupTeamWhereInput[]
+    NOT?: WorldCupTeamWhereInput | WorldCupTeamWhereInput[]
+    id?: StringFilter<"WorldCupTeam"> | string
+    code?: StringFilter<"WorldCupTeam"> | string
+    name?: StringFilter<"WorldCupTeam"> | string
+    c1?: StringFilter<"WorldCupTeam"> | string
+    c2?: StringFilter<"WorldCupTeam"> | string
+    group?: StringFilter<"WorldCupTeam"> | string
+    seed?: IntFilter<"WorldCupTeam"> | number
+    syncedAt?: DateTimeFilter<"WorldCupTeam"> | Date | string
+    updatedAt?: DateTimeFilter<"WorldCupTeam"> | Date | string
+  }
+
+  export type WorldCupTeamOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    c1?: SortOrder
+    c2?: SortOrder
+    group?: SortOrder
+    seed?: SortOrder
+    syncedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorldCupTeamWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: WorldCupTeamWhereInput | WorldCupTeamWhereInput[]
+    OR?: WorldCupTeamWhereInput[]
+    NOT?: WorldCupTeamWhereInput | WorldCupTeamWhereInput[]
+    name?: StringFilter<"WorldCupTeam"> | string
+    c1?: StringFilter<"WorldCupTeam"> | string
+    c2?: StringFilter<"WorldCupTeam"> | string
+    group?: StringFilter<"WorldCupTeam"> | string
+    seed?: IntFilter<"WorldCupTeam"> | number
+    syncedAt?: DateTimeFilter<"WorldCupTeam"> | Date | string
+    updatedAt?: DateTimeFilter<"WorldCupTeam"> | Date | string
+  }, "id" | "code">
+
+  export type WorldCupTeamOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    c1?: SortOrder
+    c2?: SortOrder
+    group?: SortOrder
+    seed?: SortOrder
+    syncedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WorldCupTeamCountOrderByAggregateInput
+    _avg?: WorldCupTeamAvgOrderByAggregateInput
+    _max?: WorldCupTeamMaxOrderByAggregateInput
+    _min?: WorldCupTeamMinOrderByAggregateInput
+    _sum?: WorldCupTeamSumOrderByAggregateInput
+  }
+
+  export type WorldCupTeamScalarWhereWithAggregatesInput = {
+    AND?: WorldCupTeamScalarWhereWithAggregatesInput | WorldCupTeamScalarWhereWithAggregatesInput[]
+    OR?: WorldCupTeamScalarWhereWithAggregatesInput[]
+    NOT?: WorldCupTeamScalarWhereWithAggregatesInput | WorldCupTeamScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    code?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    name?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    c1?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    c2?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    group?: StringWithAggregatesFilter<"WorldCupTeam"> | string
+    seed?: IntWithAggregatesFilter<"WorldCupTeam"> | number
+    syncedAt?: DateTimeWithAggregatesFilter<"WorldCupTeam"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WorldCupTeam"> | Date | string
+  }
+
+  export type OraclePickWhereInput = {
+    AND?: OraclePickWhereInput | OraclePickWhereInput[]
+    OR?: OraclePickWhereInput[]
+    NOT?: OraclePickWhereInput | OraclePickWhereInput[]
+    id?: StringFilter<"OraclePick"> | string
+    userId?: StringFilter<"OraclePick"> | string
+    round?: StringFilter<"OraclePick"> | string
+    slotId?: StringFilter<"OraclePick"> | string
+    teamCode?: StringFilter<"OraclePick"> | string
+    savedAt?: DateTimeFilter<"OraclePick"> | Date | string
+    updatedAt?: DateTimeFilter<"OraclePick"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type OraclePickOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    round?: SortOrder
+    slotId?: SortOrder
+    teamCode?: SortOrder
+    savedAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type OraclePickWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_round_slotId?: OraclePickUserIdRoundSlotIdCompoundUniqueInput
+    AND?: OraclePickWhereInput | OraclePickWhereInput[]
+    OR?: OraclePickWhereInput[]
+    NOT?: OraclePickWhereInput | OraclePickWhereInput[]
+    userId?: StringFilter<"OraclePick"> | string
+    round?: StringFilter<"OraclePick"> | string
+    slotId?: StringFilter<"OraclePick"> | string
+    teamCode?: StringFilter<"OraclePick"> | string
+    savedAt?: DateTimeFilter<"OraclePick"> | Date | string
+    updatedAt?: DateTimeFilter<"OraclePick"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_round_slotId">
+
+  export type OraclePickOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    round?: SortOrder
+    slotId?: SortOrder
+    teamCode?: SortOrder
+    savedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OraclePickCountOrderByAggregateInput
+    _max?: OraclePickMaxOrderByAggregateInput
+    _min?: OraclePickMinOrderByAggregateInput
+  }
+
+  export type OraclePickScalarWhereWithAggregatesInput = {
+    AND?: OraclePickScalarWhereWithAggregatesInput | OraclePickScalarWhereWithAggregatesInput[]
+    OR?: OraclePickScalarWhereWithAggregatesInput[]
+    NOT?: OraclePickScalarWhereWithAggregatesInput | OraclePickScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OraclePick"> | string
+    userId?: StringWithAggregatesFilter<"OraclePick"> | string
+    round?: StringWithAggregatesFilter<"OraclePick"> | string
+    slotId?: StringWithAggregatesFilter<"OraclePick"> | string
+    teamCode?: StringWithAggregatesFilter<"OraclePick"> | string
+    savedAt?: DateTimeWithAggregatesFilter<"OraclePick"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OraclePick"> | Date | string
+  }
+
   export type UserCreateInput = {
     id: string
     name: string
@@ -17362,6 +19927,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -17382,6 +19948,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -17402,6 +19969,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -17422,6 +19990,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -18373,6 +20942,159 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WorldCupTeamCreateInput = {
+    id?: string
+    code: string
+    name: string
+    c1: string
+    c2: string
+    group: string
+    seed: number
+    syncedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorldCupTeamUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    c1: string
+    c2: string
+    group: string
+    seed: number
+    syncedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorldCupTeamUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    c1?: StringFieldUpdateOperationsInput | string
+    c2?: StringFieldUpdateOperationsInput | string
+    group?: StringFieldUpdateOperationsInput | string
+    seed?: IntFieldUpdateOperationsInput | number
+    syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorldCupTeamUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    c1?: StringFieldUpdateOperationsInput | string
+    c2?: StringFieldUpdateOperationsInput | string
+    group?: StringFieldUpdateOperationsInput | string
+    seed?: IntFieldUpdateOperationsInput | number
+    syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorldCupTeamCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    c1: string
+    c2: string
+    group: string
+    seed: number
+    syncedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorldCupTeamUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    c1?: StringFieldUpdateOperationsInput | string
+    c2?: StringFieldUpdateOperationsInput | string
+    group?: StringFieldUpdateOperationsInput | string
+    seed?: IntFieldUpdateOperationsInput | number
+    syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorldCupTeamUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    c1?: StringFieldUpdateOperationsInput | string
+    c2?: StringFieldUpdateOperationsInput | string
+    group?: StringFieldUpdateOperationsInput | string
+    seed?: IntFieldUpdateOperationsInput | number
+    syncedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickCreateInput = {
+    id?: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutOraclePicksInput
+  }
+
+  export type OraclePickUncheckedCreateInput = {
+    id?: string
+    userId: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OraclePickUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOraclePicksNestedInput
+  }
+
+  export type OraclePickUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickCreateManyInput = {
+    id?: string
+    userId: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OraclePickUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -18467,6 +21189,12 @@ export namespace Prisma {
     none?: LeagueInviteWhereInput
   }
 
+  export type OraclePickListRelationFilter = {
+    every?: OraclePickWhereInput
+    some?: OraclePickWhereInput
+    none?: OraclePickWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -18501,6 +21229,10 @@ export namespace Prisma {
   }
 
   export type LeagueInviteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OraclePickOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19321,6 +22053,86 @@ export namespace Prisma {
     usedCount?: SortOrder
   }
 
+  export type WorldCupTeamCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    c1?: SortOrder
+    c2?: SortOrder
+    group?: SortOrder
+    seed?: SortOrder
+    syncedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorldCupTeamAvgOrderByAggregateInput = {
+    seed?: SortOrder
+  }
+
+  export type WorldCupTeamMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    c1?: SortOrder
+    c2?: SortOrder
+    group?: SortOrder
+    seed?: SortOrder
+    syncedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorldCupTeamMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    c1?: SortOrder
+    c2?: SortOrder
+    group?: SortOrder
+    seed?: SortOrder
+    syncedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WorldCupTeamSumOrderByAggregateInput = {
+    seed?: SortOrder
+  }
+
+  export type OraclePickUserIdRoundSlotIdCompoundUniqueInput = {
+    userId: string
+    round: string
+    slotId: string
+  }
+
+  export type OraclePickCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    round?: SortOrder
+    slotId?: SortOrder
+    teamCode?: SortOrder
+    savedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OraclePickMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    round?: SortOrder
+    slotId?: SortOrder
+    teamCode?: SortOrder
+    savedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OraclePickMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    round?: SortOrder
+    slotId?: SortOrder
+    teamCode?: SortOrder
+    savedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -19377,6 +22189,13 @@ export namespace Prisma {
     connect?: LeagueInviteWhereUniqueInput | LeagueInviteWhereUniqueInput[]
   }
 
+  export type OraclePickCreateNestedManyWithoutUserInput = {
+    create?: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput> | OraclePickCreateWithoutUserInput[] | OraclePickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OraclePickCreateOrConnectWithoutUserInput | OraclePickCreateOrConnectWithoutUserInput[]
+    createMany?: OraclePickCreateManyUserInputEnvelope
+    connect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -19431,6 +22250,13 @@ export namespace Prisma {
     connectOrCreate?: LeagueInviteCreateOrConnectWithoutCreatorInput | LeagueInviteCreateOrConnectWithoutCreatorInput[]
     createMany?: LeagueInviteCreateManyCreatorInputEnvelope
     connect?: LeagueInviteWhereUniqueInput | LeagueInviteWhereUniqueInput[]
+  }
+
+  export type OraclePickUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput> | OraclePickCreateWithoutUserInput[] | OraclePickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OraclePickCreateOrConnectWithoutUserInput | OraclePickCreateOrConnectWithoutUserInput[]
+    createMany?: OraclePickCreateManyUserInputEnvelope
+    connect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -19561,6 +22387,20 @@ export namespace Prisma {
     deleteMany?: LeagueInviteScalarWhereInput | LeagueInviteScalarWhereInput[]
   }
 
+  export type OraclePickUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput> | OraclePickCreateWithoutUserInput[] | OraclePickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OraclePickCreateOrConnectWithoutUserInput | OraclePickCreateOrConnectWithoutUserInput[]
+    upsert?: OraclePickUpsertWithWhereUniqueWithoutUserInput | OraclePickUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OraclePickCreateManyUserInputEnvelope
+    set?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    disconnect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    delete?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    connect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    update?: OraclePickUpdateWithWhereUniqueWithoutUserInput | OraclePickUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OraclePickUpdateManyWithWhereWithoutUserInput | OraclePickUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OraclePickScalarWhereInput | OraclePickScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -19671,6 +22511,20 @@ export namespace Prisma {
     update?: LeagueInviteUpdateWithWhereUniqueWithoutCreatorInput | LeagueInviteUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: LeagueInviteUpdateManyWithWhereWithoutCreatorInput | LeagueInviteUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: LeagueInviteScalarWhereInput | LeagueInviteScalarWhereInput[]
+  }
+
+  export type OraclePickUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput> | OraclePickCreateWithoutUserInput[] | OraclePickUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OraclePickCreateOrConnectWithoutUserInput | OraclePickCreateOrConnectWithoutUserInput[]
+    upsert?: OraclePickUpsertWithWhereUniqueWithoutUserInput | OraclePickUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OraclePickCreateManyUserInputEnvelope
+    set?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    disconnect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    delete?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    connect?: OraclePickWhereUniqueInput | OraclePickWhereUniqueInput[]
+    update?: OraclePickUpdateWithWhereUniqueWithoutUserInput | OraclePickUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OraclePickUpdateManyWithWhereWithoutUserInput | OraclePickUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OraclePickScalarWhereInput | OraclePickScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -20151,6 +23005,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLeagueInvitesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeagueInvitesInput, UserUpdateWithoutLeagueInvitesInput>, UserUncheckedUpdateWithoutLeagueInvitesInput>
+  }
+
+  export type UserCreateNestedOneWithoutOraclePicksInput = {
+    create?: XOR<UserCreateWithoutOraclePicksInput, UserUncheckedCreateWithoutOraclePicksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOraclePicksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutOraclePicksNestedInput = {
+    create?: XOR<UserCreateWithoutOraclePicksInput, UserUncheckedCreateWithoutOraclePicksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOraclePicksInput
+    upsert?: UserUpsertWithoutOraclePicksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOraclePicksInput, UserUpdateWithoutOraclePicksInput>, UserUncheckedUpdateWithoutOraclePicksInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -20697,6 +23565,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OraclePickCreateWithoutUserInput = {
+    id?: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OraclePickUncheckedCreateWithoutUserInput = {
+    id?: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OraclePickCreateOrConnectWithoutUserInput = {
+    where: OraclePickWhereUniqueInput
+    create: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput>
+  }
+
+  export type OraclePickCreateManyUserInputEnvelope = {
+    data: OraclePickCreateManyUserInput | OraclePickCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -20935,6 +23831,35 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LeagueInvite"> | Date | string
   }
 
+  export type OraclePickUpsertWithWhereUniqueWithoutUserInput = {
+    where: OraclePickWhereUniqueInput
+    update: XOR<OraclePickUpdateWithoutUserInput, OraclePickUncheckedUpdateWithoutUserInput>
+    create: XOR<OraclePickCreateWithoutUserInput, OraclePickUncheckedCreateWithoutUserInput>
+  }
+
+  export type OraclePickUpdateWithWhereUniqueWithoutUserInput = {
+    where: OraclePickWhereUniqueInput
+    data: XOR<OraclePickUpdateWithoutUserInput, OraclePickUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OraclePickUpdateManyWithWhereWithoutUserInput = {
+    where: OraclePickScalarWhereInput
+    data: XOR<OraclePickUpdateManyMutationInput, OraclePickUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OraclePickScalarWhereInput = {
+    AND?: OraclePickScalarWhereInput | OraclePickScalarWhereInput[]
+    OR?: OraclePickScalarWhereInput[]
+    NOT?: OraclePickScalarWhereInput | OraclePickScalarWhereInput[]
+    id?: StringFilter<"OraclePick"> | string
+    userId?: StringFilter<"OraclePick"> | string
+    round?: StringFilter<"OraclePick"> | string
+    slotId?: StringFilter<"OraclePick"> | string
+    teamCode?: StringFilter<"OraclePick"> | string
+    savedAt?: DateTimeFilter<"OraclePick"> | Date | string
+    updatedAt?: DateTimeFilter<"OraclePick"> | Date | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     name: string
@@ -20952,6 +23877,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -20971,6 +23897,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -21006,6 +23933,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -21025,6 +23953,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -21044,6 +23973,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -21063,6 +23993,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -21098,6 +24029,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -21117,6 +24049,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutOwnedLeaguesInput = {
@@ -21136,6 +24069,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestCreateNestedManyWithoutUserInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedLeaguesInput = {
@@ -21155,6 +24089,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedCreateNestedManyWithoutUserInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedLeaguesInput = {
@@ -21302,6 +24237,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUpdateManyWithoutUserNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedLeaguesInput = {
@@ -21321,6 +24257,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedUpdateManyWithoutUserNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LeagueMemberUpsertWithWhereUniqueWithoutLeagueInput = {
@@ -21435,6 +24372,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestCreateNestedManyWithoutUserInput
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeagueMembershipsInput = {
@@ -21454,6 +24392,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedCreateNestedManyWithoutUserInput
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeagueMembershipsInput = {
@@ -21526,6 +24465,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUpdateManyWithoutUserNestedInput
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeagueMembershipsInput = {
@@ -21545,6 +24485,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedUpdateManyWithoutUserNestedInput
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LeagueCreateWithoutRequestsInput = {
@@ -21595,6 +24536,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeagueRequestsInput = {
@@ -21614,6 +24556,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeagueRequestsInput = {
@@ -21686,6 +24629,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeagueRequestsInput = {
@@ -21705,6 +24649,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PredictionCreateWithoutMatchInput = {
@@ -21768,6 +24713,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPredictionsInput = {
@@ -21787,6 +24733,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPredictionsInput = {
@@ -21875,6 +24822,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPredictionsInput = {
@@ -21894,6 +24842,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MatchUpsertWithoutPredictionsInput = {
@@ -21972,6 +24921,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutScoresInput = {
@@ -21991,6 +24941,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
     leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutScoresInput = {
@@ -22085,6 +25036,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutScoresInput = {
@@ -22104,6 +25056,7 @@ export namespace Prisma {
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
     leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LeagueUpsertWithoutScoresInput = {
@@ -22288,6 +25241,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestCreateNestedManyWithoutUserInput
     ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
+    oraclePicks?: OraclePickCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeagueInvitesInput = {
@@ -22307,6 +25261,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedCreateNestedManyWithoutUserInput
     ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
     leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
+    oraclePicks?: OraclePickUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeagueInvitesInput = {
@@ -22379,6 +25334,7 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUpdateManyWithoutUserNestedInput
     ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
+    oraclePicks?: OraclePickUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeagueInvitesInput = {
@@ -22398,6 +25354,103 @@ export namespace Prisma {
     leagueRequests?: LeagueRequestUncheckedUpdateManyWithoutUserNestedInput
     ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
     leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
+    oraclePicks?: OraclePickUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutOraclePicksInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    handle: string
+    color?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    predictions?: PredictionCreateNestedManyWithoutUserInput
+    scores?: ScoreCreateNestedManyWithoutUserInput
+    leagueRequests?: LeagueRequestCreateNestedManyWithoutUserInput
+    ownedLeagues?: LeagueCreateNestedManyWithoutOwnerInput
+    leagueMemberships?: LeagueMemberCreateNestedManyWithoutUserInput
+    leagueInvites?: LeagueInviteCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutOraclePicksInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    handle: string
+    color?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    predictions?: PredictionUncheckedCreateNestedManyWithoutUserInput
+    scores?: ScoreUncheckedCreateNestedManyWithoutUserInput
+    leagueRequests?: LeagueRequestUncheckedCreateNestedManyWithoutUserInput
+    ownedLeagues?: LeagueUncheckedCreateNestedManyWithoutOwnerInput
+    leagueMemberships?: LeagueMemberUncheckedCreateNestedManyWithoutUserInput
+    leagueInvites?: LeagueInviteUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutOraclePicksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOraclePicksInput, UserUncheckedCreateWithoutOraclePicksInput>
+  }
+
+  export type UserUpsertWithoutOraclePicksInput = {
+    update: XOR<UserUpdateWithoutOraclePicksInput, UserUncheckedUpdateWithoutOraclePicksInput>
+    create: XOR<UserCreateWithoutOraclePicksInput, UserUncheckedCreateWithoutOraclePicksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOraclePicksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOraclePicksInput, UserUncheckedUpdateWithoutOraclePicksInput>
+  }
+
+  export type UserUpdateWithoutOraclePicksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    handle?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    predictions?: PredictionUpdateManyWithoutUserNestedInput
+    scores?: ScoreUpdateManyWithoutUserNestedInput
+    leagueRequests?: LeagueRequestUpdateManyWithoutUserNestedInput
+    ownedLeagues?: LeagueUpdateManyWithoutOwnerNestedInput
+    leagueMemberships?: LeagueMemberUpdateManyWithoutUserNestedInput
+    leagueInvites?: LeagueInviteUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOraclePicksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    handle?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    predictions?: PredictionUncheckedUpdateManyWithoutUserNestedInput
+    scores?: ScoreUncheckedUpdateManyWithoutUserNestedInput
+    leagueRequests?: LeagueRequestUncheckedUpdateManyWithoutUserNestedInput
+    ownedLeagues?: LeagueUncheckedUpdateManyWithoutOwnerNestedInput
+    leagueMemberships?: LeagueMemberUncheckedUpdateManyWithoutUserNestedInput
+    leagueInvites?: LeagueInviteUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -22476,6 +25529,15 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     usedCount?: number
     createdAt?: Date | string
+  }
+
+  export type OraclePickCreateManyUserInput = {
+    id?: string
+    round: string
+    slotId: string
+    teamCode: string
+    savedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -22720,6 +25782,33 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usedCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OraclePickUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: StringFieldUpdateOperationsInput | string
+    slotId?: StringFieldUpdateOperationsInput | string
+    teamCode?: StringFieldUpdateOperationsInput | string
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeagueMemberCreateManyLeagueInput = {

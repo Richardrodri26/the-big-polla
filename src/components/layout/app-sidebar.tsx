@@ -1,38 +1,53 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Avi } from "@/components/ui/avi";
-import { GameIcon } from "@/components/ui/game-icon";
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Avi } from '@/components/ui/avi'
+import { GameIcon } from '@/components/ui/game-icon'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
 
 const NAV_ITEMS = [
-  { href: "/dashboard", icon: "feed", label: "Dashboard", kbd: "G D" },
-  { href: "/feed", icon: "feed", label: "Match feed", kbd: "G F", badge: "6" },
-  { href: "/oracle", icon: "bracket", label: "Oracle bracket", kbd: "G B" },
-  { href: "/leaderboard", icon: "trophy", label: "Leaderboard", kbd: "G L" },
-];
+  { href: '/dashboard', icon: 'feed', label: 'Dashboard', kbd: 'G D' },
+  { href: '/feed', icon: 'feed', label: 'Match feed', kbd: 'G F', badge: '6' },
+  { href: '/oracle', icon: 'bracket', label: 'Oracle bracket', kbd: 'G B' },
+  { href: '/leaderboard', icon: 'trophy', label: 'Leaderboard', kbd: 'G L' },
+]
 
 const SECONDARY_ITEMS = [
-  { href: "/profile", icon: "user", label: "Mi perfil" },
-  { href: "/settings", icon: "settings", label: "Liga · ajustes" },
-];
+  { href: '/profile', icon: 'user', label: 'Mi perfil' },
+  { href: '/settings', icon: 'settings', label: 'Liga · ajustes' },
+]
 
-const ME = { name: "Tú", color: "#08F7FE", rank: 4, pts: 252 };
+interface SidebarData {
+  user: { name: string; color: string; rank: number | null; pts: number }
+  league: { id: string; name: string; memberCount: number } | null
+}
 
 export function AppSidebar() {
-  const pathname = usePathname();
-  const router = useRouter();
+  const pathname = usePathname()
+  const router = useRouter()
+  const [data, setData] = useState<SidebarData | null>(null)
+
+  useEffect(() => {
+    fetch('/api/me')
+      .then(r => r.json())
+      .then(setData)
+      .catch(() => {})
+  }, [])
 
   const isActive = (href: string) => {
-    if (href === "/feed") return pathname === "/feed" || pathname.startsWith("/feed/");
-    return pathname === href;
-  };
+    if (href === '/feed') return pathname === '/feed' || pathname.startsWith('/feed/')
+    return pathname === href
+  }
+
+  const user = data?.user
+  const league = data?.league
 
   return (
     <Sidebar collapsible="none" className="hidden md:flex">
@@ -40,12 +55,12 @@ export function AppSidebar() {
       <SidebarHeader className="px-5 pt-6 pb-4 border-b border-[var(--line)]">
         <span
           style={{
-            display: "block",
-            fontFamily: "var(--font-jetbrains, monospace)",
+            display: 'block',
+            fontFamily: 'var(--font-jetbrains, monospace)',
             fontSize: 9,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--fg-faint)",
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--fg-faint)',
           }}
         >
           WORLD CUP 2026 · DESKTOP
@@ -53,23 +68,17 @@ export function AppSidebar() {
         <div
           style={{
             marginTop: 8,
-            fontFamily: "var(--font-inter, sans-serif)",
+            fontFamily: 'var(--font-inter, sans-serif)',
             fontWeight: 900,
-            textTransform: "uppercase",
+            textTransform: 'uppercase',
             lineHeight: 0.86,
             fontVariationSettings: '"wdth" 75',
-            letterSpacing: "-0.035em",
+            letterSpacing: '-0.035em',
           }}
         >
-          <div style={{ fontSize: 28, color: "var(--fg)" }}>THE</div>
-          <div style={{ fontSize: 28, color: "var(--signal)" }}>BIG</div>
-          <div
-            style={{
-              fontSize: 28,
-              WebkitTextStroke: "1.2px var(--fg)",
-              color: "transparent",
-            }}
-          >
+          <div style={{ fontSize: 28, color: 'var(--fg)' }}>THE</div>
+          <div style={{ fontSize: 28, color: 'var(--signal)' }}>BIG</div>
+          <div style={{ fontSize: 28, WebkitTextStroke: '1.2px var(--fg)', color: 'transparent' }}>
             POLLA
           </div>
         </div>
@@ -77,44 +86,45 @@ export function AppSidebar() {
 
       {/* League switcher */}
       <div
+        onClick={() => league && router.push(`/leagues/${league.id}`)}
         style={{
-          margin: "14px 12px 0",
-          padding: "12px 14px",
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid var(--line)",
+          margin: '14px 12px 0',
+          padding: '12px 14px',
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid var(--line)',
           borderRadius: 12,
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
+          cursor: league ? 'pointer' : 'default',
+          display: 'flex',
+          alignItems: 'center',
           gap: 10,
         }}
       >
-        <Avi name="AB" color="#7C3AED" size={28} />
+        <Avi name={league ? league.name.slice(0, 2).toUpperCase() : '?'} color="#7C3AED" size={28} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: 'var(--font-inter, sans-serif)',
               fontWeight: 800,
               fontSize: 13,
-              letterSpacing: "0.02em",
-              textTransform: "uppercase",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              letterSpacing: '0.02em',
+              textTransform: 'uppercase',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
-            AMIGOS DEL BAR
+            {league ? league.name : '—'}
           </div>
           <div
             style={{
-              fontFamily: "var(--font-jetbrains, monospace)",
+              fontFamily: 'var(--font-jetbrains, monospace)',
               fontSize: 9,
-              letterSpacing: "0.12em",
-              color: "var(--fg-mute)",
+              letterSpacing: '0.12em',
+              color: 'var(--fg-mute)',
               marginTop: 2,
             }}
           >
-            12 MIEMBROS · POLLA-FB7K
+            {league ? `${league.memberCount} MIEMBROS` : 'SIN LIGA'}
           </div>
         </div>
         <GameIcon name="chevron-right" size={14} color="var(--fg-mute)" />
@@ -122,46 +132,41 @@ export function AppSidebar() {
 
       {/* Nav */}
       <SidebarContent className="py-3 px-2">
-        {/* Principal section */}
         <div
           style={{
-            fontFamily: "var(--font-jetbrains, monospace)",
+            fontFamily: 'var(--font-jetbrains, monospace)',
             fontSize: 9,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--fg-faint)",
-            padding: "14px 14px 6px",
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--fg-faint)',
+            padding: '14px 14px 6px',
           }}
         >
           PRINCIPAL
         </div>
-        <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {NAV_ITEMS.map((item) => {
-            const active = isActive(item.href);
+            const active = isActive(item.href)
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`sidebar-nav-link${active ? " active" : ""}`}
+                className={`sidebar-nav-link${active ? ' active' : ''}`}
               >
-                <GameIcon
-                  name={item.icon}
-                  size={16}
-                  color={active ? "var(--signal)" : "currentColor"}
-                />
+                <GameIcon name={item.icon} size={16} color={active ? 'var(--signal)' : 'currentColor'} />
                 <span style={{ flex: 1 }}>{item.label}</span>
                 {item.badge ? (
                   <span
                     style={{
-                      marginLeft: "auto",
-                      fontFamily: "var(--font-jetbrains, monospace)",
+                      marginLeft: 'auto',
+                      fontFamily: 'var(--font-jetbrains, monospace)',
                       fontSize: 9,
-                      letterSpacing: "0.12em",
+                      letterSpacing: '0.12em',
                       fontWeight: 700,
-                      padding: "2px 6px",
+                      padding: '2px 6px',
                       borderRadius: 10,
-                      background: "var(--danger)",
-                      color: "#fff",
+                      background: 'var(--danger)',
+                      color: '#fff',
                     }}
                   >
                     {item.badge}
@@ -169,12 +174,12 @@ export function AppSidebar() {
                 ) : (
                   <span
                     style={{
-                      marginLeft: "auto",
-                      fontFamily: "var(--font-jetbrains, monospace)",
+                      marginLeft: 'auto',
+                      fontFamily: 'var(--font-jetbrains, monospace)',
                       fontSize: 10,
-                      color: "var(--fg-faint)",
-                      padding: "2px 5px",
-                      border: "1px solid var(--line)",
+                      color: 'var(--fg-faint)',
+                      padding: '2px 5px',
+                      border: '1px solid var(--line)',
                       borderRadius: 4,
                     }}
                   >
@@ -182,86 +187,81 @@ export function AppSidebar() {
                   </span>
                 )}
               </Link>
-            );
+            )
           })}
         </nav>
 
-        {/* Cuenta section */}
         <div
           style={{
-            fontFamily: "var(--font-jetbrains, monospace)",
+            fontFamily: 'var(--font-jetbrains, monospace)',
             fontSize: 9,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--fg-faint)",
-            padding: "18px 14px 6px",
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--fg-faint)',
+            padding: '18px 14px 6px',
           }}
         >
           CUENTA
         </div>
-        <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {SECONDARY_ITEMS.map((item) => {
-            const active = isActive(item.href);
+            const active = isActive(item.href)
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`sidebar-nav-link${active ? " active" : ""}`}
+                className={`sidebar-nav-link${active ? ' active' : ''}`}
               >
-                <GameIcon
-                  name={item.icon}
-                  size={16}
-                  color={active ? "var(--signal)" : "currentColor"}
-                />
+                <GameIcon name={item.icon} size={16} color={active ? 'var(--signal)' : 'currentColor'} />
                 <span style={{ flex: 1 }}>{item.label}</span>
               </Link>
-            );
+            )
           })}
         </nav>
       </SidebarContent>
 
       {/* Profile chip */}
-      <SidebarFooter
-        className="border-t border-[var(--line)]"
-        style={{ padding: 0 }}
-      >
+      <SidebarFooter className="border-t border-[var(--line)]" style={{ padding: 0 }}>
         <div
-          onClick={() => router.push("/profile")}
+          onClick={() => router.push('/profile')}
           style={{
             padding: 14,
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             gap: 10,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
           className="hover:bg-white/[0.03] transition-colors"
         >
-          <Avi name={ME.name} color={ME.color} size={36} />
+          <Avi name={user?.name ?? '?'} color={user?.color ?? '#08F7FE'} size={36} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div
               style={{
-                fontFamily: "var(--font-inter, sans-serif)",
+                fontFamily: 'var(--font-inter, sans-serif)',
                 fontWeight: 800,
                 fontSize: 14,
-                letterSpacing: "-0.01em",
+                letterSpacing: '-0.01em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
               }}
             >
-              {ME.name}
+              {user?.name ?? '—'}
             </div>
             <div
               style={{
-                fontFamily: "var(--font-jetbrains, monospace)",
+                fontFamily: 'var(--font-jetbrains, monospace)',
                 fontSize: 10,
-                color: "var(--fg-mute)",
-                letterSpacing: "0.06em",
+                color: 'var(--fg-mute)',
+                letterSpacing: '0.06em',
               }}
             >
-              #{ME.rank} · {ME.pts} PTS
+              {user?.rank != null ? `#${user.rank} · ${user.pts} PTS` : `${user?.pts ?? 0} PTS`}
             </div>
           </div>
           <GameIcon name="settings" size={14} color="var(--fg-mute)" />
         </div>
       </SidebarFooter>
     </Sidebar>
-  );
+  )
 }

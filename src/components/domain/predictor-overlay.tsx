@@ -117,13 +117,22 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
 
   const outcomeBg = outcomeColor === 'var(--fg-mute)' ? 'rgba(255,255,255,0.05)' : `${outcomeColor}26`
 
-  const submit = () => {
+  const submit = async () => {
     setSubmitting(true)
-    setTimeout(() => {
-      savePrediction(match.id, [home, away])
-      showToast({ message: `âœ“ ${match.home.code} ${home}â€“${away} ${match.away.code} guardado`, type: 'success' })
-      closePredictor()
-    }, 350)
+    const res = await fetch('/api/predictions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ matchId: match.id, homeScore: home, awayScore: away }),
+    })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      showToast({ message: data.error ?? 'Error al guardar predicción', type: 'error' })
+      setSubmitting(false)
+      return
+    }
+    savePrediction(match.id, [home, away])
+    showToast({ message: `✓ ${match.home.code} ${home}–${away} ${match.away.code} guardado`, type: 'success' })
+    closePredictor()
   }
 
   return (

@@ -261,6 +261,28 @@ exports.Prisma.LeagueInviteScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.WorldCupTeamScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  c1: 'c1',
+  c2: 'c2',
+  group: 'group',
+  seed: 'seed',
+  syncedAt: 'syncedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OraclePickScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  round: 'round',
+  slotId: 'slotId',
+  teamCode: 'teamCode',
+  savedAt: 'savedAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -319,7 +341,9 @@ exports.Prisma.ModelName = {
   Prediction: 'Prediction',
   Score: 'Score',
   ScoreLog: 'ScoreLog',
-  LeagueInvite: 'LeagueInvite'
+  LeagueInvite: 'LeagueInvite',
+  WorldCupTeam: 'WorldCupTeam',
+  OraclePick: 'OraclePick'
 };
 
 /**
