@@ -32,7 +32,8 @@ export function LeagueDetailScreen({ league, members, pendingRequests, isOwner }
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '24px 16px' }}>
       <div style={{ marginBottom: 24 }}>
         <div className="t-eyebrow" style={{ marginBottom: 4, color: 'var(--fg-muted)' }}>
-          {league.type === 'PRIVATE' ? '🔒 PRIVADA' : '🌐 PÚBLICA'} · {league.memberCount} miembros
+          {league.type === 'PRIVATE' ? '🔒 PRIVADA' : '🌐 PÚBLICA'} ·{' '}
+          {league.memberCount}{league.maxMembers ? `/${league.maxMembers}` : ''} miembros
         </div>
         <h1 style={{
           fontFamily: 'var(--font-inter, sans-serif)',
@@ -44,6 +45,16 @@ export function LeagueDetailScreen({ league, members, pendingRequests, isOwner }
           {league.name.toUpperCase()}
         </h1>
       </div>
+
+      {league.maxMembers != null && (league.memberCount ?? 0) >= league.maxMembers && (
+        <div style={{
+          marginBottom: 16, padding: '10px 14px', borderRadius: 8,
+          background: 'rgba(255,80,80,0.1)', border: '1px solid rgba(255,80,80,0.3)',
+          color: 'var(--danger)', fontSize: 13, fontWeight: 700,
+        }}>
+          Liga llena — se alcanzó el límite de {league.maxMembers} miembros
+        </div>
+      )}
 
       {/* Solicitudes pendientes — solo visible para el owner */}
       {isOwner && pendingRequests.length > 0 && (
