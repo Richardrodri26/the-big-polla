@@ -27,7 +27,7 @@ export async function PATCH(
   if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
-  const body = await req.json() as { name?: string; type?: string }
+  const body = await req.json() as { name?: string; type?: string; maxMembers?: number | null }
 
   try {
     const league = await repo.updateLeague(
@@ -35,6 +35,7 @@ export async function PATCH(
       {
         name: body.name?.trim(),
         type: body.type === 'PUBLIC' || body.type === 'PRIVATE' ? body.type : undefined,
+        maxMembers: body.maxMembers !== undefined ? (body.maxMembers ?? null) : undefined,
       },
       session.user.id
     )
