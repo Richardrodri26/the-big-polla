@@ -16,6 +16,20 @@ interface Props {
 export function LeagueDetailScreen({ league, members, pendingRequests, isOwner }: Props) {
   const router = useRouter()
   const [processingId, setProcessingId] = useState<string | null>(null)
+  const [inviteUrl, setInviteUrl] = useState<string | null>(null)
+  const [generatingLink, setGeneratingLink] = useState(false)
+
+  async function handleGenerateInvite() {
+    setGeneratingLink(true)
+    const res = await fetch(`/api/leagues/${league.id}/invites`, { method: 'POST' })
+    const data = await res.json()
+    setInviteUrl(data.url)
+    setGeneratingLink(false)
+  }
+
+  async function handleCopyLink() {
+    if (inviteUrl) await navigator.clipboard.writeText(inviteUrl)
+  }
 
   async function handleRequest(requestId: string, action: 'approve' | 'reject') {
     setProcessingId(requestId)
@@ -111,6 +125,34 @@ export function LeagueDetailScreen({ league, members, pendingRequests, isOwner }
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Invitar vía link — solo owner + liga privada */}
+      {isOwner && league.type === 'PRIVATE' && (
+        <div style={{ marginBottom: 24, padding: 16, background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: 12 }}>
+          <div className="t-eyebrow" style={{ marginBottom: 12 }}>INVITAR VÍA LINK</div>
+          {inviteUrl ? (
+            <div>
+              <div style={{ padding: '10px 14px', background: 'var(--surface-2)', borderRadius: 8, fontFamily: 'var(--font-jetbrains, monospace)', fontSize: 11, wordBreak: 'break-all', marginBottom: 10 }}>
+                {inviteUrl}
+              </div>
+              <button
+                onClick={handleCopyLink}
+                style={{ width: '100%', padding: '10px', borderRadius: 8, background: 'var(--signal)', color: '#000', border: 'none', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
+              >
+                COPIAR LINK
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleGenerateInvite}
+              disabled={generatingLink}
+              style={{ width: '100%', padding: '10px', borderRadius: 8, background: 'var(--fg)', color: '#04130A', border: 'none', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
+            >
+              {generatingLink ? 'Generando...' : 'GENERAR LINK DE INVITACIÓN'}
+            </button>
+          )}
         </div>
       )}
 
