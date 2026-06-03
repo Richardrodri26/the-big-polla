@@ -52,14 +52,42 @@ const SETTINGS_TABS = [
 interface SettingsScreenProps {
   members: Member[]
   scoringRules: ScoringRules
+  league: {
+    name: string
+    ownerHandle: string
+    createdAt: string        // ISO 8601
+    inviteToken: string | null
+  }
+  totalMatches: number
+  finalMatches: number
 }
 
-export function SettingsScreen({ members, scoringRules }: SettingsScreenProps) {
+export function SettingsScreen({ members, scoringRules, league, totalMatches, finalMatches }: SettingsScreenProps) {
   const [tab, setTab] = useState('info')
   const [strict, setStrict] = useState(true)
   const [bonusCombo, setBonusCombo] = useState(true)
   const [closeBeforeKickoff, setCloseBeforeKickoff] = useState(15)
   const R = scoringRules
+
+  const avgPts =
+    members.length > 0
+      ? Math.round(members.reduce((s, m) => s + m.pts, 0) / members.length)
+      : 0
+
+  const avgHitPct =
+    finalMatches > 0 && members.length > 0
+      ? Math.round(
+          (members.reduce((s, m) => s + m.hits, 0) / members.length / finalMatches) * 100,
+        )
+      : 0
+
+  const createdShort = new Date(league.createdAt)
+    .toLocaleDateString('es', { day: 'numeric', month: 'short' })
+    .toUpperCase()   // e.g. "11 MAY"
+
+  const createdFull = new Date(league.createdAt)
+    .toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' })
+    .toUpperCase()   // e.g. "11 MAY 2026"
 
   const RulesContent = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -133,15 +161,15 @@ export function SettingsScreen({ members, scoringRules }: SettingsScreenProps) {
       <div className="dk-card" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <div style={{ flex: 1 }}>
           <div className="t-eyebrow">CÓDIGO DE INVITACIÓN</div>
-          <div className="t-h2" style={{ fontSize: 34, marginTop: 4, letterSpacing: '0.06em' }}>POLLA-FB7K</div>
+          <div className="t-h2" style={{ fontSize: 34, marginTop: 4, letterSpacing: '0.06em' }}>{league.inviteToken?.toUpperCase() ?? '—'}</div>
         </div>
         <button className="dk-btn ghost"><GameIcon name="share" size={14} /> Copiar</button>
       </div>
       <div className="dk-kpi-big">
-        <div><span className="label">PARTIDOS</span><span className="value">28<span className="small">/104</span></span></div>
+        <div><span className="label">PARTIDOS</span><span className="value">{finalMatches}<span className="small">/{totalMatches}</span></span></div>
         <div><span className="label">MIEMBROS</span><span className="value">{members.length}</span></div>
-        <div><span className="label">PROM PTS</span><span className="value">213</span></div>
-        <div><span className="label">% HIT LIGA</span><span className="value">34<span className="small">%</span></span></div>
+        <div><span className="label">PROM PTS</span><span className="value">{avgPts}</span></div>
+        <div><span className="label">% HIT LIGA</span><span className="value">{avgHitPct}<span className="small">%</span></span></div>
       </div>
     </div>
   )
@@ -208,12 +236,12 @@ export function SettingsScreen({ members, scoringRules }: SettingsScreenProps) {
       </div>
 
       {/* Desktop topbar */}
-      <DKTopbar crumbs={['LIGA AMIGOS DEL BAR', 'AJUSTES']} />
+      <DKTopbar crumbs={[`LIGA ${league.name}`, 'AJUSTES']} />
 
       {/* Desktop page header */}
       <div className="dk-page-head">
         <div>
-          <div className="sub">12 MIEMBROS · CREADA POR @TANIA · 11 MAY 2026</div>
+          <div className="sub">{`${members.length} MIEMBROS · CREADA POR @${league.ownerHandle} · ${createdFull}`}</div>
           <div className="title">AJUSTES</div>
         </div>
         <div className="actions">
@@ -228,10 +256,10 @@ export function SettingsScreen({ members, scoringRules }: SettingsScreenProps) {
           <div style={{ padding: '12px 20px 0' }}>
             <div className="card" style={{ background: 'linear-gradient(135deg, rgba(0,210,106,0.10), transparent 70%)' }}>
               <div className="t-eyebrow">LIGA</div>
-              <div className="t-h2" style={{ fontSize: 32, marginTop: 4 }}>AMIGOS DEL BAR</div>
-              <div className="t-meta" style={{ marginTop: 6 }}>12 MIEMBROS · CREADA 11 MAY · POR @TANIA</div>
+              <div className="t-h2" style={{ fontSize: 32, marginTop: 4 }}>{league.name}</div>
+              <div className="t-meta" style={{ marginTop: 6 }}>{`${members.length} MIEMBROS · CREADA ${createdShort} · POR @${league.ownerHandle}`}</div>
               <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
-                <button className="btn btn-primary" style={{ flex: 1, padding: '12px 14px', fontSize: 12 }}>COMPARTIR · POLLA-FB7K</button>
+                <button className="btn btn-primary" style={{ flex: 1, padding: '12px 14px', fontSize: 12 }}>{`COMPARTIR${league.inviteToken ? ` · ${league.inviteToken.slice(0, 8).toUpperCase()}` : ''}`}</button>
                 <button className="btn btn-ghost" style={{ padding: '12px 14px', fontSize: 12 }}><GameIcon name="share" size={14} /></button>
               </div>
             </div>
@@ -250,9 +278,9 @@ export function SettingsScreen({ members, scoringRules }: SettingsScreenProps) {
               <div className="section-head"><div className="num">B · STATS</div><div className="title">ESTADO DE LIGA</div></div>
               <div style={{ padding: '0 20px 16px' }}>
                 <div className="kpi">
-                  <div><span className="label">PARTIDOS</span><span className="value">28<span className="small">/104</span></span></div>
+                  <div><span className="label">PARTIDOS</span><span className="value">{finalMatches}<span className="small">/{totalMatches}</span></span></div>
                   <div><span className="label">MIEMBROS</span><span className="value">{members.length}</span></div>
-                  <div><span className="label">PROM PTS</span><span className="value">213</span></div>
+                  <div><span className="label">PROM PTS</span><span className="value">{avgPts}</span></div>
                 </div>
               </div>
             </div>
