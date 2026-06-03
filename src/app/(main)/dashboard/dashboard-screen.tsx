@@ -14,9 +14,12 @@ import type { Match, Member } from '@/types/domain'
 interface DashboardScreenProps {
   matches: Match[]
   members: Member[]
+  leagueName: string
+  totalFinalMatches: number
+  weeklyPts: number
 }
 
-export function DashboardScreen({ matches, members }: DashboardScreenProps) {
+export function DashboardScreen({ matches, members, leagueName, totalFinalMatches, weeklyPts }: DashboardScreenProps) {
   const { openPredictor } = useAppStore()
   const getPrediction = usePredictionStore(s => s.getPrediction)
 
@@ -25,13 +28,33 @@ export function DashboardScreen({ matches, members }: DashboardScreenProps) {
   const todayPending = matches.filter(m => m.state === 'pending' && getDayLabel(m.kickoffAt) === 'HOY')
   const nextNoPred = matches.find(m => m.state === 'pending' && !m.userPrediction && !getPrediction(m.id))
 
+  const rankDelta = me.prevRank - me.rank
+  const rankDeltaLabel = rankDelta > 0
+    ? `▲ SUBISTE ${rankDelta} ${rankDelta === 1 ? 'POSICIÓN' : 'POSICIONES'} ESTA SEMANA`
+    : rankDelta < 0
+      ? `▼ BAJASTE ${Math.abs(rankDelta)} ${Math.abs(rankDelta) === 1 ? 'POSICIÓN' : 'POSICIONES'} ESTA SEMANA`
+      : 'SIN CAMBIOS ESTA SEMANA'
+  const rankDeltaColor = rankDelta > 0 ? 'var(--signal)' : rankDelta < 0 ? 'var(--danger)' : 'var(--fg-mute)'
+
+  const sortedByPts = [...members].sort((a, b) => b.pts - a.pts)
+  const leader = sortedByPts[0]
+  const third = sortedByPts[2]
+  const ptsBehindLeader = leader && leader.id !== me.id ? leader.pts - me.pts : 0
+  const ptsBehindThird = third && me.rank > 3 ? third.pts - me.pts : 0
+
+  const ptsGapLabel = ptsBehindLeader > 0
+    ? ptsBehindThird > 0
+      ? `A ${ptsBehindLeader} DEL LÍDER · A ${ptsBehindThird} DEL #3`
+      : `A ${ptsBehindLeader} DEL LÍDER`
+    : 'LÍDER DE LA LIGA'
+
   return (
     <div className="screen screen-anim">
       {/* Mobile topbar */}
       <div className="topbar">
         <Avi name={me.name} color={me.color} size={32} />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-          <div className="topbar-meta">LIGA · AMIGOS DEL BAR</div>
+          <div className="topbar-meta">{`LIGA · ${leagueName}`}</div>
           <div className="topbar-title">DASHBOARD</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -40,13 +63,13 @@ export function DashboardScreen({ matches, members }: DashboardScreenProps) {
       </div>
 
       {/* Desktop topbar */}
-      <DKTopbar crumbs={['LIGA AMIGOS DEL BAR', 'DASHBOARD']} />
+      <DKTopbar crumbs={[`LIGA ${leagueName}`, 'DASHBOARD']} />
 
       {/* Desktop page header */}
       <div className="dk-page-head">
         <div>
           <div className="sub">JORNADA 04 · {new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}</div>
-          <div className="title">HOLA TÚ.</div>
+          <div className="title">{`HOLA ${me.name.toUpperCase()}.`}</div>
         </div>
         <div className="actions">
           <Link href="/feed" className="dk-btn primary">Ver partidos del día →</Link>
@@ -69,12 +92,12 @@ export function DashboardScreen({ matches, members }: DashboardScreenProps) {
             <div>
               <span className="label">TU POSICIÓN</span>
               <span className="value">#{me.rank}<span className="small">/{members.length}</span></span>
-              <span className="foot" style={{ color: 'var(--signal)' }}>▲ SUBISTE 3 POSICIONES ESTA SEMANA</span>
+              <span className="foot" style={{ color: rankDeltaColor }}>{rankDeltaLabel}</span>
             </div>
             <div>
               <span className="label">PUNTOS TOTALES</span>
               <span className="value">{me.pts}</span>
-              <span className="foot">A 35 DEL LÍDER · A 11 DEL #3</span>
+              <span className="foot">{ptsGapLabel}</span>
             </div>
             <div>
               <span className="label">RACHA ACTUAL</span>
@@ -83,8 +106,8 @@ export function DashboardScreen({ matches, members }: DashboardScreenProps) {
             </div>
             <div>
               <span className="label">ACIERTOS · % HIT</span>
-              <span className="value">{me.hits}<span className="small">/27</span></span>
-              <span className="foot">{Math.round(me.hits / 27 * 100)}% PRECISIÓN GLOBAL</span>
+              <span className="value">{me.hits}<span className="small">/{totalFinalMatches}</span></span>
+              <span className="foot">{totalFinalMatches > 0 ? `${Math.round(me.hits / totalFinalMatches * 100)}% PRECISIÓN GLOBAL` : '—'}</span>
             </div>
           </div>
         </div>

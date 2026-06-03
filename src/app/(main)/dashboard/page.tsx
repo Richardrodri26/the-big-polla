@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { getLeagueRepository, getMatchRepository } from '@/repositories'
+import { getWeeklyPts } from '@/lib/weekly-pts'
 import { DashboardScreen } from './dashboard-screen'
 
 export const dynamic = 'force-dynamic'
@@ -23,10 +24,21 @@ export default async function DashboardPage() {
 
   const leagueId = firstMembership.leagueId
 
-  const [matches, members] = await Promise.all([
+  const [matches, members, league, totalFinalMatches, weeklyPts] = await Promise.all([
     getMatchRepository().getMatches(),
     getLeagueRepository(userId).getMembers(leagueId),
+    prisma.league.findUnique({ where: { id: leagueId }, select: { name: true } }),
+    prisma.match.count({ where: { state: 'FINAL' } }),
+    getWeeklyPts(userId, leagueId),
   ])
 
-  return <DashboardScreen matches={matches} members={members} />
+  return (
+    <DashboardScreen
+      matches={matches}
+      members={members}
+      leagueName={league?.name ?? ''}
+      totalFinalMatches={totalFinalMatches}
+      weeklyPts={weeklyPts}
+    />
+  )
 }
