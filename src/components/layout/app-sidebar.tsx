@@ -12,7 +12,7 @@ import {
   SidebarHeader,
 } from '@/components/ui/sidebar'
 
-const NAV_ITEMS = [
+const NAV_ITEMS: { href: string; icon: string; label: string; kbd: string; badge?: string }[] = [
   { href: '/dashboard', icon: 'feed', label: 'Dashboard', kbd: 'G D' },
   { href: '/feed', icon: 'feed', label: 'Match feed', kbd: 'G F' },
   { href: '/oracle', icon: 'bracket', label: 'Oracle bracket', kbd: 'G B' },
