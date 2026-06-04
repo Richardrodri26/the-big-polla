@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 
-export async function POST(req: NextRequest) {
-  const token = req.headers.get('x-init-token')
+export async function GET(req: NextRequest) {
+  const token = req.nextUrl.searchParams.get('token')
   if (!token || token !== process.env.CRON_SECRET) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
