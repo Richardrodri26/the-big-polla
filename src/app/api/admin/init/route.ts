@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth'
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get('token')
-  if (!token || token !== process.env.CRON_SECRET) {
+  if (!token || token !== process.env.INIT_TEMP_SECRET) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
