@@ -7,6 +7,7 @@ import { GameIcon } from '@/components/ui/game-icon'
 import { GamePill } from '@/components/ui/game-pill'
 import { TeamFlag } from '@/components/ui/team-flag'
 import { DKTopbar } from '@/components/layout/dk-topbar'
+import { ResponsiveDialog, ResponsiveDialogContent } from '@/components/ui/responsive-dialog'
 import { usePredictionStore } from '@/store/prediction-store'
 import type { Badge, Match, Member, ScoreLogEntry } from '@/types/domain'
 
@@ -388,24 +389,17 @@ export function ProfileScreen({ me, members, finishedMatches, badges, scoreLogs,
           </div>
         </div>
 
-        {selectedLogMatch && (
-          <div style={{
-            position: 'fixed', inset: 0, zIndex: 50,
-            background: 'rgba(0,0,0,0.6)',
-            display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-          }} onClick={() => setSelectedLogMatch(null)}>
-            <div style={{
-              background: 'var(--bg)', borderRadius: '20px 20px 0 0',
-              width: '100%', maxWidth: 480,
-            }} onClick={e => e.stopPropagation()}>
+        <ResponsiveDialog open={!!selectedLogMatch} onOpenChange={(open) => { if (!open) setSelectedLogMatch(null) }}>
+          <ResponsiveDialogContent showCloseButton={false}>
+            {selectedLogMatch && (
               <MatchScoreLogDrawer
                 entry={selectedLogMatch.entry}
                 match={selectedLogMatch.match}
                 onClose={() => setSelectedLogMatch(null)}
               />
-            </div>
-          </div>
-        )}
+            )}
+          </ResponsiveDialogContent>
+        </ResponsiveDialog>
 
         <div style={{ height: 96 }} />
       </div>

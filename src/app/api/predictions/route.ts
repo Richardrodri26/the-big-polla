@@ -19,6 +19,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid score values' }, { status: 400 })
   }
 
+  const membership = await prisma.leagueMember.findFirst({
+    where: { userId: session.user.id },
+    select: { leagueId: true },
+  })
+  if (!membership) {
+    return NextResponse.json({ error: 'Tenés que unirte a una liga antes de predecir' }, { status: 403 })
+  }
+
   const match = await prisma.match.findUnique({ where: { id: body.matchId } })
   if (!match) {
     return NextResponse.json({ error: 'Match not found' }, { status: 404 })
