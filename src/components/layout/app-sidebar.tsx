@@ -14,7 +14,7 @@ import {
 
 const NAV_ITEMS = [
   { href: '/dashboard', icon: 'feed', label: 'Dashboard', kbd: 'G D' },
-  { href: '/feed', icon: 'feed', label: 'Match feed', kbd: 'G F', badge: '6' },
+  { href: '/feed', icon: 'feed', label: 'Match feed', kbd: 'G F' },
   { href: '/oracle', icon: 'bracket', label: 'Oracle bracket', kbd: 'G B' },
   { href: '/leaderboard', icon: 'trophy', label: 'Leaderboard', kbd: 'G L' },
 ]

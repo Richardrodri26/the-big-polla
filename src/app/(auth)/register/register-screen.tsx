@@ -135,8 +135,8 @@ export function RegisterScreen() {
       </form>
 
       <p className="t-meta" style={{ marginTop: 20, textAlign: 'center', textTransform: 'none', letterSpacing: '0.02em' }}>
-        ¿Ya tenés cuenta?{' '}
-        <Link href="/login" style={{ color: 'var(--signal)', fontWeight: 700 }}>Iniciá sesión</Link>
+        ¿Ya tienes cuenta?{' '}
+        <Link href="/login" style={{ color: 'var(--signal)', fontWeight: 700 }}>Inicia sesión</Link>
       </p>
     </div>
   )

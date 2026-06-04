@@ -101,8 +101,8 @@ export function LoginScreen() {
       </form>
 
       <p className="t-meta" style={{ marginTop: 20, textAlign: 'center', textTransform: 'none', letterSpacing: '0.02em' }}>
-        ¿No tenés cuenta?{' '}
-        <Link href="/register" style={{ color: 'var(--signal)', fontWeight: 700 }}>Registrate</Link>
+        ¿No tienes cuenta?{' '}
+        <Link href="/register" style={{ color: 'var(--signal)', fontWeight: 700 }}>Regístrate</Link>
       </p>
     </div>
   )

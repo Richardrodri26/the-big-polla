@@ -9,7 +9,14 @@
     "lint": "biome check",
     "format": "biome format --write",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "postinstall": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:setup": "prisma migrate deploy && prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
@@ -45,6 +52,7 @@
     "shadcn": "^4.7.0",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "tsx": "^4.19.4",
     "vitest": "^4.1.8"
   }
 }

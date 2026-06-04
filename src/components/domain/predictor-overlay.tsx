@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import { GameIcon } from '@/components/ui/game-icon'
@@ -11,8 +11,6 @@ import {
 } from '@/components/ui/responsive-dialog'
 import type { Match } from '@/types/domain'
 
-// â”€â”€â”€ Locked state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
 interface LockedProps {
   match: Match
   displayPred: [number, number] | undefined
@@ -20,17 +18,17 @@ interface LockedProps {
 }
 
 function LockedPredictor({ match, displayPred, onClose }: Readonly<LockedProps>) {
-  const predLabel = displayPred ? `${displayPred[0]} Â· ${displayPred[1]}` : 'SIN PREDICCIÃ“N'
+  const predLabel = displayPred ? `${displayPred[0]} · ${displayPred[1]}` : 'SIN PREDICCIÓN'
   const lockedMsg = match.state === 'live'
-    ? 'El partido estÃ¡ en curso. No podÃ©s agregar ni modificar tu predicciÃ³n mientras el evento se juega.'
-    : 'Este partido ya finalizÃ³. Las predicciones se cerraron al kickoff.'
+    ? 'El partido está en curso. No puedes agregar ni modificar tu predicción mientras se está jugando.'
+    : 'Este partido ya finalizó. Las predicciones se cerraron al inicio del partido.'
 
   return (
     <>
       {/* Mobile */}
       <div className="md:hidden" style={{ paddingBottom: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 18px 4px' }}>
-          <div className="t-eyebrow" style={{ color: 'var(--danger)' }}>BLOQUEADA Â· {match.stage}</div>
+          <div className="t-eyebrow" style={{ color: 'var(--danger)' }}>BLOQUEADA · {match.stage}</div>
           <button className="icon-btn" onClick={onClose} style={{ width: 32, height: 32 }}>
             <GameIcon name="close" size={14} />
           </button>
@@ -44,7 +42,7 @@ function LockedPredictor({ match, displayPred, onClose }: Readonly<LockedProps>)
           <div className="card" style={{ marginTop: 8, width: '100%', padding: 12, display: 'flex', alignItems: 'center', gap: 12 }}>
             <TeamFlag team={match.home} size="sm" />
             <div style={{ flex: 1 }}>
-              <div className="t-meta">TU PRED</div>
+              <div className="t-meta">TU PREDICCIÓN</div>
               <div className="t-h3" style={{ fontSize: 16 }}>{predLabel}</div>
             </div>
             <TeamFlag team={match.away} size="sm" />
@@ -59,7 +57,7 @@ function LockedPredictor({ match, displayPred, onClose }: Readonly<LockedProps>)
       <div className="hidden md:block" style={{ width: 640, padding: '28px 32px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
           <div>
-            <div className="t-eyebrow" style={{ color: 'var(--danger)' }}>BLOQUEADA Â· {match.stage}</div>
+            <div className="t-eyebrow" style={{ color: 'var(--danger)' }}>BLOQUEADA · {match.stage}</div>
             <div className="t-h3" style={{ fontSize: 18, marginTop: 4 }}>{match.home.name} vs {match.away.name}</div>
           </div>
           <button className="icon-btn" onClick={onClose}><GameIcon name="close" size={14} /></button>
@@ -73,7 +71,7 @@ function LockedPredictor({ match, displayPred, onClose }: Readonly<LockedProps>)
           <div className="dk-card" style={{ width: '100%', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16 }}>
             <TeamFlag team={match.home} size="sm" />
             <div style={{ flex: 1, textAlign: 'left' }}>
-              <div className="t-meta">TU PREDICCIÃ“N</div>
+              <div className="t-meta">TU PREDICCIÓN</div>
               <div className="t-h3" style={{ fontSize: 18, marginTop: 4 }}>{predLabel}</div>
             </div>
             <TeamFlag team={match.away} size="sm" />
@@ -84,8 +82,6 @@ function LockedPredictor({ match, displayPred, onClose }: Readonly<LockedProps>)
     </>
   )
 }
-
-// â”€â”€â”€ Active state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function PredictorInner({ match }: Readonly<{ match: Match }>) {
   const { closePredictor, showToast } = useAppStore()
@@ -104,10 +100,10 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
   }
 
   const quickPicks = [
-    { label: '1 Â· 0', h: 1, a: 0 }, { label: '2 Â· 1', h: 2, a: 1 },
-    { label: '1 Â· 1', h: 1, a: 1 }, { label: '2 Â· 0', h: 2, a: 0 },
-    { label: '0 Â· 1', h: 0, a: 1 }, { label: '0 Â· 0', h: 0, a: 0 },
-    { label: '3 Â· 1', h: 3, a: 1 }, { label: '1 Â· 2', h: 1, a: 2 },
+    { label: '1 · 0', h: 1, a: 0 }, { label: '2 · 1', h: 2, a: 1 },
+    { label: '1 · 1', h: 1, a: 1 }, { label: '2 · 0', h: 2, a: 0 },
+    { label: '0 · 1', h: 0, a: 1 }, { label: '0 · 0', h: 0, a: 0 },
+    { label: '3 · 1', h: 3, a: 1 }, { label: '1 · 2', h: 1, a: 2 },
   ]
 
   let outcome = 'EMPATE'
@@ -126,7 +122,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
     })
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      showToast({ message: data.error ?? 'Error al guardar predicción', type: 'error' })
+      showToast({ message: data.error ?? 'Error al guardar la predicción', type: 'error' })
       setSubmitting(false)
       return
     }
@@ -140,7 +136,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
       {/* Mobile layout */}
       <div className="md:hidden">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 18px 4px' }}>
-          <div className="t-eyebrow">PREDICCIÃ“N Â· {match.stage}</div>
+          <div className="t-eyebrow">PREDICCIÓN · {match.stage}</div>
           <button className="icon-btn" onClick={closePredictor} style={{ width: 32, height: 32 }}>
             <GameIcon name="close" size={14} />
           </button>
@@ -152,7 +148,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
             <div className="score-stepper">
               <div className="num" style={{ color: home > away ? 'var(--signal)' : 'var(--fg)' }}>{home}</div>
               <div className="stepper-controls">
-                <button onClick={() => setHome(Math.max(0, home - 1))}>âˆ’</button>
+                <button onClick={() => setHome(Math.max(0, home - 1))}>−</button>
                 <button onClick={() => setHome(home + 1)}>+</button>
               </div>
             </div>
@@ -169,7 +165,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
             <div className="score-stepper">
               <div className="num" style={{ color: away > home ? 'var(--signal)' : 'var(--fg)' }}>{away}</div>
               <div className="stepper-controls">
-                <button onClick={() => setAway(Math.max(0, away - 1))}>âˆ’</button>
+                <button onClick={() => setAway(Math.max(0, away - 1))}>−</button>
                 <button onClick={() => setAway(away + 1)}>+</button>
               </div>
             </div>
@@ -193,14 +189,14 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
           <div className="card" style={{ padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
             <GameIcon name="info" size={16} color="var(--warn)" />
             <div className="t-meta" style={{ color: 'var(--fg-dim)', letterSpacing: '0.04em', textTransform: 'none', fontSize: 11 }}>
-              <b style={{ color: 'var(--warn)' }}>+5 pts</b> exacto Â· <b style={{ color: 'var(--signal)' }}>+3</b> diferencia Â· <b>+1</b> ganador
+              <b style={{ color: 'var(--warn)' }}>+5 pts</b> exacto · <b style={{ color: 'var(--signal)' }}>+3</b> diferencia · <b>+1</b> ganador
             </div>
           </div>
         </div>
         <div style={{ padding: '12px 20px 24px' }}>
           <button className="btn btn-primary btn-block" onClick={submit} disabled={submitting}
             style={{ background: submitting ? 'var(--signal-dim)' : undefined }}>
-            {submitting ? 'BLOQUEANDOâ€¦' : (<>BLOQUEAR PREDICCIÃ“N <span className="arrow">â†’</span></>)}
+            {submitting ? 'GUARDANDO...' : (<>CONFIRMAR PREDICCIÓN <span className="arrow">→</span></>)}
           </button>
         </div>
       </div>
@@ -209,7 +205,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
       <div className="hidden md:block" style={{ width: 640 }}>
         <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div className="t-eyebrow">PREDICCIÃ“N Â· {match.stage}</div>
+            <div className="t-eyebrow">PREDICCIÓN · {match.stage}</div>
             <div className="t-h3" style={{ fontSize: 18, marginTop: 4 }}>{match.home.name} vs {match.away.name}</div>
           </div>
           <button className="icon-btn" onClick={closePredictor}><GameIcon name="close" size={14} /></button>
@@ -222,7 +218,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
             <div className="dk-stepper">
               <div className="num" style={{ color: home > away ? 'var(--signal)' : 'var(--fg)' }}>{home}</div>
               <div className="dk-stepper-row">
-                <button onClick={() => setHome(Math.max(0, home - 1))}>âˆ’</button>
+                <button onClick={() => setHome(Math.max(0, home - 1))}>−</button>
                 <button onClick={() => setHome(home + 1)}>+</button>
               </div>
             </div>
@@ -239,7 +235,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
             <div className="dk-stepper">
               <div className="num" style={{ color: away > home ? 'var(--signal)' : 'var(--fg)' }}>{away}</div>
               <div className="dk-stepper-row">
-                <button onClick={() => setAway(Math.max(0, away - 1))}>âˆ’</button>
+                <button onClick={() => setAway(Math.max(0, away - 1))}>−</button>
                 <button onClick={() => setAway(away + 1)}>+</button>
               </div>
             </div>
@@ -262,13 +258,13 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
           <div className="dk-card" style={{ padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
             <GameIcon name="info" size={16} color="var(--warn)" />
             <div className="t-meta" style={{ color: 'var(--fg-dim)', letterSpacing: '0.04em', textTransform: 'none', fontSize: 11 }}>
-              <b style={{ color: 'var(--warn)' }}>+5 pts</b> exacto Â· <b style={{ color: 'var(--signal)' }}>+3</b> diferencia Â· <b>+1</b> ganador
+              <b style={{ color: 'var(--warn)' }}>+5 pts</b> exacto · <b style={{ color: 'var(--signal)' }}>+3</b> diferencia · <b>+1</b> ganador
             </div>
           </div>
           <div className="dk-card" style={{ padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10, borderColor: 'rgba(255,214,10,0.3)', background: 'linear-gradient(90deg, rgba(255,214,10,0.06), transparent)' }}>
             <GameIcon name="fire" size={16} color="var(--warn)" />
             <div className="t-meta" style={{ color: 'var(--fg-dim)', letterSpacing: '0.04em', textTransform: 'none', fontSize: 11 }}>
-              Racha activa â†’ bonus <b style={{ color: 'var(--warn)' }}>+3 pts</b> si acertÃ¡s (mÃ¡x +5)
+              Racha activa → bonus <b style={{ color: 'var(--warn)' }}>+3 pts</b> si aciertas (máx +5)
             </div>
           </div>
         </div>
@@ -277,7 +273,7 @@ function PredictorInner({ match }: Readonly<{ match: Match }>) {
           <button className="dk-btn ghost" style={{ flex: 1, justifyContent: 'center' }} onClick={closePredictor}>Cancelar</button>
           <button className="dk-btn primary" style={{ flex: 2, justifyContent: 'center', padding: '14px 20px', fontSize: 13 }}
             onClick={submit} disabled={submitting}>
-            {submitting ? 'Bloqueandoâ€¦' : 'Bloquear predicciÃ³n â†’'}
+            {submitting ? 'Guardando...' : 'Confirmar predicción →'}
           </button>
         </div>
       </div>

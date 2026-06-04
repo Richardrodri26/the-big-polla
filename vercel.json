@@ -1,0 +1,17 @@
+{
+  "buildCommand": "prisma generate && prisma migrate deploy && next build --webpack",
+  "crons": [
+    {
+      "path": "/api/cron/import-matches",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/sync-matches",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/api/cron/sync-groups",
+      "schedule": "0 */6 * * *"
+    }
+  ]
+}
